@@ -63,3 +63,6 @@ def pycurl_post_data(curl_obj, url, header, data):
     buf.close()
     return json.loads(json_data)
 ``` 
+
+
+**p.s. pycurl接口不友好，现在都用requests：http://requests-docs-cn.readthedocs.org/zh_CN/latest/user/quickstart.html**
