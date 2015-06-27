@@ -205,7 +205,11 @@ git revert和git reset的区别：
 
 	git ls-files		
 	
+===
 
+##git status中文显示unicode
+
+	git config --global core.quotepath false
 
 
 
