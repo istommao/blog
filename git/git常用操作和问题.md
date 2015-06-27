@@ -72,7 +72,9 @@
 	git stash pop
 	把暂存区里的取出并与当前合并。
 
-![git工作流程图]()
+*git工作流程图：*
+
+![git工作流程图](https://raw.githubusercontent.com/zhuwei05/blog/master/Res/git-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
 
 git的学习和命令链接：
 	
