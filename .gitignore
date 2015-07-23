@@ -1,0 +1,8 @@
+*.iml
+*.idea
+*.o
+*.beam
+*.plt
+.DS_Store
+
+
