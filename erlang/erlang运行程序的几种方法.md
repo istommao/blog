@@ -21,4 +21,12 @@
 	main(_) ->
 		io:format("Hello world\n").
 		
-	$ ./hello				
+	$ ./hello	
+	
+如果需要在命令行传参：
+
+	main([Arg])			
+	
+另外，如果遇到匿名函数不能通过或其他，可以添加
+	
+	-mode(compile).	
