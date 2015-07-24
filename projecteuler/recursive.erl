@@ -10,10 +10,12 @@
 %%%-------------------------------------------------------------------
 -module(recursive).
 -author("zhuwei").
+-mode(compile).
 
 %% API
 -export([sum_list/1
         ,fib/1
+        ,main/1
         ]).
 
 sum_list(T) when is_integer(T) ->
@@ -28,12 +30,14 @@ sum_list([], Acc) ->
 sum_list([H|T], Acc) ->
   sum_list(T, H + Acc).
 
+%% ==========fibonacci==========
 %% 1, 2, 3, 5
 fib(N) when is_integer(N) ->
   fib(N, 1, 2);
 fib(_N) ->
   erlang:error(badarity, "arity must be integer or list").
 
+%% fib(N, 1, 2)
 fib(1, Acc1, _Acc2) ->
   Acc1;
 fib(2, _Acc1, Acc2) ->
@@ -41,11 +45,29 @@ fib(2, _Acc1, Acc2) ->
 fib(N, Acc1, Acc2) ->
   fib(N-1, Acc2, Acc1 + Acc2).
 
+%% 或者
+%% fib(N, 1, 1)
+%% fib(1, Acc1, _Acc2) ->
+%%   Acc1;
+%% fib(N, Acc1, Acc2) ->
+%%   fib(N-1, Acc2, Acc1 + Acc2).
+
+%% 或者
+%% fib(N, 0, 1)
+%% fib(0, Acc1, _Acc2) ->
+%%   Acc1;
+%% fib(1, _Acc1, Acc2) ->
+%%   Acc2;
+%% fib(N, Acc1, Acc2) ->
+%%   fib(N-1, Acc2, Acc1 + Acc2).
+
 
 main(_) ->
+%%   code:add_patha("../"),
   io:format("sum_list 10: ~p~n", [sum_list(10)]),
   io:format("sum_list [2, 9, 10]: ~p~n", [sum_list([2, 9, 10])]),
 
   io:format("fib1 : ~p, fib2: ~p~n", [fib(1), fib(2)]),
   io:format("fib(10) = 89 = ~p~n", [fib(10)]),
+
   ok.
