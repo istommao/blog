@@ -4,6 +4,7 @@
 __author__ = 'zhuwei'
 
 import os
+import sys
 
 
 def get_files(path):
@@ -41,7 +42,13 @@ def get_total_blank_note_lines(files):
 
 if __name__ == '__main__':
     # files = get_files("get_total_blank_note_lines.py")
-    files = get_files("./")
+    if len(sys.argv) == 1:
+        path = "./"
+    elif len(sys.argv) == 2:
+        path = sys.argv[1]
+    else:
+        raise Exception("too many arguments")
+    files = get_files(path)
     print "files: {0}".format(len(files))
     total, blank, note = get_total_blank_note_lines(files)
     print "lines: {0}".format(total)
