@@ -31,4 +31,33 @@
 
 	function_test	
 
+
+##-spec,-type
+
+	%% 限定函数的参数和返回值
+	-spec start_link(atom(), list() | wh_timeout()) -> startlink_ret().
+	
+	%% 定义自己的类型
+	-type startlink_err() :: {'already_started', pid()} | 'shutdown' | term().
+	-type startlink_ret() :: {'ok', pid()} | 'ignore' | {'error', startlink_err()}.
+	
+	%% 定义回调函数的类型
+	-type callback_fun() :: fun((_, _, 'flush' | 'erase' | 'expire') -> _).
+	
+## 记录
+
+### 定义记录
+
+	-record(websocket_context, {
+           auth_token = <<>> :: binary() | 'undefined'
+          ,auth_account_id :: api_binary()
+          ,account_id :: api_binary()
+          ,binding :: api_binary()
+          ,websocket_session_id :: api_binary()
+          ,websocket_pid :: api_pid()
+         }).
+         
+         
+	
+	
 	
