@@ -41,7 +41,7 @@ def get_total_blank_note_lines(files):
 
 if __name__ == '__main__':
     # files = get_files("get_total_blank_note_lines.py")
-    files = get_files("/Users/zhuwei/meituan/mcc/src/kazoo/applications/kmw/src/datacontroller")
+    files = get_files("./")
     print "files: {0}".format(len(files))
     total, blank, note = get_total_blank_note_lines(files)
     print "lines: {0}".format(total)
