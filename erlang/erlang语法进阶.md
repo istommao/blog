@@ -51,7 +51,30 @@
 
 	EmployeeTwo = EmployeeOne#employee{name="def"}
 	
+
+##算术操作和逻辑运算
+
+**算术操作**
+
+	+ - * /(带小数点) div(求商) rem(求余)
+	优先级应该和其他语言一样。
 	
+**各种进制表示**	
+	
+	Base#Value （Base为2..36）
+
+**bool运算和比较运算**	
+
+	非短路：and or xor not
+	短路: andals orelse
+	
+	=:= =/=
+	== /=
+	> >=
+	< =<(注意不是<=,因为这个像箭头，而且用到字典里)
+	
+	不同类型之间的比较
+	number < atom < reference < fun < port < pid < tuple < list < bit string
 	
 	
 	
