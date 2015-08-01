@@ -7,6 +7,8 @@ import math
 
 
 def is_prime(numbers):
+    if numbers <= 1:
+        return False
     sqrt_number = int(math.sqrt(numbers)) + 1
     for i in xrange(2, sqrt_number):
         if numbers % i == 0:
