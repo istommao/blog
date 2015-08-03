@@ -19,8 +19,12 @@
         ,get_intersection_list/3
         ,pred1/2
         ,get_intersection_list2/2
+        ,for_fun/2
+        ,nest_for_fun/5
         ]).
 
+
+%% 列表求和，将列表中所有元素相加
 sum_list(T) when is_integer(T) ->
   sum_list([T]);
 sum_list(T) when is_list(T) ->
@@ -85,6 +89,35 @@ get_intersection_list2(List1, List2) ->
                         List1) end,
                       List2),
   io:format("List: ~p~n", [List3]).
+
+%% for循环的模板，Result作为for循环内部的逻辑处理操作和结果
+%% I作为迭代值，N作为结束值，如果I仅仅只是作迭代，可以反向进行，
+%% 及对I进行I-1操作，这样就可以省略N这个参数了，判断式改为when I =:= 1
+for_fun(I, N) ->
+  for_fun(I, N, 1).
+
+for_fun(I, N, Result) when I =:= N ->
+  io:format("Operation done in here or in Result paramater~n"),
+  io:format("Result: ~p~n", [Result]),
+  Result;
+for_fun(I, N, Result) ->
+  io:format("Operation done in here or in Result paramater~n"),
+  io:format("Result: ~p~n", [Result]),
+  for_fun(I+1, N , Result+1).
+
+%% 嵌套for循环，关键在第二条分支，J=:=N2的时候，J归“零”，I+1
+nest_for_fun(I, _J, N1, _N2, Result) when I =:= N1 ->
+  io:format("Operation done in here or in Result paramater~n"),
+  io:format("Result: ~p~n", [Result]),
+  Result;
+nest_for_fun(I, J, N1, N2, Result) when J =:= N2 ->
+%%   io:format("Operation done in here or in Result paramater~n"),
+%%   io:format("Result: ~p~n", [Result]),
+  nest_for_fun(I + 1, 0, N1, N2, Result);
+nest_for_fun(I, J, N1, N2, Result) ->
+  io:format("Operation done in here or in Result paramater~n"),
+  io:format("Result: ~p~n", [Result]),
+  nest_for_fun(I, J+1, N1, N2, I+J).
 
 main(_) ->
 %%   code:add_patha("../"),
