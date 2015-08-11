@@ -71,7 +71,7 @@
 	=:= =/=
 	== /=
 	> >=
-	< =<(注意不是<=,因为这个像箭头，而且用到字典里)
+	< =<(注意不是<=,因为这个像箭头，而且用到二进制解析中)
 	
 	不同类型之间的比较
 	number < atom < reference < fun < port < pid < tuple < list < bit string
