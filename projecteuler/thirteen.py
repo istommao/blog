@@ -112,7 +112,6 @@ def get_numbers(strs):
     print len(nums)
     return nums
 
-
 def sum_numbers_first_10_digits(numbers):
     total = sum(numbers)
     print total
