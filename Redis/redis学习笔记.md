@@ -38,7 +38,58 @@ Redis是REmote DIctionary Server（远程字典服务器）的缩写，它以字
 
 一个Redis实例提供了多个用来存储数据的字典，客户端可以指定将数据存储在哪个字典中。每个数据库对外都是以一个从0开始的递增数字命名，Redis默认支持16个数据库，可以通过配置参数databases来修改这一数字。
 
+##启动和停止redis
+
+###直接启动
+
+	启动服务： redis-server 或指定端口： redis-server --port 6380
+
+###生产环境启动
+
+1. 配置初始化脚本
+
+	将redis源码中utils文件夹的redis_init_script文件拷贝到/etc/init.d文件夹下，同时重命名为redis_端口号，相应的文件里的REDISPORT变量也改为该端口号，比如6379
+		
+2. 建立需要的文件夹：
+
+	* /etc/redis: 存放redis配置文件，配置文件命名为:端口号.conf。配置文件模板在源码中redis.conf文件
+	* /var/redis/端口号： 存放redis持久化文件
+	
+3. 修改配置文件：首先拷贝redis.conf到/etc/redis目录下，然后修改如下几项：
+
+     参数---------------值--------------说明    
+	* daemonize yes # 使redis以守护进行模式运行
+	* pidfile /var/run/redis_端口号.pid # 设置redis的PID文件位置
+	* port 端口号   #设置Redis监听的端口号
+	* dir /var/redis/端口号    # 设置持久化存放位置
+	
+4. 启动redis
+
+		/etc/init.d/redis_端口号 start
+		
+		执行命令使redis随系统启动（ubuntu）:
+		sudo update-rc.d redis_端口号 defauls
+		
+5. 如果非ubuntu系统，比如centos系统，需要在/etc/redis/redis_端口号.conf第二行添加
+
+		#chkconfig: 2345 80 90
+	保存。
+	然后，执行命令
+	
+		chkconfig --add redis_端口号
+		chkconfig redis_端口号 on
+	
+	
+			
+###停止redis
+
+	redis-cli SHUTDOWN  或
+	kill redis进程的pid号
+
+
 ##命令
+
+首先打开客户端: redis-cli
 
 ###字符串类型
 
