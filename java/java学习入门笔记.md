@@ -49,8 +49,66 @@ if, if-else, if-elif-else, while, do-while, for都和C、C++一样。
 	
 ##字符串	
 
+###字符串创建
+
+	String s1, s2;
+	s1 = "abc";
+	String s = new String("abc");
+
+###字符串常用函数
+
+	str.length();
+	str.indexOf(substr);
+	str.lastIndexOf(substr);
+	str.charAt(int index);
+	substring(int beginIndex);
+	str.trim();
+	str.replace(char oldChar, char newChar);
+	str.startsWith(String prefix);
+	str.endsWith(String suffix);
+	str.equals(String otherstr);
+	str.equalsIgnoreCase(String otherstr);
+	str.compareTo(String otherstr);
+	str.toLowerCase();
+	str.toUpperCase();
+	str.split(String sign);
+	str.split(String sign, int limit);
+	str.format(String format, Object ... args);
+	str.format(Local l, String format, Object ...args);
+
+###日期和时间
+
+###正则表达式
+
+###字符串生成器StringBuilder
+
+创建成功的字符串对象, 其长度是固定的, 内容不能被改变和编译。虽然使用“+”可以实现附加新字符或字符串的目的，但“+”会产生新的String实例，会在内存中创建新的字符串对象。这就是StringBuilder类用来解决的问题，提高频繁操作字符串的效率。
+
+* append(content)
+* insert(int offset, arg)
+* delete(int start, int end)
 
 
+##数组
+
+声明数组：
+
+	数组元素类型 数组名 = new 数组元素类型[数组元素个数]
+
+初始化一维数组
+
+	int arr[]	= new int[]{1, 2, 3};
+	int arr2[] = {1, 2, 3};
+	
+	
+	
+
+
+		
+	
+	
+		
+	
 
 
 
