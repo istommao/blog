@@ -55,7 +55,7 @@ Redis是REmote DIctionary Server（远程字典服务器）的缩写，它以字
 	* /etc/redis: 存放redis配置文件，配置文件命名为:端口号.conf。配置文件模板在源码中redis.conf文件
 	* /var/redis/端口号： 存放redis持久化文件
 	
-3. 修改配置文件：首先拷贝redis.conf到/etc/redis目录下，然后修改如下几项：
+3. 修改配置文件：首先拷贝redis.conf到/etc/redis目录下，文件名改为：端口号.conf，然后修改如下几项：
 
      参数---------------值--------------说明    
 	* daemonize yes # 使redis以守护进行模式运行
@@ -70,7 +70,7 @@ Redis是REmote DIctionary Server（远程字典服务器）的缩写，它以字
 		执行命令使redis随系统启动（ubuntu）:
 		sudo update-rc.d redis_端口号 defauls
 		
-5. 如果非ubuntu系统，比如centos系统，需要在/etc/redis/redis_端口号.conf第二行添加
+5. 如果非ubuntu系统，比如centos系统，需要在/etc/init.d/redis_端口号,第二行添加
 
 		#chkconfig: 2345 80 90
 	保存。
