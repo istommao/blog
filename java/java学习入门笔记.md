@@ -100,7 +100,65 @@ if, if-else, if-elif-else, while, do-while, for都和C、C++一样。
 	int arr[]	= new int[]{1, 2, 3};
 	int arr2[] = {1, 2, 3};
 	
+二维数组创建
+
+1. 先声明在创建
+
+	声明：
 	
+	数组元素类型 数组名[][]
+	
+	数组元素类型[][] 数组名
+	
+	创建
+	
+	数组名 = new 元素类型[][]
+	
+	e.g 
+		
+		a = new int[2][4];
+		也可以：
+		a = new int[2][];
+		a[0] = new int[3];
+		a[1]  = new int[2];
+	
+2. 声明的同时分配内存
+
+	初始化
+
+		type arrayname[][] = {value1, ..., valueN};
+
+数组基本操作
+
+* 遍历：for和foreach
+* 填充
+
+		fill(int[] a, int value)
+		fill(int[] a, int fromIndex, int toIndex, int value)
+	
+* 排序
+
+		Arrays.sort(object)
+		
+* 复制
+
+		copyOf(arr, int newLength)
+		copyOfRange(arr, fromIndex, toIndex)
+		
+* 查询
+
+		binarySearch(Object[] a, Object key) // 数组要已序
+		binarySearch(a, fromIndex, toIndex, key)
+		
+		
+			
+	
+			
+		
+	
+
+
+		
 	
 
 
