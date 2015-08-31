@@ -231,7 +231,7 @@ Chaining 允许我们在一条语句中运行多个 jQuery 方法（在相同的
 
 * jQuery 尺寸 方法
 
-	![size]()
+	![size](https://raw.githubusercontent.com/zhuwei05/blog/master/Res/jquery-size.gif)
 	* width() 方法设置或返回元素的宽度（不包括内边距、边框或外边距）。
 	* height() 方法设置或返回元素的高度（不包括内边距、边框或外边距）。	
 	* innerWidth() 方法返回元素的宽度（包括内边距）。
