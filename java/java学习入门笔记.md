@@ -194,7 +194,94 @@ if, if-else, if-elif-else, while, do-while, for都和C、C++一样。
 * 对象引用超过其作用范围
 * 将对象赋值给null
 
-	
+
+##包装类
+
+###Integer
+
+* Integer(int num)	
+* Integer(String str)
+* byteValue()
+* compareTo(Integer anotherInteger)
+* equals(Object IntegerObj)
+* intValue()
+* shortValue()
+* toString()
+* valueOf(String str)
+* parseInt(String str)
+* toBinaryString()
+* toHexString()
+* toOctalString()
+
+###Boolean
+* Boolean(boolean value)
+* Boolean(String str)
+* booleanValue()
+* equalse(Object obj)
+* parseBoolean(String s)
+* toString()
+* valueOf(String s)
+
+###Byte
+* Byte(byte value)
+* Byte(String str)
+* byteValue()
+* compareTo(Byte anotherByte)
+* doubleValue()
+* intValue()
+* parseByte(String s)
+* toString()
+* valueOf(String str)
+* equals(Object obj)
+
+###Character
+* Character(char value)
+* charValue()
+* compareTo(Character anotherChar)
+* equals(Object obj)
+* toUpperCase(char ch)
+* toLowerCase(char ch)
+* toString()
+* charValue()
+* isUpperCase(char ch)
+* isLowerCase(char ch)
+
+###Double
+* Double(double value)
+* Double(String str)
+* byteValue()
+* compareTo(Double d)
+* equals(Object obj)
+* intValue()
+* isNan()
+* toString()
+* valueOf(String str)
+* doubleValue()
+* longValue()
+
+###Number
+
+Number类是BigDecimal, BigInteger, Byte, Double, Float, Integer, Long和Short的父类。其子类必须提供方法：
+
+* byteValue()
+* intValue()
+* floatValue()
+* shortValue()
+* longValue()
+* doubleValue()
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 
 
