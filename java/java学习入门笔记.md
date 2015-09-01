@@ -271,6 +271,43 @@ Number类是BigDecimal, BigInteger, Byte, Double, Float, Integer, Long和Short�
 * doubleValue()
 
 
+##数字处理类
+
+###DecimalFormat类
+数字格式化。一些特殊字符
+
+* 0
+* #
+* .
+* -
+* ,
+* E
+* %
+* \u2030
+* \u00A4
+* '
+
+###Math类
+
+* 三角函数方法
+* 指数函数方法
+* 取整
+* 最大最小、绝对值
+* 随机数
+
+###大数字运算
+
+####BigInteger
+* BigInteger(String val)
+* BigInteger add(BigInteger val)
+* BigInteger subtract(BigInteger val)
+* BigInteger multiply(BigInteger val)
+* BigInteger divide(BigInteger val)
+* BigInteger remainder(BigInteger val)
+* ...
+
+####BigDecimal
+
 
 
 
