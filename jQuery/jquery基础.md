@@ -266,7 +266,72 @@ Chaining 允许我们在一条语句中运行多个 jQuery 方法（在相同的
 	* last() 方法返回被选元素的最后一个元素
 	* eq() 方法返回被选元素中带有指定索引号的元素
 	* filter() 方法允许您规定一个标准。不匹配这个标准的元素会被从集合中删除，匹配的元素会被返回
-	* not() 方法返回不匹配标准的所有元素	
+	* not() 方法返回不匹配标准的所有元素
+	
+
+##jQuery Ajax
+
+* load() 方法从服务器加载数据，并把返回的数据放入被选元素中。
+
+		$(selector).load(URL,data,callback);
+		
+	必需的 URL 参数规定您希望加载的 URL。
+	
+	可选的 data 参数规定与请求一同发送的查询字符串键/值对集合。
+	
+	可选的 callback 参数是 load() 方法完成后所执行的函数名称。
+		
+	
+* $.get() 方法通过 HTTP GET 请求从服务器上请求数据。
+
+		$.get(URL,callback);
+
+	必需的 URL 参数规定您希望请求的 URL。
+
+	可选的 callback 参数是请求成功后所执行的函数名。
+
+* $.post() 方法通过 HTTP POST 请求从服务器上请求数据。
+
+		$.post(URL,data,callback);
+
+	必需的 URL 参数规定您希望请求的 URL。
+
+	可选的 data 参数规定连同请求发送的数据。
+
+	可选的 callback 参数是请求成功后所执行的函数名。
+
+##noConfilict()
+
+* noConflict() 方法会释放会 $ 标识符的控制，这样其他脚本就可以使用它了。当然，您仍然可以通过全名替代简写的方式来使用 jQuery
+
+		$.noConflict();
+		jQuery(document).ready(function(){
+		  jQuery("button").click(function(){
+		    jQuery("p").text("jQuery is still working!");
+		  });
+		});
+
+* 创建自己的简写。noConflict() 可返回对 jQuery 的引用，您可以把它存入变量，以供稍后使用
+
+		var jq = $.noConflict();
+		jq(document).ready(function(){
+		  jq("button").click(function(){
+		    jq("p").text("jQuery is still working!");
+		  });
+		});		
+
+* 你的 jQuery 代码块使用 $ 简写，并且您不愿意改变这个快捷方式，那么您可以把 $ 符号作为变量传递给 ready 方法。这样就可以在函数内使用 $ 符号了 - 而在函数外，依旧不得不使用 "jQuery"：
+
+		$.noConflict();
+		jQuery(document).ready(function($){
+		  $("button").click(function(){
+		    $("p").text("jQuery is still working!");
+		  });
+		});
+
+
+
+
 
 
 
