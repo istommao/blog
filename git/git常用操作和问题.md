@@ -200,6 +200,12 @@ git revert和git reset的区别：
 	git config --local user.name "your name"
 	git config --local user.email mail@box.com
 	
+设置别名
+	
+	$ git config --global alias.co checkout
+	$ git config --global alias.ci commit
+	$ git config --global alias.br branch
+	
 		
 ====
 

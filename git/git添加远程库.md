@@ -6,7 +6,7 @@
 ###创建git库
 
 	cd /home/zhuwei5e/my_repo
-	git init --bare
+	git init (git init --bare)
 
 ###编辑.gitignore文件
 
@@ -40,7 +40,7 @@ e.g.
 
 ###添加一个远程仓库,并将本地的master分支跟踪到远程分支
 
-	git remote add origin ssh://root@192.168.1.11/opt/kazoo/.git
+	git remote add origin ssh://root@192.168.1.11/home/zhuwei5e/my_repo/.git
 	git push origin master
 
 p.s. 上面的192.168.1.11地址是远端服务器的的IP 。
