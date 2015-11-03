@@ -12,6 +12,7 @@
 	$ erl -noshell -s hello start -s init stop
 	
 -noshell: 启动erlang，但关闭shell
+
 -s hello start: 运行函数hello:start()。apply(hello, start, [])
 
 ##当作escript脚本运行
