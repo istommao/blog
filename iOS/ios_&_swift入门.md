@@ -12,7 +12,9 @@
 		option类型，通过!解包
 		声明变量时加上!,它会自动解包，不需要每个都进行。
 		
-		
+		var displayValue: Double {
+		    
+		}
 		
 		
 2. 类
@@ -27,6 +29,11 @@
 		func functionName(vars) -> returnType
 		{
 		
-		}		
+		}	
+		
+4. option类型
+
+5. 		
+	
 		
 	
