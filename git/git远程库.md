@@ -27,7 +27,7 @@
 	git push [remote-name] [branch-name]
 	e.g git push origin master
 
-	远程仓库的删除和重命名
+	远程仓库的重命名和删除
 	git remote rename old-name new-name
 	git remote rm name
 	

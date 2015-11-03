@@ -113,6 +113,33 @@ git pull origin master
 	
 ##实例3：多个远程库，多个开发者
 
+本地mac用于coding，而且本地环境不能运行程序，需要在服务器上编译运行，同时代码在公司git仓库。通过在服务器建一个新远程库，然后将本地coding的代码push到服务端远程库，这样在服务器运行程序的pull服务器上的远程库，编译运行，调试通过之后，最后将本地通过的代码push到公司的git库上。
+
+步骤：
+
+1. 在服务器设置空仓库
+
+		mkdir -p /opt/repo
+		cd /opt/repo
+		git init --bare example.git
+ 
+2. 在本地mac从公司git库clone，同时更改上游源，并添加服务器的空仓库为新的origin源
+
+		mkdir src
+		cd src
+		git clone ssh://git@example.com/example.git
+		git remote rename origin upstream
+		git remote add origin ssh://root@192.168.1.11/opt/repo/example.git
+		git push origin master
+	
+3. 在服务器编译运行目录拉去服务器端的仓库
+
+		mkdir -p /opt/src
+		cd /opt/src
+		git clone root@192.168.1.11/opt/repo/example.git
+		
+
+
 	
 
 
