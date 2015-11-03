@@ -164,13 +164,19 @@ git revert和git reset的区别：
 
 ====
 
-##git忽略提交的文件
+##git忽略提交(add or commit)的文件
 
 	首先， git rm --cached logs/xx.log
 	然后更新 .gitignore 忽略掉目标文件
 	最后 git commit -m "We really don't want Git to track this anymore!"
 	
-[参考](http://segmentfault.com/q/1010000000430426)
+	p.s. 忽略已经add，但没有commit的文件夹
+	git rm --cached -r logs
+
+git rm --cached 删除的是追踪状态，而不是物理文件；如果你真的是彻底不想要了，你也可以直接 rm＋忽略＋提交。
+
+	
+[git忽略已经被提交的文件](http://segmentfault.com/q/1010000000430426)
 
 ====
 
