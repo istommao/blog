@@ -23,9 +23,21 @@
 	git fetch [remote-name]
 	git pull
 	
+	git pull <远程主机名> <远程分支名>:<本地分支名>
+	如果远程分支是与当前分支合并，则冒号后面的部分可以省略
+	e.g:
+		git pull origin next
+		上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做git fetch，再做git merge
+		git fetch origin
+		git merge origin/next
+	
 	推送数据到远程仓库
 	git push [remote-name] [branch-name]
 	e.g git push origin master
+	
+	如果在本地分支与远程分支之间，建立一种追踪关系(tracking)，可以直接省略后面两个参数，直接git push/pull
+	e.g. 
+		git branch --set-upstream master origin/next
 
 	远程仓库的重命名和删除
 	git remote rename old-name new-name
