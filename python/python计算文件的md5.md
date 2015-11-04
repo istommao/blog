@@ -18,8 +18,8 @@ import base64
 '''
 sha1 file with filename (SHA1)
 '''
-def SHA1FileWithName(fineName, block_size=64 * 1024):
-  with open(fineName, 'rb') as f:
+def SHA1FileWithName(fileName, block_size=64 * 1024):
+  with open(fileName, 'rb') as f:
     sha1 = hashlib.sha1()
     while True:
       data = f.read(block_size)
@@ -32,8 +32,8 @@ def SHA1FileWithName(fineName, block_size=64 * 1024):
 '''
 md5 file with filename (MD5)
 '''
-def MD5FileWithName(fineName, block_size=64 * 1024):
-  with open(fineName, 'rb') as f:
+def MD5FileWithName(fileName, block_size=64 * 1024):
+  with open(fileName, 'rb') as f:
     md5 = hashlib.md5()
     while True:
       data = f.read(block_size)
