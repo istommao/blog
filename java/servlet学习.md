@@ -88,6 +88,43 @@ Directive：
 * <%@include file="fileURL" %> 静态包含，两者jsp合并生成同一个java class，两者jsp之间不能传参数。调用同一个request对象。
 * 
 
+Action: 运行期间的包含
+
+<%@include 和jsp:include的区别
+
+* 前者在编译器就再file属性指定的程序，后者在客户端请求时期如果被执行到才会被动态编译载入
+* 前者只生成一个class文件，后者产生两个class类
+* 前者不能带参数，后者可以url地址或标签实现
+* 前者同一个request对象，后者不同的request对象，并可以取得包含它的页面的参数和添加自己的参数
+* 前者常用
+
+jsp:forward
+
+* sendRedirect：
+	* 服务器返回重定向，客户端在向新的地方请求，同时转向后的代码接着执行
+	* 可转向任意地址，不局限同一server的地址
+	* 可以传参数，写到url上
+* jsp:forward
+	* 在服务端内部转向，故地址栏没变化
+	* 两个页面是不同的对象，但是转到的页面可以取上一个页面的参数 
+	* 转向后，后面代码不在执行 
+	* 可通过参数<jsp:param，传到下一个页面
+	
+##jsp使用javabean
+
+<jsp:useBean	id="x", class="xx"> </jsp:useBean>
+
+相当于new一个javaBean对象。
+
+
+##jsp转到servlet
+
+<jsp:forward page="servlet的路径：x.jsp"
+
+##servlet2jsp
+
+sendRedirect()
+
 
 
 
