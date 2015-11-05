@@ -19,29 +19,35 @@ import base64
 sha1 file with filename (SHA1)
 '''
 def SHA1FileWithName(fileName, block_size=64 * 1024):
-  with open(fileName, 'rb') as f:
-    sha1 = hashlib.sha1()
-    while True:
-      data = f.read(block_size)
-      if not data:
-        break
-      sha1.update(data)
-    retsha1 = base64.b64encode(sha1.digest())
-    return retsha1
+    try:
+        with open(fileName, 'rb') as f:
+            sha1 = hashlib.sha1()
+            while True:
+                data = f.read(block_size)
+                if not data:
+                    break
+                sha1.update(data)
+            retsha1 = base64.b64encode(sha1.digest())
+            return retsha1
+    except IOError, e:
+        print e
 
 '''
 md5 file with filename (MD5)
 '''
 def MD5FileWithName(fileName, block_size=64 * 1024):
-  with open(fileName, 'rb') as f:
-    md5 = hashlib.md5()
-    while True:
-      data = f.read(block_size)
-      if not data:
-        break
-      md5.update(data)
-    retmd5 = base64.b64encode(md5.digest())
-    return retmd5
+    try:
+        with open(fileName, 'rb') as f:
+            md5 = hashlib.md5()
+            while True:
+                data = f.read(block_size)
+                if not data:
+                    break
+                md5.update(data)
+        retmd5 = base64.b64encode(md5.digest())
+        return retmd5
+    except IOError, e:
+        print e
 
 ```
 
