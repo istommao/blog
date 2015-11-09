@@ -51,10 +51,22 @@
 		只要使用git push all master 就可以一次性push到3各库里面了(使用git push也可)
 		
 	解释：git remote set-url --add origin 就是往当前git项目的config文件里增加一行记录，因此可以直接通过vim或git config -e对.git/config文件中增加也是可以的,例如增加
-	
-		[remote "all"] 
+
+	[remote "all"] 
 		 url = ssh://server.example.org/opt/ex1.git 
-      url = ssh://other.example.org/opt/ex2.git
+		 url = ssh://other.example.org/opt/ex2.git
+  		
+	添加tag到远程
+		git tag -a tagname -m'tag msg'
+		git push remote-name [tagname]
+		
+		git push --tags
+		
+	删除远程分支
+		git push remote-name :branchname 
+		或者：
+		git push origin --delete <branchName>
+       
 	
 ##实例
 
