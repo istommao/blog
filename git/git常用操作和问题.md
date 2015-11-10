@@ -94,36 +94,27 @@ git的学习和命令链接：
 
 有时commit太多，而且可能一个commit只是提交一个小bug，那么合并commit势在必行。
 
-有两种方法：
+操作方法：
 
-* 一是在提交最后一个修改的commit使用参数，这时之前的一个commit将会合并到这个即将提交的commit中来：
+* 一：该方法仅仅适用合并最后的两个提交。步骤是在提交最后一个修改的commit使用参数，这时之前的一个commit将会合并到这个即将提交的commit中来：
 	
 		git commit -a --amend -m "my message here"
 	
-	如果之前有一个提交，并且信息为:
+	效果为：如果之前有一个提交，并且信息为:
 
 		git commit -a -m "my last commit message"
 	
 	则这个commit message将不存在。但该commit的信息已经合并到"my message here"中了。
 	
-* 第二个是，如果你提交了最后的修改，这时可用
+* 二：你提交了最后的修改，这时可用
 
-		$ git reset --soft HEAD^ #或HEAD^意为取消最后commit
-		$ git commit --amend	
-		
-	这将会把最后一个commit合并到前一个提交中去，例如（由上往下读）：
-	
-		git add b.text
-		git commit -a -m "my message here"
-		git add a.text
-		git commit -a -m "my last commit message"	
-	那么最后存在的将是"my last commit message"。也可后退n个，合并到前面第n+1个commit中去：
-	
-		$ git reset --soft HEAD~n 
-		$ git commit --amend [-m "new message"]
-		
-				
+		$ git reset --soft id 或者 git reset --mix id, git add .
+		$ git commit -am"message"
+						
 > 需要注意的是：合并commit只能对还未提交的几个commit之间进行，因为如果对远程仓库已经有的commit合并将会遇到head冲突。在push到远程仓库时（比如github），会收到commit冲突提示。
+
+* 三：使用git rebase -i <不变动的SHA-1>
+
 
 =====
 
