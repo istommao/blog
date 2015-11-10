@@ -30,3 +30,27 @@ Step4：在本地Mac的jmeter安装路径中的bin目录修改jmeter.properties�
 Step4：在本地Mac将jmeter以客户机的方式启动：./jmeter &
 
 Step5：本地Mac弹出的图像界面可以通过：菜单-->运行–>远程启动（远程全部启动）将在对应（所有）的jmeter服务端启动测试计划。
+
+
+###远端执行
+将csv文件和测试脚本拷贝到对应目录，
+
+如果不通过代理，那么直接登陆需要执行jmeter脚本的服务器，然后执行命令：
+
+	jmeter -n -t <testplan filename> -l <listener filename>
+
+比如：
+
+	./jmeter -n -t test-plan.jmx -l listen_50_loop.jtl
+	
+如果需要通过分布式代理执行脚本：
+	
+	./jmeter -n -t <testplan filename> -R  ip1,ip2 -l <listener filename>
+	
+比如：
+
+	./jmeter -n -t test-plan.jmx -R 192.168.181.10,192.168.181.11 -l listen_50_loop.jtl	
+
+<http://blog.csdn.net/defonds/article/details/40858005>
+<http://www.51testing.com/html/55/383255-847895.html>
+<http://blog.csdn.net/ceo158/article/details/9331813>
