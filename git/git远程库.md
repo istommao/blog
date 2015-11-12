@@ -59,7 +59,7 @@
 	添加tag到远程
 		git tag -a tagname -m'tag msg'
 		git push remote-name [tagname]
-		
+		或者
 		git push --tags
 		
 	删除远程分支
