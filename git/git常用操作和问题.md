@@ -114,6 +114,17 @@ git的学习和命令链接：
 > 需要注意的是：合并commit只能对还未提交的几个commit之间进行，因为如果对远程仓库已经有的commit合并将会遇到head冲突。在push到远程仓库时（比如github），会收到commit冲突提示。
 
 * 三：使用git rebase -i <不变动的SHA-1>
+* 四：通过分支的方式。
+
+	比如要开发分支为feature，先建一个额外分支feature-test，在里面做了各种修改和提交，测试通过后，通过merge --squash进行合并，合并后进行一次commit。那么在feature-test里的各种提交都不见了，只剩下一个commit了。
+	
+		git checkout feature-test
+		...做个各种commit1, commit2, ..., commitN
+		git checkout feature
+		git merge --squash feature-test
+		git commit -am"New Commit"
+		这时feature分支里没有commit1, commit2, ..., commitN，只有New Commit。
+
 
 
 =====
