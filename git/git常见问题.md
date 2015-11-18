@@ -1,91 +1,26 @@
 #git常用操作和问题
 ====
 
-##git常用操作
+##摘取某个或某几个提交
+
+使用git cherry-pick或者通过git rebase
+
+	git cherry-pick <commit-id>
 	
-###必懂和常使用的指令	
-	git clone
-	git init
-	git log
-	git status
-	git add: 
-		git add .
-	git commit: 
-		git commit -m"xxx" filename
-		git commit -am"xxx"
-	git push:
-		git push
-		git push origin master
-	git pull:
-		git pull
-		git pull origin master
-	git tag
-	git branch
-	git checkout 
-	git merge
-
-###部分指令介绍
-
-	git init
-	初始化当前目录为git可管理的目录。
-	git clone
-	从远程库中复制一份。
-	git remote add NAME URL
-	添加远程仓库。
-	git pull
-	拉取远程库并且合并
-	git push
-	推送到远程库
-	git add <pathspec>
-	<pathspec>可以是文件，也可以是目录。把文件提交到暂存区中。
-	git commit
-	把暂存区的提交到本地库中。只有已经提交的，才能回退到任意版本。
-	git reset
-	版本回退。
-	回退有三种模式：--hard，回退版本，并且工作区会恢复成版本库里的状态
-	                             --soft，回退版本，工作区不修改，版本差异内容会放在暂存区里
-	                             --mixed，默认模式，回退版本，工作区不修改版本差异内容不会放在暂存区里
-	git diff
-	查看与不同版本间的差异，默认是最当前分支的最新版本，也可以与不同分支，不同版本比较。
-	git status
-	查看当前状态，哪些被修改，哪些添加到缓存区。
-	git show
-	查看当前版本的修改。
-	git log
-	打印commit日志。加上-p还能看版本间的修改。
-	git tag
-	给版本打上tag，相当于别名，从而不用去记住版本号。
-	git branch
-	列出所有分支。
-	git branch [<branch>]
-	从branch产生一个新的分支，默认是master分支。
-	git branch -d <branch>
-	删除分支。
-	git check <branch>
-	切换分支。
-	git check <filename>
-	把文件恢复到最后一次提交。
-	git merge <branch>
-	把指定分支合并到当前分支。
-	git stash
-	把修改提交到暂存区里。
-	git stash pop
-	把暂存区里的取出并与当前合并。
-
-*git工作流程图：*
-
-![git工作流程图](https://raw.githubusercontent.com/zhuwei05/blog/master/Res/git-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
-
-git的学习和命令链接：
+	或者
+	1. 假设要摘取在feature分支的提交到master分支
+	git checkout feature
+	2. 基于feature创建一个新的分支，指明新分支的最后一个commit
+	git checkout -b new-br <最新的要摘取的提交id>
+	3. rebase这个新分支的commit到master
+	git rebase --onto master
 	
-[快速入门：git简易指南](http://www.bootcss.com/p/git-guide/)
 
-[git使用简单汇总](http://blog.csdn.net/richardysteven/article/details/5956854)
+可参考:
 
-[Pro git en](http://git-scm.com/book/en/v2)
+[多个commit 合并为一个patch](http://blog.csdn.net/xsckernel/article/details/17718127)
 
-[Pro git cn](http://git-scm.com/book/zh/v1)
-
+[Git合并特定commits 到另一个分支](http://blog.csdn.net/ybdesire/article/details/42145597)
 
 
 ##git commit合并
@@ -114,7 +49,11 @@ git的学习和命令链接：
 > 需要注意的是：合并commit只能对还未提交的几个commit之间进行，因为如果对远程仓库已经有的commit合并将会遇到head冲突。在push到远程仓库时（比如github），会收到commit冲突提示。
 
 * 三：使用git rebase -i <不变动的SHA-1>
-* 四：通过分支的方式。
+* 四：通过分支合并的参数--sqush的方式。
+	
+	> --squash选项的含义是：本地文件内容与不使用该选项的合并结果相同，但是不保留待合并分支上的历史信息，也不提交、不移动HEAD，因此需要一条额外的commit命令。其效果相当于将another分支上的多个commit合并成一个，放在当前分支上，原来的commit历史则没有拿过来。
+	
+   > 判断是否使用--squash选项最根本的标准是，待合并分支上的历史是否有意义。
 
 	比如要开发分支为feature，先建一个额外分支feature-test，在里面做了各种修改和提交，测试通过后，通过merge --squash进行合并，合并后进行一次commit。那么在feature-test里的各种提交都不见了，只剩下一个commit了。
 	
@@ -159,6 +98,8 @@ git revert和git reset的区别：
 > 通过git reset –soft id的方法，可以将原来多次的git提交记录合并为一个。就是前面提到的git commit合并的一种方法。
 
 更多参考: 
+
+[多个commit 合并为一个patch](http://blog.csdn.net/xsckernel/article/details/17718127)
 
 <http://my.oschina.net/MinGKai/blog/144932>
 
