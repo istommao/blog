@@ -38,8 +38,36 @@
 
 	Option变量会自动解包：
 
-		
+
+##类型
+
+###Integers
+
+	与系统向适应的：Int, UInt
+	其他：Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64
+	界限: UInt8.min, UInt8.max...
+
+###float, double
+
+###Boolean
+
+###类型别名
+
+	typealias AudioSample = UInt16
 	
+###元组
+
+	let htt404Error = (404, "Not Found")
+	let (statusCode, statusMessage) = http404Error
+	忽略不想要的：_
+	let (statusCode, _) = http404Error
+	也可通过索引获取：
+	http404Error.0
+	也可给每个元素命名:
+	let htt404Error = (statusCode:404, statusMessage:"Not Found")
+	htt404Error.statusCode
+	
+		
 ##控制流
 
 ###if
@@ -374,8 +402,17 @@
 	
 	
 ##泛型
+函数、枚举、类都可使用泛型`<>`
 
+	func repeat<Item>(item: Item, times: Int) -> [Item] {
+    	var result = [Item]()
+    	for i in 0..<times {
+     		result.append(item)
+    	}
+    	return result
+	}
+	repeat("knock", 4)	
 	
-	
-	
+
+
 	
