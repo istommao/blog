@@ -36,7 +36,25 @@
 
 	var optionalString: String? = "hello"
 
-	Option变量会自动解包：
+	Option变量会自动解包：optionalString!
+	
+Optional bingding:
+
+	if let constantName = someOptional {
+    	statements
+	}
+
+隐式解包
+
+	使用!而不是?
+	
+	let possibleString: String? = "An optional string."
+	let forcedString: String = possibleString! // requires an exclamation mark
+ 
+	let assumedString: String! = "An implicitly unwrapped optional string."
+	let implicitString: String = assumedString // no need for an exclamation mark
+	
+		
 
 
 ##类型
@@ -66,6 +84,14 @@
 	也可给每个元素命名:
 	let htt404Error = (statusCode:404, statusMessage:"Not Found")
 	htt404Error.statusCode
+
+###字符串String和字符Character
+
+字符串的mutablity不在通过指定不同的类(OC:NSString和NSMutableString)，只是在定义字符串的时候将其设置为var或let即可。
+
+String是value type，
+	
+###Unicode
 	
 		
 ##控制流
@@ -96,6 +122,20 @@
 	for i in 0..<4 {
 		...
 	}	
+	
+##基本运算符
+swift支持大部分C的运算符，同时改善了一些容易造成错误的运算符
+
+	算术：+, -, *, /, %	
+	范围： a..<b, a...b
+	赋值： +, +=, -=,...
+	自增减：++, --
+	一元： 负号-， 
+	比较： ==, !=, >, <, >=, <=	
+	三元： ?:
+	nil coalescing: a ?? b  a是一个optional 
+	逻辑： !, &&, ||
+	
 	
 ##函数和闭包
 
@@ -414,5 +454,6 @@
 	repeat("knock", 4)	
 	
 
+##assertion
 
 	
