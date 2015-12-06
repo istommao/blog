@@ -40,6 +40,9 @@
 	如果在本地分支与远程分支之间，建立一种追踪关系(tracking)，可以直接省略后面两个参数，直接git push/pull
 	e.g. 
 		git branch --set-upstream master origin/next
+		
+	可替代：
+		git push -u origin master
 
 	远程仓库的重命名和删除
 	git remote rename old-name new-name
