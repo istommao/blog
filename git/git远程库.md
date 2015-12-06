@@ -69,8 +69,10 @@
 		
 	删除远程分支
 		git push remote-name :branchname 
+		e.g: git push origin :master
 		或者：
 		git push origin --delete <branchName>
+		e.g: git push origin --delete master
        
 	
 ##实例
