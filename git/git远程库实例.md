@@ -139,8 +139,10 @@ git pull origin master
 		git clone root@192.168.1.11/opt/repo/example.git
 		
 
+##实例4 本地仓库上传到远程仓库
 
-	
+[git将本地仓库上传到远程仓库](http://blog.csdn.net/w13770269691/article/details/38704941)
+[将在本地创建的Git仓库push到Git@OSC](http://my.oschina.net/flan/blog/162189)
 
 
 
