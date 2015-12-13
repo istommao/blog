@@ -271,9 +271,18 @@ constant和variable参数,函数参数默认为constant
 
 	定义variable参数只需在参数前加上var关键字
 
-in-out参数
+in-out参数: 函数内该变在函数结束后仍然有效, 关键字inout
 
-		
+	func swapTwoInts(inout a: Int, inout b: Int) {
+		let tA = a
+		a = b
+		b = tA
+	}
+	
+	var someInt = 3
+	var anotherInt = 107
+	swapTwoInts(&someInt, &anotherInt)
+	
 		
 嵌套函数
 
@@ -288,6 +297,10 @@ in-out参数
 
 函数是第一等公民，所以函数可作为参数和返回值。
 
+	函数类型
+	var mathFunction: (Int, Int) -> Int = addTwoInts
+
+	函数类型作为返回值
 	func makeIncrement() -> (Int -> Int){
 		func addOne(number: Int) -> Int {
 			return 1 + number
@@ -295,6 +308,7 @@ in-out参数
 		return addOne
 	}	
 	
+	函数类型作为参数
 	func hasAnyMatches(list: [Int], condition: Int -> Bool) -> Bool {
 		for item in list {
 			if condition(item) {
@@ -319,13 +333,34 @@ in-out参数
 		return result
 	})
 	
+	{ (parameters) -> return type in
+		statements
+	}
+	
 当一个闭包的类型可推导，那么它的参数类型和返回值类型都可不写。**（switft的一个特点，凡是可推导的类型都可省略）**
 
 	let mappedNumbers = numbers.map({ number in 3 * number })
 	
 参数也可以通过位置进行指定：
 
-	let sortedNumbers = sorted(numbers) { $0 > $1 }		
+	let sortedNumbers = sorted(numbers) { $0 > $1 }	
+操作符函数
+
+	reversed = sorted(numbers, >)		
+trailing closures: 闭包表达式作为函数的最后一个参数，闭包可以写作尾闭包的形式：
+
+	定义
+	func someFunctionThatTakesAClosure(closure: () -> ()) {}
+	
+	调用：非尾闭包形式
+	someFunctionThatTakesAClosure({闭包内容})
+	
+	尾闭包调用:
+	someFunctionThatTakesAClosure(){
+		闭包内容
+	}
+
+闭包是引用类型
 
 闭包可用在两个对象之间通信。
 
@@ -498,7 +533,24 @@ string是值类型。
 	
 ##类
 
-	类的定义，关键字class
+类和结构体相同之处：
+
+* 定义属性
+* 定义方法
+* 下标
+* 初始化
+
+不同：
+
+* 类可以继承
+* 类可以运行时类型转换
+* 类有析构
+* 类是引用计数
+* 类是引用类型，结构体是值类型
+
+等等
+
+###类的定义，关键字class
 	class Person {
 		类的字段为public，每个属性都必须进行初始化（声明时或在构造函数中）
 		var age :Int = 0;
@@ -545,6 +597,63 @@ string是值类型。
 		var maxAge = Person.MaxAge();
 	}	
 	
+###比较 ==，!=, ===
+
+###指针
+swift不需要特别使用*号指定指针，引用与常量和变量的使用并无区别。
+
+###选择structures还是classes
+大部分情况下使用类，少数几种情况：
+
+* 封装几个简单数据
+* 希望使用值类型作为copy
+* 不需要继承
+
+例如：
+
+	几何图形的size，3D坐标
+	
+*swift的String，Array和字典都是使用结构体实现的，而Foundation库中的NSString, NSArray, NSDictionary使用类实现的。*	
+
+###属性
+
+####stored properties
+是一个constant或variable，是类或结构体实例对象的一部分
+
+通过lazy关键字可指定stored properties
+
+####computed properties
+类、结构体、枚举都可以定义计算属性，提供getter和/或setter方法来非直接的读取和/或设置该属性.
+
+####property observers: willSet和didSet
+	
+
+	class StepCounter {
+		var totalSteps: Int = 0 {
+			willSet(newTotalSteps) {
+				...
+			}
+			didSet{
+				if totalSteps > oldValue
+			}
+		}
+	} 
+	
+如果没有指定参数，willSet使用默认参数newValue，didSet使用默认参数oldValue
+
+####全局和局部变量
+
+* 全局：在函数，方法，closure，type context之外定义的变量。
+
+* 局部：定义在函数，方法和closure context内
+
+####type properties
+
+C++的静态成员
+
+对一般属性，使用关键字static，对于计算属性，使用关键字class可以子类override父类的实现
+	
+		
 ###Setter Getter
 
 	strcut Point {
@@ -595,10 +704,38 @@ string是值类型。
 	2. 调用父类的构造函数
 	3. 改变父类属性或调用各种方法	
 
-###willSet和didSet
+
 
 ##枚举
+	
+	enum SomeEnumeration {
+	
+	}
+	
+	enum CompassPoint {
+		case North
+		case South
+		case East
+		case West
+	}
+	
+	var directionToHead = CompassPoint.West
+	初始化为CompassPoint之后，可以使用简化语法dot syntax
+	directionToHead = .East  
+	
+	逗号分隔
+	enum Planet {
+		case Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+	}
+	
+	
+###Associated Value
 
+###Raw Values
+
+	enum Planet {
+		case Mercury = 1, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+	}
 
 ##协议Protocol
 接口
