@@ -111,10 +111,74 @@ String是value type，
 		...
 	}
 	
-###for-in
+	显式fallthrough
+	switch anotherCharacter {
+	case "a":
+		fallthrough
+	case "A":
+		println("The letter A")
+	default:
+		println("Not the letter A")
+	}
+	
+	switch anotherCharacter {
+	case "a", "A":
+		println("The letter A")
+	default:
+		println("Not the letter A")
+	}
+	switch count {
+	case 0:
+		naturalCount = "no"
+	case 1...3:
+		naturalCount = "a few"
+	default:
+		naturalCount = "others"
+	}
+	
+	元组
+	let somePoint = (1, 1)
+	switch somePoint {
+	case (0, 0):
+		do something
+	case (_, 0):
+		do something
+	case (-2...2, -2...2):
+		do something
+	default:
+		do something
+	}
+	
+	值绑定
+	let anotherPoint = (1, 1)
+	switch anotherPoint {
+	case (let x, 0):
+		do something
+	case (0, let y):
+		do something
+	case let(x, y):
+		do something
+	}
+	
+	where表达式
+	let anotherPoint = (1, 1)
+	switch anotherPoint {
+	case let(x, y) where x == y:
+		do something
+	case let(x, y) where x == -y:
+		do something
+	case let(x, y):
+		do something
+	}
+	
+###for 和 for-in
 
 	for (k, v) in maps {
 		
+	}
+	
+	for var index = 0; index <3; ++index {
+		println（"index is \(index)"）
 	}
 	
 可以使用`..<`获取一个范围的值：
@@ -122,6 +186,28 @@ String是value type，
 	for i in 0..<4 {
 		...
 	}	
+	
+###while do-while
+
+	while conditon {
+		statements
+	}	
+	do {
+		statements
+	} while condition
+	
+###control transfer
+
+	continue
+	break
+	fallthrough
+	return
+	
+###label
+
+	label name: while conditon{
+		statements
+	}		
 	
 ##基本运算符
 swift支持大部分C的运算符，同时改善了一些容易造成错误的运算符
@@ -151,9 +237,18 @@ swift支持大部分C的运算符，同时改善了一些容易造成错误的�
 		return "Hello \(name), today is \(day)."
 	}
 	
+	func greet(#name: String, #day: String) -> String {
+		return "Hello \(name), today is \(day)."
+	}
+	
 	调用的时候
 	greet(myName:"abc", "20");	
+
+默认值和外部名参数
+
+	func join(string: "hello", toString: "world", withJoiner: "-") {}	
 	
+	func join(s1:String, s2: String, joiner: String = "-") {}	
 	
 返回值可以复合类型，使用元组即可做到:
 	
@@ -162,10 +257,24 @@ swift支持大部分C的运算符，同时改善了一些容易造成错误的�
 		(min, max, sum)
 	}
 	
+返回optional元组
+
+	func minMax(array: [Int]) -> (min: Int, max: Int)? {
+	
+	}
 	
 不定参数
 
-	func sumOf(numbers: Int...) -> Int	
+	func sumOf(numbers: Int...) -> Int
+	
+constant和variable参数,函数参数默认为constant
+
+	定义variable参数只需在参数前加上var关键字
+
+in-out参数
+
+		
+		
 嵌套函数
 
 	func returnFifteen() -> Int {
@@ -244,13 +353,104 @@ swift支持大部分C的运算符，同时改善了一些容易造成错误的�
 
 ###String
 
+string是值类型。	
+
+	初始化
+	let someString = "Some string literal value"
+	var emptyString = ""
+	var anotherEmptyString = String()
+	
+	if emptyString.isEmpty {...}
+	var varString = "Horse"
+	varString += " and carriage"
+	let constantString = "HIgnlander"
+	constangtString += " and another Highlander"
+	
+	let string1 = "hello"
+	let string2 = " there"
+	var welcome = string1 + string2
+	
+	修改: 下标, 
+	let greeting = "Guten Tag"
+	greeting[greeting.startIndex], greeting[greeting.endIndex]
+	greeting[greeting.startIndex.successor()], greeting[greeting.endIndex.successort()]
+	advance(greeting.startIndex, 7)
+	indices(greeting)
+	var welcome = "hello"
+	welcome.insert("!", atIndex: welcome.endIndex)
+	welcome.splice(_:atIndex:)
+	welcome.removeAtIndex(_:)
+	
+	比较： ==, !=
+	
+	前缀、后缀： hasPrefix(_:), hasSuffix(_:)
+		
 ###数组
 
-下标、append等
+	var someInts = [Int]()
+	someInts.append(3)
+	someInts = []
+	var threeDoubles = [Double](count:3, repeatedValue: 0.0)
+	[value1, value2, value3]
+	
+	var shopppingList = ["Eggs", "Milk"]
+	
+	访问和修改：下标、append等
+	shoppingList.append("Flour")
+	shoppingList += ["Baking Powder"]
+	shoppingList += ["Chocolate Spread", "Cheese", "Butter"]
+	var firstItem = shopppingList[0]
+	shoppingList = "Six eggs"
+	shoppingList[4...6] = ["Bananas", "Apples"]
+	shoppingList.insert("Maple Syrup", atIndex:0)
+	let mapleSyrup = shoppingList.removeAtIndex(0)
+	
+	let apples = shoppingList.removeLast()
+	
+	for item in shoppingList
+	for (index, value) in enumerate(shoppingList)
+
+###Set
+
+	var letters = Set<Character>()
+	letters.insert("a")
+	letters = []
+	
+	var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+	所有类型都一致时，可以缩写
+	var favoriteGenres: Set = ["Rock", "Classical", "Hip hop"]	
+	favoriteGenres.isEmpty, favoriteGenres.count
+	favoriteGenres.insert("Jazz")
+	if let removedGenre = favoriteGenres.remove("Rock")
+	favoriteGenres.contains()
+	
+	for genre in favoriteGenres
+	for genre in sorted(favoriteGenres)
+	
+	union(_:), substact(_:), intersect(_:), excluesiveOr(_:)
+	
+	==, isSubsetOf(_:), isSupersetOf(_:), isStrictSubsetOf(_:), isStrictSupersetOf(_:), isDisjointWith(_:)	
+	
 
 ###字典
 
 	定义
+	var namesOfIntegers = [Int: String]()
+	namesOfIntegers[16] = "sixteen"
+	namesOfIntegers = [:]
+	var airports: [String: String] = ["YYZ": "Toranto Pearson", "DUB", "Dublin"]
+	所有键值类型都一直，swift可以推断出类型，所以可缩写为
+	var airports = ["YYZ": "Toranto Pearson", "DUB", "Dublin"]
+	
+	airports.isEmpty
+	airports["LHR"] = "London"
+	airports["LHR"] = "London Heathrow"
+	updateValue(_:forKey:), removeValueForKey(_:)
+	
+	产生数组
+	let airportCodes = [String](airports.keys)
+	let airportNames = [String](airports.values)
+	
 	var p = [
 		"name": "abc",
 		"age" : "11",
@@ -263,6 +463,7 @@ swift支持大部分C的运算符，同时改善了一些容易造成错误的�
 	for key in p.keys {
 		let v = p[key]
 	}
+	
 	
 	
 ##结构体
@@ -455,5 +656,9 @@ swift支持大部分C的运算符，同时改善了一些容易造成错误的�
 	
 
 ##assertion
+
+
+
+
 
 	
