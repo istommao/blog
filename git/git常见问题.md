@@ -64,6 +64,10 @@
 		git commit -am"New Commit"
 		这时feature分支里没有commit1, commit2, ..., commitN，只有New Commit。
 
+###参考：
+[如何在 Git 里撤销(几乎)任何操作](http://blog.jobbole.com/87700/)
+
+
 
 
 =====
@@ -101,9 +105,9 @@ git revert和git reset的区别：
 
 [多个commit 合并为一个patch](http://blog.csdn.net/xsckernel/article/details/17718127)
 
-<http://my.oschina.net/MinGKai/blog/144932>
+[git revert 和reset的区别](http://my.oschina.net/MinGKai/blog/144932)
 
-<http://samael65535.github.io/git/2013/01/18/git/>
+[git中reset与revert的使用](http://samael65535.github.io/git/2013/01/18/git/)
 
 ====
 
@@ -169,7 +173,33 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 	git config --global core.quotepath false
 
 
+##使用bc解决冲突
 
+###在git中使用Beyond Compare
 
+直接修改.gitconfig, 在文件后增加：
+
+	[diff]
+	tool = bcomp
+	[difftool]
+	prompt = false
+	[difftool "bcomp"]
+	trustExitCode = true
+	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
+	[merge]
+	tool = bcomp
+	[mergetool]
+	prompt = false
+	[mergetool "bcomp"]
+	trustExitCode = true
+	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+	
+冲突发生后，执行
+
+	git mergetool
+
+	
+
+[在Mac下使用Beyond Compare](http://linyehui.wikidot.com/using-beyond-compare-in-mac)
 
 		
