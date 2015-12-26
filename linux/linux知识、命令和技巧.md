@@ -23,3 +23,47 @@
 	
 	查看文件大小
 	ls -lAh /var/log
+	
+	
+##screen工具的使用
+
+进入使用：
+	
+	screen
+
+或指定名字 
+
+	screen -S name
+
+
+离开：
+
+	ctrl + a d 或者直接关闭终端，自动会以detached模式运行
+
+回来： 
+
+	screen -ls 
+	得到的结果后，从结果中获得screen的标示xxx, 然后执行： 
+	screen -r xxx。
+	
+如果设置了name，可以直接使用
+
+	screen -r name
+
+关闭： 
+
+	ctral +a k
+
+清除死掉的窗口： 
+	
+	screen -wipe
+
+常见启动screen执行操作
+
+	screen -d -m
+	screen -dmS sessionname abc sh-cmd
+
+给session命名和重连
+
+	screen -S session_name
+	screen -r session_name	
