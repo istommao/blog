@@ -469,6 +469,8 @@ Express的功能：
 * 缓存
 * 插件支持
 
+[参考express文档](http://www.expressjs.com.cn/)
+
 ###使用express安装
 
 安装
