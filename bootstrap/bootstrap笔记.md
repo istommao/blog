@@ -844,12 +844,15 @@ Bootstrap 下拉菜单。下拉菜单是可切换的，是以列表格式显示�
 
 
 
-(未完，由于不是做前端的，有上述的知识进本开发就够用了)
+**(未完，由于不是做前端的，有上述的知识进本开发就够用了)
+**
+
 
 
 ## 参考
 
 [Bootstrap 教程](http://www.runoob.com/bootstrap/bootstrap-tutorial.html)
+
 [Bootstrap中文网](http://www.bootcss.com/)
 
 
