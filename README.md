@@ -10,6 +10,10 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 
 
+
+
+
+
 #TODO
 ----
 
@@ -38,3 +42,17 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 #DONE
 ----
+
+##learn bootstrap
+> 简要学习bootstrap的使用，方便之后自己开发项目的时候，可以快速构建出一个可用的页面。
+
+[bootstrap随笔](https://github.com/zhuwei05/blog/blob/master/bootstrap/bootstrap%E7%AC%94%E8%AE%B0.md)
+
+
+##learn akka
+> 学习akka的基本用法
+
+[akka随笔](https://github.com/zhuwei05/blog/blob/master/scala/akka%E9%9A%8F%E7%AC%94.md)
+
+
+
