@@ -8,6 +8,11 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 #INPROGRESS
 ---
 
+##learn node: simple blog
+> 参考网上教程，使用node + extjs + mongodb开发一个简易的blog
+
+##learn mongodb
+>学习mongodb基本操作，整理出mongodb的学习笔记
 
 
 
@@ -16,9 +21,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 #TODO
 ----
-
-##learn node: simple blog
-> 参考网上教程，使用node + extjs + mongodb开发一个简易的blog
 
 
 ##learn node: simple IM
