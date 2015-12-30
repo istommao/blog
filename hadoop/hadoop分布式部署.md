@@ -7,7 +7,7 @@
 	su    # 切换root用户
 	groupadd hadoop     #添加一个叫hadoop的用户组
 	useradd hadoop -g hadoop  #添加一个hadoop用户并加入hadoop组
-	vim /etc/sudoers    #编辑sudoers文件，给hadoop用户sudo权限
+	visudo    #编辑sudoers文件，给hadoop用户sudo权限
 	hadoop ALL=(ALL) ALL    #在sudoers尾部加上这一行
 	
 	修改密码
@@ -15,7 +15,7 @@
 
 ### 配置ssh无密码登录
 
-切换到hadoop用户
+切换到hadoop用户(下面的操作都是在hadoop用户进行的)
 
 	cd ~/.ssh/                     # 若没有该目录，请先执行一次ssh localhost
 	ssh-keygen -t rsa              # 会有提示，都按回车就可以
