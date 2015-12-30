@@ -346,6 +346,15 @@ It's exciting to combine functional and concurrent programming!
 ###scala和java
 
 ###extractor	
+
+##scala学习（IBM）
+
+
+函数语言中的公共主题：创建一个只做一件事情的高级抽象函数，让它接受一个代码块（匿名函数）作为参数，并从这个高级函数中调用这个代码块。
+
+
+
+
 	
 
 	
