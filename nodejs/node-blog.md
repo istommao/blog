@@ -134,7 +134,9 @@ rest api
 在 models 文件夹新建 Post.js, 里面实现数据库的查询和插入，用于保存用户的文章
 
 
+## 实现
 
+<https://github.com/zhuwei05/node-blog>
 
 ## 参考
 
