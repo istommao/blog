@@ -20,7 +20,12 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ## thrift使用
 
-> 学习thrift的erlang使用，做两个demo尝试下
+> 学习thrift的erlang和python使用，做两个demo尝试下，总结要点和使用关键步骤，分析场景
+
+## learning angular
+
+> 学习angular，总结其知识点，动手完成项目：simple blog
+
 
 
 
@@ -50,6 +55,8 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ##learn swift: simple calculator
 > 参考standford的ios教程，使用swift语言开发一个计算器app
 
+## kafka消息队列
+> 学习kafka消息队列，总结其使用场景，动手编写例子，总结kafka使用要点。对比各种消息队列的异同
 
 ##learn hadoop
 
