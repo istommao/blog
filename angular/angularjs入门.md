@@ -104,7 +104,34 @@ ng-controller
 [controller注意点]()
 
 
+### models
 
+ng-model
+
+### view
+
+通过指令实现
+
+### scope
+
+**angular的mvc通过scope实现**
+
+* $scope是一个POJO
+* $scop;e提供了一一些工具方法$watch()、$apply()
+* $scope是表达式的执行环境（或者叫作用域）
+* $scope是一个树形结构，与DOM标签平行
+* 子$scope对象会继承父$scope上的属性和方法
+* 根scope一般位于ng-app上
+* $scope可以传播事件，类似DOM事件，可以向上、向下
+* $scope不仅使MVC的基础，也是后面双向数据绑定的基础
+* 可以使用$angular.element($0)(chrome插件 inspect angular)
+
+#### $scope的生命周期
+
+create ==> watcher registraton ==> model mutation ==> mutation obseration ==> scope destruction
+
+
+## 模块化和依赖注入
 
 
 
