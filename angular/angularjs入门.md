@@ -133,7 +133,134 @@ create ==> watcher registraton ==> model mutation ==> mutation obseration ==> sc
 
 ## 模块化和依赖注入
 
+	var helloModule = angular.modle('HelloAngular', [])
+	helloModule = 
+	
+目录结构：
+
+	app
+		css
+		imgs
+		js
+			app.js： 启动点
+			controllers.js： 可以分成多个controller
+			directive.js：
+			filters.js
+			services.js
+		tpls：自定义，用于存放html模板文件
+			hello.html 
+		index.htlm: 主html文件
+		framework(自定义的，管理框架，可用bower管理)
+			存放框架的文件，比如angular.js
+	node_modules：nodejs的包
+		package.json	
+		
+依赖注入：中括号里
+
+	var bookStoreApp = angular.module('bookStoreApp', ['ngRoute', 'ngAnimate', 'bookStoreCtrls', 'bookStoreFilters', 'bookStoreServices', 'bookStoreDirectives'])
+	
+		
+		
+	
+## 实例
+
+		
+### route
+
+app.js
+
+	var bookStoreApp = angular.module('bookStoreApp', ['ngRoute', 'ngAnimate', 'bookStoreCtrls', 'bookStoreFilters', 'bookStoreServices', 'bookStoreDirectives'])
+	
+	bookStoreApp.config(function($routeProvider) {
+		$routeProvider.when('/hello', {
+			templateUrl: 'tpls/hello.html',
+			controller: 'HelloCtrl'
+		}).when('list', {
+			templateUrl: 'tpls/bookList.html',
+			controller: 'BookListCtrl'
+		}).otherwise({
+			redirectTo: '/hello'
+		})
+	});
+
+### controllers.js
+
+	var bookStoreCtrls = angular.module
+	
+	bookStoreCtrls.controller('HelloCtrl',)
+	
+	bookStoreCtrols.controller('BookListCtrl',)
+
+### tpls/hello.html
 
 
+### dirctive.js
+
+### services.js
+			
+			
+## 双向数据绑定
+
+	{{greeting.text}}
+	
+视图和模型绑定不同的值可以相互影响，这时候不需要通过jquery去操作各种标签去改变
+
+### 取值表达式和ng-bind指令
+
+取值表达式：
+
+	{{greeting.text}}, Angular
+	
+ng-bind: 解决网络等影响显示，导致页面显示取值表达式：
+
+	<span ng-bind="greeting.text"></span>, Angular	
+### 表单
+
+
+Form.html和Form.js
+
+	标签.样式1.样式2...
+	div.panel.panel-primary + 快捷键
+	
+	自动生成
+		<div class="panel panel-primary">
+		
+		<div>
+
+#### 模块
+Form.js
+
+	var userInfoModule = angular.module('UserInfoModle', [])
+
+	userInfoModule.controller('UserInfoCtrl', ['$scope', function($scope){
+		$scope.userInfo = {
+			email: "aaa@aaa.com",
+			password:"111",
+			autoLogin:true
+		};
+	}])
+	
+对应绑定
+
+	<input type="checkbox" ng-module="userInfo.autoLogin">自动登录	
+	
+#### 控制器
+
+### 动态切换标签
+
+### ng-show/ng-hide
+
+控制标签的隐藏和显示
+
+### ng-class
+
+接收表达式
+
+	<div ng-class = '{error: isError, warning: isWarning}'>
+	</div>
+
+### ngAnimate			
+			
+动画的支持
 
 			
