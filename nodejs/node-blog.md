@@ -5,7 +5,6 @@
 
 安装express依赖和生成器
 
-	npm install express --save
 	npm install express-generator -g
 
 通过生成器新建工程
@@ -100,16 +99,17 @@ rest api
 
 ##实现
 
-### 会话和mongodb
+### 路由实现
 
-使用 express-session 和 connect-mongo 模块实现了将会化信息存储到mongoldb中
+修改route/routes.js文件，根据上一节的路由设计编写对应的路由函数，同时在views中添加对应的ejs文件。
 
-### 实现通知
-实现用户的注册和登陆，在这之前我们需要引入 flash 模块来实现页面通知（即成功与错误信息的显示）的功能。
 
-我们所说的 flash 即 connect-flash 模块（https://github.com/jaredhanson/connect-flash），flash 是一个在 session 中用于存储信息的特定区域。信息写入 flash ，下一次显示完毕后即被清除。典型的应用是结合重定向的功能，确保信息是提供给下一个被渲染的页面。
 
 ###页面具体设计
+
+上一步中把路由实现好了，下面通过bootstap和编写对应的ejs就可以进行页面的测试了。
+
+**（这个时候可以测试路由实现是否正确，以及进行页面的初步设计）**
 
 #### 样式
 
@@ -125,6 +125,21 @@ rest api
 
 使用bootstrap的form表单结合
 
+
+
+### 会话和mongodb
+
+使用 express-session 和 connect-mongo 模块实现了将会化信息存储到mongoldb中
+
+
+
+### 实现通知
+实现用户的注册和登陆，在这之前我们需要引入 flash 模块来实现页面通知（即成功与错误信息的显示）的功能。
+
+我们所说的 flash 即 connect-flash 模块（https://github.com/jaredhanson/connect-flash），flash 是一个在 session 中用于存储信息的特定区域。信息写入 flash ，下一次显示完毕后即被清除。典型的应用是结合重定向的功能，确保信息是提供给下一个被渲染的页面。
+
+
+
 ### models--user
 
 在 models 文件夹下新建 User.js，里面实现数据库的查询和插入，用于保存用户的账号和密码
@@ -132,6 +147,8 @@ rest api
 ### models--posts
 
 在 models 文件夹新建 Post.js, 里面实现数据库的查询和插入，用于保存用户的文章
+
+
 
 
 ## 实现
