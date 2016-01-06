@@ -1,4 +1,4 @@
-#express_mongodb_bootstrap_to_build_blog
+#node-blog
 
 
 ##环境
@@ -41,9 +41,24 @@
 
 ##目录结构解析
 
+	app.js
+	routes: 路由
+	----index.js: 路由及controller的实现
+	public: 公共文件，
+	----images
+	----javascripts
+	----stylesheets
+	models: 自己创建的，模型类的js代码
+	views: 视图，存放各种.ejs文件
+
 ##程序执行流向
 
-	app.js 调用 app.use('/', routes); ==> routes/index.js 调用 res.render('index', { title: 'Express' });使用ejs模板引擎 ==> views/index.ejs
+	app.js 调用 app.use('/', routes); 
+	==> routes/index.js 调用 
+	==> res.render('index', { title: 'Express' });
+	==> 使用ejs模板引擎 
+	==> views/index.ejs
+
 
 
 ##路由控制
@@ -82,26 +97,25 @@ rest api
 	app.use('/', routes);
 都指向routes目录的index.js，因此所有的路由逻辑都添加到index.js文件中，具体实现后文会进一步分析。	###数据库
 
-添加数据库依赖
-
-	npm install mongodb --save
-
-添加数据库配置文件settings.js
-
-
-#### 数据库实例
-新建文件夹models, 并创建db.js，用于创建数据库连接实例
-
-#### 使用数据库
-
-
+使用mongodb，先安装数据库。并新建数据库blog。
 
 
 ##实现
 
 ### 路由实现
 
-修改route/routes.js文件，根据上一节的路由设计编写对应的路由函数，同时在views中添加对应的ejs文件。
+修改route/index.js文件，根据上一节的路由设计编写对应的路由函数，同时在views中添加对应的ejs文件。
+
+	router.get('/', function(req, res, next) {
+	    res.render('index', {
+	        title: '首页',
+	        user: ''
+	    });
+	});
+	
+上面的路由表示：
+	
+**GET方法访问主页`/`，render的第一个参数表示该页面对应的ejs文件，即路径/的页面是views/index.ejs，第二个参数表示index.ejs里可以使用title和user这两个对象**
 
 
 
@@ -126,30 +140,124 @@ rest api
 使用bootstrap的form表单结合
 
 
-
 ### 会话和mongodb
+
+#### mongodb
 
 使用 express-session 和 connect-mongo 模块实现了将会化信息存储到mongoldb中
 
-
-
-### 实现通知
+#### 通知connect-flash
 实现用户的注册和登陆，在这之前我们需要引入 flash 模块来实现页面通知（即成功与错误信息的显示）的功能。
 
 我们所说的 flash 即 connect-flash 模块（https://github.com/jaredhanson/connect-flash），flash 是一个在 session 中用于存储信息的特定区域。信息写入 flash ，下一次显示完毕后即被清除。典型的应用是结合重定向的功能，确保信息是提供给下一个被渲染的页面。
 
 
 
+express4.x的session和视图助手不内置，需要安装：
+
+	session：
+	npm install express-session --save
+	视图助手：
+	npm install express-partials --save
+	会话通知：
+	npm install connect-flash --save
+	数据库：
+	npm install --save kerberos mongodb
+	连接数据库客户端：
+	npm install connect-mongo@0.4.1 --save
+	
+	安装最新的connect-mongo会报错，不知道什么原因：
+	
+		const Promise = require('bluebird');
+		^^^^^
+		SyntaxError: Use of const in strict mode.
+		    at exports.runInThisContext (vm.js:73:16)	
+
+
+新建文件settings.js，存放数据库配置：
+
+	module.exports = {
+    	cookieSecret: 'blog',
+    	db: 'blog',
+    	host: 'localhost',
+    	port: 27017
+	};
+
+新建models/db.js，建立数据库连接实例：
+
+	var settings = require('../settings'),
+	    Db = require('mongodb').Db,
+	    Connection = require('mongodb').Connection,
+	    Server = require('mongodb').Server;
+	
+	module.exports = new Db(settings.db, new Server(settings.host, settings.port), {safe: true});
+	
+	
+在app.js添加
+
+	var partials = require('express-partials');
+	var session = require('express-session');
+	var flash = require('connect-flash');	
+	// 视图助手
+	app.use(partials());
+
+	// 使用 express-session 和 connect-mongo 模块实现了将会化信息存储到mongoldb中s
+	app.use(flash());
+	app.use(session({
+	    secret: settings.cookieSecret,
+	    key: settings.db,//cookie name
+	    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+	    store: new MongoStore({
+	        db: settings.db,
+	        host: settings.host,
+	        port: settings.port
+	    })
+	}));
+
+### login.ejs和reg.ejs增加form表单设计
+
+### 发言表单say.ejs
+
+借助视图助手实现
+
+### 文章显示视图posts.ejs
+
+借助视图助手实现
+
+### 用户个人页面/u/:user
+
+借助视图助手实现
+
 ### models--user
 
-在 models 文件夹下新建 User.js，里面实现数据库的查询和插入，用于保存用户的账号和密码
+在 `models` 文件夹下新建 `User.js`，里面实现数据库的查询和插入，用于保存用户的账号和密码
+
+#### users集合
+
+数据库`blog`下的`users`集合用于存放注册用户的信息，包含字段：
+
+	name
+	password
 
 ### models--posts
 
-在 models 文件夹新建 Post.js, 里面实现数据库的查询和插入，用于保存用户的文章
+在 `models` 文件夹新建 `Post.js`, 里面实现数据库的查询和插入，用于保存用户的文章
+
+#### posts集合
+
+数据库`blog`下的`posts`集合用于存放注册用户的信息，包含字段：
+
+	user
+	post
+	time
 
 
+## 总结
 
+* 首先，需求分析，得出具体包含的页面和rest api接口
+* 然后，完成每个页面的设计（MVC的`V`），结合express可以很好的查看到效果，这个过程不需要实现具体的页面逻辑和真实数据的展示
+* 接着，根据业务逻辑，实现MVC的`C`和`M`，控制器主要在routes/index.js实现，模型通过在models目录下新建对应的js文件，完成单测。
+* 最后，整体测试，调整。
 
 ## 实现
 
