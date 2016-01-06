@@ -75,6 +75,7 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ##learn node: simple blog
 > 参考网上教程，使用node + extjs + mongodb开发一个简易的blog
+> <https://github.com/zhuwei05/node-blog>
 
 ## js语言精粹
 
