@@ -8,15 +8,9 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 #INPROGRESS
 ---
 
-##learn node: simple blog
-> 参考网上教程，使用node + extjs + mongodb开发一个简易的blog
-
 ##learn mongodb
 > 学习mongodb基本操作，整理出mongodb的学习笔记
 
-## js语言精粹
-
-> 看完JavaScript语言精粹这本书
 
 ## thrift使用
 
@@ -78,6 +72,13 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > 学习akka的基本用法
 
 [akka随笔](https://github.com/zhuwei05/blog/blob/master/scala/akka%E9%9A%8F%E7%AC%94.md)
+
+##learn node: simple blog
+> 参考网上教程，使用node + extjs + mongodb开发一个简易的blog
+
+## js语言精粹
+
+> 看完JavaScript语言精粹这本书
 
 
 
