@@ -3,7 +3,7 @@
 四大核心特性：
 
 * MVC
-* 模块化
+* 模块化和依赖注入
 * 指令系统
 * 双向数据绑定
 
@@ -263,4 +263,110 @@ Form.js
 			
 动画的支持
 
+## 路由
+
+angular-route.js
+
+	bookStoreApp.config(function($routeProvider) {
+			$routeProvider.when('/hello', {
+				templateUrl: 'tpls/hello.html',
+				controller: 'HelloCtrl'
+			}).when('list', {
+				templateUrl: 'tpls/bookList.html',
+				controller: 'BookListCtrl'
+			}).otherwise({
+				redirectTo: '/hello'
+			})
+		});
+		
+第三方路由：UI-route(AngluarUI Router)
+
+### 前端路由基本原理
+
+* 哈希
+* HTML中的新history API
+* 路由的核心是给应用定义“状态”
+* 路由机制会影响到应用的整体编码方式（需要预先定义好状态）
+* 考虑兼容性问题与“优雅降级”
+
+	
+## 指令
+
+	var myModule = angular.modle('MyModule', [])
+	myModule.directive("hello", function(){
+		return {
+			restrict: 'E',
+			template: '<div>Hi everyone!</div>',
+			replace: true
+		}
+	});
+	
+restrict: 匹配模式 AEMC(属性、元素、注释、Class)
+
+	<hello></hello> 元素
+	<div hello></div> 属性
+	<div class="hello"> </div> class
+	<!-- directive:hello --> 注释
+	<div></div>	
 			
+模板：
+
+	template：
+	templateUrl: 指定模本文件，将模板文件单独放到文件
+	templateCache: 缓存
+	
+replace：
+
+	指令替换
+
+transclue:
+
+	让指令可以互相嵌套		
+		
+### 指令运行
+
+加载阶段：加载angular.js, 找到ng-app指令，确定应用的边界
+
+编译阶段：遍历DOM，找到所有指令，根据指令代码中的template、replace、transclue转换DOM结构；如果存在compile函数则调用；
+
+链接阶段：每条指令的link被调用；link函数一般用来操作DOM、绑定事件监听器
+
+
+## 指令和控制器的交互
+
+	link:function(scope, element, attr) {
+		element.bind("mouseenter", function(){
+			//scope.loadData();
+			//scope.$apply("loadData()")
+			scope.$apply(attrs.howtoload)
+		})
+	}
+	
+## 指令的交互
+
+## 独立scope
+
+绑定策略：
+
+	@：把当前属性值作为字符串传递，还可以绑定来自外层的scope的值，在属性值中插入{{}}即可
+	=：与父scope中的属性进行双向绑定
+	&：传递一个来自父scope的函数，稍后调用
+	
+### 内置指令和自定义指令
+
+<http://angular-ui.github.io>
+
+<http://miniui.com> <a >senca</a>
+
+ERP类型系统必备UI组件：
+
+	表单：Form、Button、Calendar、FileUpload...
+	布局：Panel、Window、Layout...
+	导航：Tree、NavBar、Page、Menu...
+	列表：DataGrid、Tree、TreeGrid
+	
+电商：
+<http://gallery.kissyui.com>	
+
+
+
