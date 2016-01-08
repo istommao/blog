@@ -369,4 +369,134 @@ ERP类型系统必备UI组件：
 <http://gallery.kissyui.com>	
 
 
+## service
+
+内置service共24个。
+
+* $http
+* $locale
+* $compile
+* $location
+* interval
+* timeout
+* log
+
+### $http服务
+	$http({
+		method: 'GET',
+		url: 'data.json'
+	}).success(function(data, status, header,  config) {
+		// ...
+	}).error(function(data, status, header, config) {
+		// ...
+	})
+	
+
+上面的链式调用称为promise
+
+### 自己的service
+
+### service特性
+
+* 单例
+* 由$injector负责实例化
+* 在整个生命周期存在，可以用来`共享数据`
+* 在需要使用的地方利用`依赖注入`机制注入service
+* 自定义的service需要写在内置service后面
+* 内置service的命名以$符号开头，自定义的service应该避免
+
+
+
+
+### service、factory、provider本质都是provider
+
+provider模式是`策略模式` + `抽象工厂模式` 的混合体
+
+### $filter服务
+
+* $filter用来数据格式化的专用服务
+* 内置9个filter
+* 可嵌套
+* 自定义filter
+
+## 综合设计：bookstore
+
+### 界面原型设计
+
+archa rp
+
+* 登录
+* 书籍列表
+* 详情
+* 新增书籍
+
+### 切分功能模块并建立目录结构
+
+	dest
+	docs
+	src
+		css
+		data
+		framework
+		image
+		js: 主要的代码
+		tpls: 界面的模板
+	test	
+		
+
+### 使用angular-ui和bootstrap编写ui
+
+数据使用假数据，可将数据方法data文件夹下的一些列文件。
+
+#### 路由UIRouter（可实现嵌套路由）
+
+
+#### nggrid
+
+
+
+### 编写controller
+
+### 编写service
+
+### 编写filter
+
+### 单元测试和集成测试
+
+
+## 核心原理
+
+### 启动过程
+
+源码：angular.js
+
+	用自执行函数让整个代码在加载完后立即执行
+	==> 检查是不是多次启动angular
+	==> 绑定jQuery, 执行bindJQuery
+	==> publishExternalAPI
+	==> angularInit
+	
+启动angular方式：
+
+	自启动:ng-app
+	手动启动：angular.bootstrap	
+	
+publishExternalAPI
+
+	setModuleLoader	
+	注册ng内核和内置的指令和provider
+	
+angularInit
+
+	查找ng-app
+	启动bootstrap
+		创建注册器injector
+		加载rootScope，rootElement，compile
+
+### 依赖注入原理分析：provider和injector
+
+### 指令执行过程
+
+### $scope与双向数据绑定分析
+
 
