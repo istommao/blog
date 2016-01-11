@@ -494,8 +494,57 @@ angularInit
 		加载rootScope，rootElement，compile
 
 ### 依赖注入原理分析：provider和injector
+* 推断型注入
+
+	函数参数的名称必须要和被注入的对象相同
+
+* 声明式注入、标注型注入
+
+* 内联式注入
+
+#### 使用injector
+
+$injector.invoke(...)
+
+#### provider
+
+* provider模式是策略模式和工程模式的综合体。
+* 目的是为了让接口和实现分离
+* 在ng中，所有provider都可以用来注入：provider/factory/service/constant/value
+
+	provider是基础，其余都是调用provider函数实现的：源码中的createInjector可以看得到
+	
+* 可以接受注入的函数类型：controller/directive/filter/service/factory
+
+* ng中的依赖注入是通过provider和injector这两个机制联合实现的。
 
 ### 指令执行过程
+
+* 自定义compile和link函数
+
+		link: function(scope, el, attrs, controller)
+	
+		compile: function(el, attrs, transclude)	
+
+* compile和link的区别
+	
+	* compile对指令的模板jinx转换
+	* link是在模型和试图之间建立关联，包括在元素上注册事件监听
+	* scope在连接阶段才会被绑定到元素上，因此compile阶段操作scope会报错
+	* 对同一个指令的多个实例，compile只会执行一次，link每次都会执行一次
+	* 一般只需要编写link，做一些事件绑定
+	* link和compile同时存在的时候，link不生效
+	
+* 指令的源码分析
+
+compile阶段：
+
+	ng-app开始，递归子层dom结构，收集指令
+	如果有需要，为指令生成childScope
+	调用每个指令的compile函数生成compositelinkFn	编译的结果返回一个publicLinkFn函数
+	编译完成之后立即调用生成的publicLinkFn
+	
+
 
 ### $scope与双向数据绑定分析
 
