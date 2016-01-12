@@ -544,8 +544,57 @@ compile阶段：
 	调用每个指令的compile函数生成compositelinkFn	编译的结果返回一个publicLinkFn函数
 	编译完成之后立即调用生成的publicLinkFn
 	
-
-
 ### $scope与双向数据绑定分析
+
+## 移动app
+
+开发app的方式：native app，web app，hybrid app
+
+### native app优缺点
+
+* 运行效率高
+* 可调用各种设备资源
+
+* 人力成本高
+* 发布速度慢
+* 更新版本问题
+* 实现图文混排等功能有各种坑
+
+### web app
+
+	html,css3,js ==> 打包(phonegap, appcan, appcelarator, intel xdk) ==> .ipa, .apk, .xap
+
+android打包过程
+
+	npm安装phonegap ==> 下载adt ==> phonegap调用adt打包
+	
+ios打包
+
+	npm安装phonegap ==> 升级ios和xcode ==> ios账号和配置 ==> phonegap调用xcode打包
+	
+常见web app框架
+
+* jquery mobile(jquerymobile.com)
+	
+	优点：技术栈统一，学习成本低
+	缺点：低端安装机存在性能问题
+	
+* sencha touch(zeptojs.com)
+
+	优点：各项技术架构都很完善
+	缺点：学习成本高，与ejs内核相同
+	
+* zepto.js
+
+	优点：衍生自jquery，性能更好
+	缺点：坑很多
+	
+* gmu(百度)
+
+* ionic（内核是angularjs）
+
+		
+			
+
 
 
