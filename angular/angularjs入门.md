@@ -593,6 +593,13 @@ ios打包
 
 * ionic（内核是angularjs）
 
+## 前端自动化测试
+
+test: TDD, unit, e2e
+
+### e2e集成测试
+
+protractor
 		
 			
 
