@@ -8,7 +8,7 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 #INPROGRESS
 ---
 
-##learn mongodb
+## learn mongodb
 > 学习mongodb基本操作，整理出mongodb的学习笔记
 
 
@@ -16,23 +16,29 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 > 学习angular，总结其知识点，动手完成项目：simple blog
 
+## 搭建自己的个人博客
+
+> 技术选型: nexo?
+
+## 文档构建工具
+
+> toc? sphinx-doc?
+
+##learn node: simple IM
+> 参考网上教程，使用node + socketio开发一个简易的WebIM
 
 
+##learn java: simple blog
+> 使用java开发一个简易的blog系统
+
+
+##learn java: simple IM
+> 使用java开发一个简易的WebIM
 
 
 
 #TODO
 ----
-
-
-##learn node: simple IM
-> 参考网上教程，使用node + socketio开发一个简易的WebIM
-
-##learn java: simple IM
-> 使用java开发一个简易的WebIM
-
-##learn java: simple blog
-> 使用java开发一个简易的blog系统
 
 ## 使用spring开发web项目
 
@@ -42,17 +48,21 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ## python-django
 
-##learn swift: simple calculator
+## learn swift: simple calculator
 > 参考standford的ios教程，使用swift语言开发一个计算器app
 
 ## kafka消息队列
 > 学习kafka消息队列，总结其使用场景，动手编写例子，总结kafka使用要点。对比各种消息队列的异同
 
-##learn hadoop
+## learn hadoop
 
-##learn spark
+## learn spark
 
 ## spark源码阅读
+
+## 学习js
+
+> 学习js基础，记录文档
 
 
 #DONE
