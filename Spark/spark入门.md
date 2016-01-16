@@ -342,7 +342,40 @@ Executor中60%做cache，40%做task
 	
 ## spark编程模型
 
-	
+### spark运行架构
+
+* job： 包含多个task组成的并行计算，往往由Spark action催生
+* stage：job的调度单位，对应于taskset
+* taskset：一组关联的，相互之间没有shuffle依赖关系的人去组成的任务集
+* task：被送到某个executor上的工作单元
+
+运行图
+![运行图](http://image17-c.poco.cn/mypoco/myphoto/20160116/10/1734971822016011610513903_640.jpg?2048x869_120)
+
+简易运行图
+![运行图1](http://image17-c.poco.cn/mypoco/myphoto/20160116/10/17349718220160116105218084_640.jpg?1186x650_130)
+
+复杂运行图
+![运行图2](http://image17-c.poco.cn/mypoco/myphoto/20160116/11/17349718220160116111752043.png?1524x854_130)
+
+复杂运行图
+![运行图3](http://image17-c.poco.cn/mypoco/myphoto/20160116/11/1734971822016011611104206_640.jpg?2048x1042_120)
+
+深入运行图
+![运行图4](http://image17-c.poco.cn/mypoco/myphoto/20160116/11/17349718220160116111118071_640.jpg?2048x934_120)
+
+更深入
+![运行图5](http://image17-c.poco.cn/mypoco/myphoto/20160116/11/17349718220160116111221039_640.jpg?2048x915_130)
+
+wordcount例子解析
+![spark workcount](http://image17-c.poco.cn/mypoco/myphoto/20160116/11/1734971822016011611130904_640.jpg?2048x1759_120)
+
+
+## SparkSQL原理
+
+### hive
+
+* ETL（extration-transformation-loading）工具
 	
 	
 	
