@@ -377,6 +377,35 @@ wordcount例子解析
 
 * ETL（extration-transformation-loading）工具
 	
+![hive-架构图](http://image17-c.poco.cn/mypoco/myphoto/20160116/11/17349718220160116115302051_640.jpg?1856x990_130)	
+
+#### 元数据存储（metastore）
+* derby
+* mysql
+
+#### 驱动
+
+* 编译器（hive核心）
+
+	* 语义解析器（parsedriver）
+	* 语法分析器（semanticanalyzer）
+	* 逻辑计划生成器（logical plan generator）
+	* 查询计划生成器（query plan generator）
+* 优化器
+* 执行器
+
+#### 接口
+
+* CLI：命令行接口：bin/hive
+* hwi: web接口， bin/hive --service hwi 默认端口9999
+* thriftserver： bin/hive --service hiveserver 默认端口10000
+
+* 其他服务：metastore，hiveserver2
+
+
+
+
+
 	
 	
 
