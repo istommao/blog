@@ -12,10 +12,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > 学习mongodb基本操作，整理出mongodb的学习笔记
 
 
-## thrift使用
-
-> 学习thrift的erlang和python使用，做两个demo尝试下，总结要点和使用关键步骤，分析场景. 使用node+thrift+python完成sup命令的结果显示和操作。
-
 ## learning angular
 
 > 学习angular，总结其知识点，动手完成项目：simple blog
@@ -73,13 +69,24 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 [akka随笔](https://github.com/zhuwei05/blog/blob/master/scala/akka%E9%9A%8F%E7%AC%94.md)
 
+`2016.01.03 zhuwei05`
+
 ##learn node: simple blog
 > 参考网上教程，使用node + extjs + mongodb开发一个简易的blog
 > <https://github.com/zhuwei05/node-blog>
 
+`2016.01.10 zhuwei05`
+
 ## js语言精粹
 
-> 看完JavaScript语言精粹这本书
+> 看完JavaScript语言精粹这本书 
+
+`2016.01.10 zhuwei05`
 
 
+## thrift使用
+
+> 学习thrift的erlang和python使用，做两个demo尝试下，总结要点和使用关键步骤，分析场景. 使用node+thrift+python完成sup命令的结果显示和操作。 
+
+`2016.01.17 zhuwei05`
 
