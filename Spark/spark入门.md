@@ -231,6 +231,13 @@ Executor中60%做cache，40%做task
 	
 ## RDD
 
+特性
+
+* 分区
+* 依赖
+* 函数
+* 分区策略（K，V类型的RDD）
+* 本地性策略
 
 ## spark-shell调试程序
 
@@ -333,6 +340,8 @@ Executor中60%做cache，40%做task
 	
 	
 	
+## spark编程模型
+
 	
 	
 	
