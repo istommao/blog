@@ -11,6 +11,9 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## learn mongodb
 > 学习mongodb基本操作，整理出mongodb的学习笔记
 
+> <https://github.com/zhuwei05/blog/blob/master/mongoDB/mongodb%E9%80%9F%E8%A7%88.md>
+
+
 
 ## learning angular
 
