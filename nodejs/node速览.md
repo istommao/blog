@@ -122,6 +122,8 @@ require只加载
 	
 	npm unpublish
 	
+[npm playbook](https://linbojin.github.io/2016/01/17/NPM-Playbook/)	
+	
 ##全局对象和全局变量
 
 ###全局对象
