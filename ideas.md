@@ -35,7 +35,8 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ##learn java: simple IM
 > 使用java开发一个简易的WebIM
 
-
+## 学习koa
+> 学习koa，比较其和express用什么不同，并用其实现simple blog
 
 #TODO
 ----
@@ -97,6 +98,10 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## thrift使用
 
 > 学习thrift的erlang和python使用，做两个demo尝试下，总结要点和使用关键步骤，分析场景. 使用node+thrift+python完成sup命令的结果显示和操作。 
+> 
+> <https://github.com/zhuwei05/thrift>
+> 
+> <https://github.com/zhuwei05/thrift-demo>
 
 `2016.01.17 zhuwei05`
 
