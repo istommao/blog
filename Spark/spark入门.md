@@ -402,6 +402,14 @@ wordcount例子解析
 
 * 其他服务：metastore，hiveserver2
 
+## hive安装
+
+[hive安装](https://github.com/zhuwei05/blog/blob/master/Spark/hive%E5%AE%89%E8%A3%85.md)
+
+
+
+
+
 
 
 
