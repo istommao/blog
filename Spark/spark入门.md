@@ -407,6 +407,39 @@ wordcount例子解析
 [hive安装](https://github.com/zhuwei05/blog/blob/master/Spark/hive%E5%AE%89%E8%A3%85.md)
 
 
+## spark stream
+
+### 常用流处理系统
+* storm
+* trlent
+* s4
+* spark stream
+
+### storm
+* nimbus：负责资源分配和任务调度
+* supervisor：负责接收nimbus分配的任务，启动和停止属于自己管理的workers
+* worker：运行具体处理组件逻辑的进程
+* executor：运行spout/bolt的线程
+* task：worker中每一个spout/bolt的线程称为一个task
+
+* topology：storm中运行的实时应用程序，消息在各个组件中流动形成逻辑上的拓扑结构
+* spout：在一个topology中产生源数据流的组件
+* bolt：在一个topology中接受数据然后执行处理的组件。
+
+* tuple：消息传递的基本单元
+* stream：源源不断传递的tuple组成了steam
+* stream grouping：即消息的partition方法。storm提供多种group的方法：shuffle，fields hash，All，global，none，direct，localOrShuffle
+
+* 多语言编程：clojure，java，ruby，python。如果要增加其他语言，只需实现一个简单的storm通信协议
+* 容错性
+* 水平扩展
+* 快速
+* 系统可靠性
+
+
+
+
+
 
 
 
