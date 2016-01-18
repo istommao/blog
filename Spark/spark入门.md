@@ -436,6 +436,73 @@ wordcount例子解析
 * 快速
 * 系统可靠性
 
+### spark steaming原理
+
+![spark-stream运行图](http://image17-c.poco.cn/mypoco/myphoto/20160118/07/17349718220160118075746026_640.jpg?1794x922_130)
+
+#### 编程模型DStream
+* discretized stream
+* 表示为数据流，实现为RDD序列
+* 从流输入源创建，从现有DStreams通过transformation转换而来
+
+#### 输入源
+kafka、flume、zeromq、mqtt、自定义数据源
+
+#### output
+* print
+* foreachRDD(func)
+* saveAsObjectFiles(prefix, [suffix])
+* saveAsTextFiles(prefix, [suffix])
+* saveAsHadoopFile(prefix, [suffix])
+
+#### transformation
+* map
+* flatMap
+* filter
+* ......
+* transform(func)
+* updateStateByKey(fuc)
+* window
+* ......
+
+### 持久化和容错
+
+持久化：
+
+* persist
+* 默认持久化：MEMORY_ONLY_SER
+* 对于来自网络数据源：MEMORY_AND_DISK_SER_2
+* 对于window和stateful默认持久化
+
+checkpoint
+
+* 对于window和stateful操作必须checkpoint
+* 通过streamingContext的checkpoint指定目录
+* 通过DStream的checkpoint指定间隔事件
+* 间隔必须是slide interval的倍数
+
+DStream基于RDD组成，RDD容错性依旧有效
+
+### 优化
+
+* 利用集群资源，减少处理每个批次的数据时间
+
+	* 控制reduce数据
+	* 序列化：输入数据、RDD、Task序列化
+	* 在standalone和coarse-grained模式下的任务启动要比fine-grained省时
+
+* 给每个批次的数据量设定一个合适的大小：原则：要来得及笑话流进入系统的数据
+* 内存调优
+	* 清理缓存的RDD
+
+
+
+
+
+
+
+
+
 
 
 
