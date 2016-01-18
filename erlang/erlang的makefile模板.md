@@ -59,3 +59,7 @@
 	
 	eunit: compile-test
 		erl -noshell $(PA) -pa test -eval "case eunit:test([$(TEST_MODULES),$(MODULES),$(CF_MODULES)], [verbose]) of 'ok' -> init:stop(); _ -> init:stop(1) end."
+		
+## 参考
+
+* [2600hz kazoo](https://github.com/2600hz/kazoo)		
