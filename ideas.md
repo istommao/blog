@@ -19,7 +19,8 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 > 学习angular，总结其知识点，动手完成项目：simple blog
 
-
+## html-css-js-dom-bom-angular-react
+> 解释html、css、js、dom、bom的关系。同时提取出一些必须知道的知识点和api接口。比如document, elem.innerHTML
 
 ## 文档构建工具
 
@@ -109,7 +110,9 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## 搭建自己的个人博客
 
 > 技术选型: hexo
+> 
 > <http://zhuwei05.github.io/>
+> 
 > <https://github.com/zhuwei05/blog/blob/master/git/hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2.md>
 
 
