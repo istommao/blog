@@ -163,7 +163,44 @@ koa-generator支持koa1.x和2.x，安装后，可以分别使用koa和koa2分别
 
 koa-generator使用的是[koa-views](https://github.com/queckezz/koa-views)，支持所有[consolidate.js](https://github.com/tj/consolidate.js#supported-template-engines)支持模板引擎
 
+
+### 路由
+
+#### Koa 1.x
+
+koa-router写的路由都可以加载的，加载方式和express里一样	
+	var router = require('koa-router')();
 	
+	router.get('/', function *(next) {
+	  this.body = 'this /1!';
+	});
+	
+	// url = /2
+	router.get('2', function *(next) {
+	  this.body = 'this /2!';
+	});
+	
+	// url = //2
+	router.get('/2', function *(next) {
+	  this.body = 'this /2!';
+	});
+	
+	module.exports = router;
+	
+#### Koa 2.x
+由于Koa 2.x支持async，故写法稍有差异
+
+	var router = require('koa-router')();
+	
+	router.get('/', async function (ctx, next) {
+	  await ctx.render('index', {
+	    title: 'Hello World Koa!'
+	  });
+	});
+	module.exports = router;
+
+	
+
 
 ## 参考
 
