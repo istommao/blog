@@ -34,6 +34,56 @@ JSX（JavaScrip XML）：一种在react组件内部构建标签的类XML语法�
 	
 ## helloworld
 
-## 组件嵌套			
+## 组件
+### 组件嵌套			
 
-## 组件的状态	
+### 组件的状态	
+
+### 组件参数props
+
+## 事件events
+
+## 指向ref
+
+## 双向数据流
+
+
+## 组件生命周期
+
+* componentWillMount
+* componentWillUpdate
+* 
+
+## mixins
+
+## 投票小项目
+
+### 环境配置
+
+	mkdir reactQa
+	cd reactQa
+	npm init
+	
+	npm install react --save
+	npm install -g gulp
+
+开发工具：
+
+	npm install --save-dev gulp gulp-browserify gulp-concat gulp-react gulp-connect lodash reactify
+	
+前端：
+
+	bower init
+	bower install bootstrap --save
+	
+创建app和dist目录
+
+	reactQa/app, react/dist
+	
+创建gulpfile.js
+
+					
+	
+ 
+
+
