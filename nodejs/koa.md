@@ -78,6 +78,8 @@ context 在每个 request 请求中被创建，在中间件中作为接收器(re
 
 Koa Request 对象是对 node 的 request 进一步抽象和封装，提供了日常 HTTP 服务器开发中一些有用的功能。
 
+
+
 	
 #### 参考
 <http://koa.bootcss.com/#request>
@@ -166,6 +168,12 @@ koa-generator使用的是[koa-views](https://github.com/queckezz/koa-views)，�
 
 ### 路由
 
+关于路由
+
+* express是自带路由
+* koa没有，所以，需要另外集成，koa-generator使用的是目前比较流行的koa-router（我喜欢它的是Express-style）
+<https://github.com/alexmingoia/koa-router>
+
 #### Koa 1.x
 
 koa-router写的路由都可以加载的，加载方式和express里一样	
@@ -199,8 +207,102 @@ koa-router写的路由都可以加载的，加载方式和express里一样
 	});
 	module.exports = router;
 
-	
+## HTTP
 
+### GET
+
+#### 如何获取query参数
+
+和express里获取query的方法是一样的，req.query。而koa里是
+
+* this.request.query
+* this.query
+	
+#### 如何获取params
+
+express里经典用法
+
+	app.get('/user/:id', function (req, res, next) {
+	  console.log('although this matches');
+	  next();
+	});
+	
+在koa
+
+	var router = require('koa-router')();
+	
+	router.get('/:id', function *(next) {
+	  console.log(this.params);
+	  console.log(this.request.params);
+	  this.body = 'this a users response!';
+	});
+	
+	module.exports = router;
+		
+`this.params`是可以取到params的，这点和express路由用法类似，但是注意的是
+
+	this.request.params != this.params
+
+这说明params不是request上的方法。		
+	
+### post
+
+#### 从post获取参数：req.body
+
+* Query参数：同Get里如何获取query参数
+* Params参数：同Get里如何获取params参数
+
+#### 标准表单 Post with x-www-form-urlencoded：req.body
+
+	router.post('/post', function(req, res) {
+	  // res.send('respond with a resource');
+	    res.json(req.body);
+	});
+	
+#### 文件上传 Post with form-data：req.body
+主要目的是为了上传
+
+koa-v1 要是用 koa-multer-v0.0.2 对应的 multer < 1，所以本处需要指定版本安装。使用：
+
+	var app = require('koa')()
+	  , koa = require('koa-router')()
+	  , logger = require('koa-logger')
+	  , json = require('koa-json')
+	  , views = require('koa-views')
+	  , onerror = require('koa-onerror');
+	
+	
+	var multer = require('koa-multer');
+	
+	app.use(multer({ dest: './uploads/'}));	
+
+获取参数：
+
+	router.post('/post/formdata', function *(next) {
+	  console.dir(this.req.body)
+	  console.dir(this.req.files)
+	
+	  this.body = 'this a users response!';
+	});	
+
+#### Post with raw： req.text
+
+	app.use(function(req, res, next){
+	  if (req.is('text/*')) {
+	    req.text = '';
+	    req.setEncoding('utf8');
+	    req.on('data', function(chunk){ req.text += chunk });
+	    req.on('end', next);
+	  } else {
+	    next();
+	  }
+	});
+	
+## DB
+
+### MySQL
+
+	
 
 ## 参考
 
