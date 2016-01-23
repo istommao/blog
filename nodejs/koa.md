@@ -27,6 +27,15 @@ koa 是由 Express 原班人马打造的，致力于成为一个更小、更富�
 	func.next();//return { value: 'Hello', done: false }
 	func.next();//return { value: 'World!', done: true }
 	func.next();//return { value: '', done: true }
+
+简单地总结一下：
+
+* 生成器通过yield设置了一些类似”断点“的东西，使得函数执行到yield的时候会被阻断；
+* 生成器要通过next()指令一步一步地往下执行（两个yield之间为一步）；
+* yield 语句后面带着的表达式或函数，将在阻断之前执行完毕；
+* yield 语句下面的代码，将不可能在阻断之前被执行；
+
+yield是将**异步非阻塞**代码，变成 **异步阻塞代码**。	
 	
 ### arrow functions
 
