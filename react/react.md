@@ -60,8 +60,8 @@ JSX（JavaScrip XML）：一种在react组件内部构建标签的类XML语法�
 
 ### 环境配置
 
-	mkdir reactQa
-	cd reactQa
+	mkdir react-qa
+	cd react-qa
 	npm init
 	
 	npm install react --save
@@ -78,9 +78,48 @@ JSX（JavaScrip XML）：一种在react组件内部构建标签的类XML语法�
 	
 创建app和dist目录
 
-	reactQa/app, react/dist
+	react-qa/app, react-qa/dist
 	
 创建gulpfile.js
+
+
+
+### 创建react的components
+
+创建组件QuestionApp,
+
+在app/js/main.js：
+
+	var React = require('react');
+	var QuestionApp = require('./components/QuestionApp.js');
+	
+	var mainCom = React.render(
+	    <QuestionApp />,
+	    document.getElementById('app')
+	)
+
+app/js/components/QuestionApp.js
+
+* 首先将index.html中所有的静态设置拷贝到QuestionApp.js中，创建组件：
+
+		var React = require('react');
+	
+		module.exports = React.createClass({
+		    render: function() {
+		        return (
+		          // html代码
+		        )
+		    }
+		})
+
+
+
+## 源码
+[react-qa](https://github.com/zhuwei05/react-demo/tree/master/react-qa)
+
+## 参考
+
+* [react视频教程](http://eisneim.github.io/articles/2015-4-9-react-js-video-tutorial-in-chinese.html)
 
 					
 	
