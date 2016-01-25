@@ -101,6 +101,18 @@ P.S.
 	
 就可以成功将文章发布了。	
 
+## 命令
+复合命令
+
+	hexo deploy -g  #生成加部署
+	hexo server -g  #生成加预览
+命令的简写为：
+
+	hexo n == hexo new
+	hexo g == hexo generate
+	hexo s == hexo server
+	hexo d == hexo deploy
+
 
 ## 参考
 

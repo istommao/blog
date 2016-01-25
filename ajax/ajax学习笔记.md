@@ -1,6 +1,13 @@
-#AJAX学习笔记
+title: ajax学习笔记
+date: 2016-01-25 15:16:06
+tags: 
+- ajax
 
-#简介
+----
+
+# AJAX学习笔记
+
+# 简介
 AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。
 
 AJAX 不是新的编程语言，而是一种使用现有标准的新方法。
@@ -14,7 +21,7 @@ AJAX 是一种用于创建快速动态网页的技术。
 通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
 
 
-##AJAX是基于现有的Internet标准
+## AJAX是基于现有的Internet标准
 AJAX是基于现有的Internet标准，并且联合使用它们：
 
 * XMLHttpRequest 对象 (异步的与服务器交换数据)
@@ -22,16 +29,16 @@ AJAX是基于现有的Internet标准，并且联合使用它们：
 * CSS (给数据定义样式)
 * XML (作为转换数据的格式)
 
-#AJAX - 创建 XMLHttpRequest 对象
+# AJAX - 创建 XMLHttpRequest 对象
 
 *XMLHttpRequest 是 AJAX 的基础。*
 
-##XMLHttpRequest 对象
+## XMLHttpRequest 对象
 所有现代浏览器均支持 XMLHttpRequest 对象（IE5 和 IE6 使用 ActiveXObject）。
 
 XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
 
-###创建 XMLHttpRequest 对象
+### 创建 XMLHttpRequest 对象
 所有现代浏览器（IE7+、Firefox、Chrome、Safari 以及 Opera）均内建 XMLHttpRequest 对象。
 
 **创建 XMLHttpRequest 对象的语法：**
@@ -54,7 +61,7 @@ XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在�
   	}
   	
   	
-##AJAX - 向服务器发送请求请求
+## AJAX - 向服务器发送请求请求
 
 *XMLHttpRequest 对象用于和服务器交换数据。*
 
@@ -66,7 +73,9 @@ XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在�
 
 两个函数的说明：
 <table class="reference"> <tbody><tr> <th style="width:40%;">方法</th> <th>描述</th> </tr> <tr> <td>open(<i>method</i>,<i>url</i>,<i>async</i>)</td> <td> <p>规定请求的类型、URL 以及是否异步处理请求。</p> <ul class="listintable"> <li><i>method</i>：请求的类型；GET 或 POST</li> <li><i>url</i>：文件在服务器上的位置</li> <li><i>async</i>：true（异步）或 false（同步）</li> </ul> </td> </tr> <tr> <td>send(<i>string</i>)</td> <td> <p>将请求发送到服务器。</p> <ul class="listintable"> <li><i>string</i>：仅用于 POST 请求</li> </ul> </td> </tr> </tbody></table>  	
-###GET 还是 POST？
+
+
+### GET 还是 POST？
 与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。
 
 然而，在以下情况中，请使用 POST 请求：
@@ -78,7 +87,7 @@ XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在�
 如果需要像 HTML 表单那样 POST 数据，请使用 *setRequestHeader() *来添加 HTTP 头。然后在 send() 方法中规定您希望发送的数据。
 
 
-###Async=true
+### Async=true
 当使用 async=true 时，请规定在响应处于 onreadystatechange 事件中的就绪状态时执行的函数。
 	
 	xmlhttp.onreadystatechange=function()
@@ -91,18 +100,18 @@ XMLHttpRequest 用于在后台与服务器交换数据。这意味着可以在�
 	xmlhttp.open("GET","ajax_info.txt",true);
 	xmlhttp.send();
 
-##AJAX - 服务器 响应
+## AJAX - 服务器 响应
 
 如需获得来自服务器的响应，请使用 XMLHttpRequest 对象的 responseText 或 responseXML 属性。
 
-###responseText 属性
+### responseText 属性
 如果来自服务器的响应并非 XML，请使用 responseText 属性。
 
 responseText 属性返回字符串形式的响应，因此您可以这样使用：
 
 	document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
 	
-###responseXML 属性
+### responseXML 属性
 如果来自服务器的响应是 XML，而且需要作为 XML 对象进行解析，请使用 responseXML 属性：
 
 	xmlDoc=xmlhttp.responseXML;
@@ -113,10 +122,10 @@ responseText 属性返回字符串形式的响应，因此您可以这样使用�
   		txt=txt + x[i].childNodes[0].nodeValue + "<br>";
   	}
 	document.getElementById("myDiv").innerHTML=txt;		
-##AJAX - onreadystatechange 事件
+## AJAX - onreadystatechange 事件
 当请求被发送到服务器时，我们需要执行一些基于响应的任务。
 
-###onreadystatechange 事件
+### onreadystatechange 事件
 每当 readyState 改变时，就会触发 onreadystatechange 事件。
 
 readyState 属性存有 XMLHttpRequest 的状态信息。
@@ -137,7 +146,7 @@ readyState 属性存有 XMLHttpRequest 的状态信息。
     	}
   	}
 
-###使用回调函数
+### 使用回调函数
 回调函数是一种以参数形式传递给另一个函数的函数。
 
 如果您的网站上存在多个 AJAX 任务，那么您应该为创建 XMLHttpRequest 对象编写一个标准的函数，并为每个 AJAX 任务调用该函数。
