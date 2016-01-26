@@ -1,6 +1,6 @@
-#scala入门
+# scala入门
 
-##表达式和值
+## 表达式和值
 
 scala中几乎所有东西都是表达式：
 
@@ -11,7 +11,7 @@ scala中几乎所有东西都是表达式：
 	
 	var helloWorld = "hello" + " world"	val again = " again"
 	helloWorld = helloWorld + again	
-##函数
+## 函数
 
 使用`def`创建，函数体是表达式，并且使用`=`相连，总是返回最后一行的表达式的值，所以不需要返回值。
 
@@ -24,7 +24,7 @@ scala中几乎所有东西都是表达式：
 
 	val squareVal = (a: Int) => a * a
 	def addOne(f: Int => Int, arg: Int) = f(arg) + 1	
-##Call by name
+## Call by name
 
 在参数的类型声明时将`:` 变为 `: =>`
 
@@ -36,7 +36,7 @@ Call-by-name can reduce the useless calculation and exception.
 	
 	call-by-name: def log(msg: => String)
 	
-##定义类
+## 定义类
 
 关键字`class`定义类，`new`关键字创建类的实例。
 
@@ -64,7 +64,7 @@ Call-by-name can reduce the useless calculation and exception.
 * firstName和lastName构造参数	
 * 使用obama.age=51看起来像访问一个变量。
 
-##currying
+## currying
 
 普通函数
 
@@ -79,14 +79,14 @@ currying
 	syntactic sugar	：
 		def add(x:Int)(y:Int) = x + y
 	
-##generic
+## generic
 
 
-##traits
+## traits
 
 traits就好像java中的interfaces，但其支持函数块。一个class可以扩展多个traits，通过关键字`with`
 
-##pattern matching
+## pattern matching
 
 和erlang中的模式匹配类似。
 
@@ -102,7 +102,7 @@ traits就好像java中的interfaces，但其支持函数块。一个class可以�
 	println(fibonacci(-3))
 	println(fibonacci("3"))
 
-##case class
+## case class
 
 Case classes are used to conveniently store and match on the contents of a class。
 
@@ -127,12 +127,12 @@ Case classes are used to conveniently store and match on the contents of a class
 	println(value(FibonacciExpr(3)))
 
 
-##函数作为参数
+## 函数作为参数
 
 	list.exists((x: Int) => x % 2 ==1)
 	list.exists(_ % 2 == 1)
 
-##word count
+## word count
 
 Word Count is a classic use case for Map Reduce. Map Reduce with functional programming is an intuitive solution to the Word Count problem.
 
@@ -147,7 +147,7 @@ The example shows two important functions 'map' and 'reduceLeft' in List。
 	
 	println("wordcount:" + num)
 	
-##尾递归
+## 尾递归
 
 列表匹配可以使用双冒号`::`，和erlang中的列表操作类似。比如
 
@@ -168,7 +168,7 @@ The example shows two important functions 'map' and 'reduceLeft' in List。
 	println("wordcount:" + num)
 	
 	
-##yield
+## yield
 
 for-loop结合yield，yield产生的结果被追加到一个列表里，作为结果返回。
 
@@ -186,7 +186,7 @@ for-loop结合yield，yield产生的结果被追加到一个列表里，作为�
 	println("wordcount:" + num)	
 	
 	
-##option
+## option
 
 与swift中的option类似。
 
@@ -211,13 +211,13 @@ Another important thing is that Option contains lots of functions in List, so it
 	
 	osName.foreach(print _)	
 	
-##lazy initialization
+## lazy initialization
 
 关键字`lazy`,常常用在那些需要花费很多资源的变量。
 
 	lazy val source = {...}
 	
-##using actor
+## using actor
 
 actors是scala的并发模型。scala现在使用akka作为actor。
 
@@ -244,7 +244,7 @@ An Actor is a like a thread instance with a mailbox. It can be created with `sys
 	
 	system.shutdown
 	
-###simple actor
+### simple actor
 
 在akka.actor.ActorDSL中有actor函数接受一个actor作为参数，并返回一个启动的actor。
 
@@ -261,17 +261,17 @@ An Actor is a like a thread instance with a mailbox. It can be created with `sys
 	echoServer ! "hi"
 	system.shutdown
 	
-###actor实现
+### actor实现
 
 actor比线程轻量的多，这是因为Actor can reuse a thread.
 
 两者之间的映射关系取决于Dispatcher。一个actor可能使用多个thread，一个thread可能被多个actor使用。
 
-###synchronized return
+### synchronized return
 
 `sender !`
 
-###asynchonous return 
+### asynchonous return 
 
 A Future in Scala is very powerful, it can execute asynchronously.
 
@@ -300,7 +300,7 @@ It can also set a TIMEOUT when specified.
 	  case msg => println(msg); system.shutdown
 	}
 	
-###remote actor
+### remote actor
 
 	import akka.actor.{ Actor, ActorSystem, Props }
 	import com.typesafe.config.ConfigFactory
@@ -324,7 +324,7 @@ It can also set a TIMEOUT when specified.
 	
 	
 	
-##Parallel Collection
+## Parallel Collection
 
 It's exciting to combine functional and concurrent programming!
 
@@ -341,13 +341,13 @@ It's exciting to combine functional and concurrent programming!
 
 
 
-##实践
+## 实践
 
-###scala和java
+### scala和java
 
-###extractor	
+### extractor	
 
-##scala学习（IBM）
+## scala学习（IBM）
 
 
 函数语言中的公共主题：创建一个只做一件事情的高级抽象函数，让它接受一个代码块（匿名函数）作为参数，并从这个高级函数中调用这个代码块。
