@@ -8,12 +8,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 #INPROGRESS
 ---
 
-## learn mongodb
-> 学习mongodb基本操作，整理出mongodb的学习笔记
-
-> <https://github.com/zhuwei05/blog/blob/master/mongoDB/mongodb%E9%80%9F%E8%A7%88.md>
-
-
 
 ## learning angular
 
@@ -39,6 +33,8 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ## 学习koa
 > 学习koa，比较其和express用什么不同，并用其实现simple blog
+
+
 
 #TODO
 ----
@@ -117,3 +113,23 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 
 `2016.01.17 zhuwei05`
+
+## learn mongodb
+> 学习mongodb基本操作，整理出mongodb的学习笔记
+
+> <https://github.com/zhuwei05/blog/blob/master/mongoDB/mongodb%E9%80%9F%E8%A7%88.md>
+
+`2016.01.24 zhuwei05`
+
+## 学习react
+
+> 看react视频，动手实现视频中的实例：react-qa
+
+> <https://github.com/zhuwei05/blog/blob/master/react/votecount%E5%B0%8F%E9%A1%B9%E7%9B%AE.md>
+
+> <https://github.com/zhuwei05/react-demo/tree/master/react-qa>
+
+`2016.01.24 zhuwei05`
+
+
+
