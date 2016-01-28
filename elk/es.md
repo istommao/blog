@@ -346,5 +346,6 @@ Elasticsearch致力于隐藏分布式系统的复杂性。以下这些操作都�
 	
 
 ## 参考
-* [es权威指南中文翻译](http://es.xiaoleilu.com/)
+
+* [Elasticsearch权威指南（中文版）](https://www.gitbook.com/book/looly/elasticsearch-the-definitive-guide-cn/details)
 
