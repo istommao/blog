@@ -176,6 +176,8 @@ Elasticsearch集群可以包含多个**索引(indices)**（数据库），每一
 
 DSL(Domain Specific Language特定领域语言)以JSON请求体的形式出现。
 
+使用结构化查询，你需要传递**query**参数
+
 e.g: 请求体使用JSON表示，其中使用了**match语句**:
 
 	GET /megacorp/employee/_search
@@ -186,6 +188,56 @@ e.g: 请求体使用JSON表示，其中使用了**match语句**:
 	        }
 	    }
 	}	
+	
+#### 查询子句
+
+查询子句一般使用这种结构
+
+	{
+	    QUERY_NAME: {
+	        ARGUMENT: VALUE,
+	        ARGUMENT: VALUE,...
+	    }
+	}
+
+或指向一个指定的字段：
+
+	{
+	    QUERY_NAME: {
+	        FIELD_NAME: {
+	            ARGUMENT: VALUE,
+	            ARGUMENT: VALUE,...
+	        }
+	    }
+	}
+	
+*e.g.*
+
+	GET /_search
+	{
+	    "query": {
+	        "match": {
+	            "tweet": "elasticsearch"
+	        }
+	    }
+	}	
+	
+#### 合并多子句
+
+查询子句就像是搭积木一样，可以合并简单的子句为一个复杂的查询语句，比如：
+
+* 叶子子句(leaf clauses)(比如match子句)用以在将查询字符串与一个字段(或多字段)进行比较
+* 复合子句(compound)用以合并其他的子句。例如，`bool`子句允许你合并其他的合法子句，`must`，`must_not`或者`should`
+
+		{
+		    "bool": {
+		        "must":     { "match": { "tweet": "elasticsearch" }},
+		        "must_not": { "match": { "name":  "mary" }},
+		        "should":   { "match": { "tweet": "full text" }}
+		    }
+		} 
+	
+复合子句能合并 任意其他查询子句，包括其他的复合子句。 这就意味着复合子句可以相互嵌套，从而实现非常复杂的逻辑。	
 	
 ### 更复杂的搜索
 
