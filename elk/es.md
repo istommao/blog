@@ -31,6 +31,16 @@ Elasticsearch也使用Java开发并使用Lucene作为其核心来实现所有索
 
 ### 安装es
 
+下载[es](https://www.elastic.co/downloads/elasticsearch)
+
+
+可下载源码，然后解压后得到源码，设置软连接，比如：
+
+	ln -s /root/es/elasticsearch-2.1.1 /usr/local/elasticsearch
+
+#### 测试
+
+	
 	
 ### 安装Marvel（非必须）
 
