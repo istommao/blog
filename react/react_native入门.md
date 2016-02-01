@@ -25,7 +25,18 @@ tags:
 
 		react-native init AwesomeProject
 		
-			
+		├── android
+		├── index.android.js
+		├── index.ios.js
+		├── ios
+		├── node_modules
+		└── package.json			
+		
+* 执行
+
+		react-native run-ios
+		react-native run-android	
+	
 		
 	
 
