@@ -1,4 +1,13 @@
-#AngularJS入门
+title: angular入门
+date: 2016-01-31 22:47:22
+tags:
+- angular
+- js
+
+----
+
+
+# AngularJS入门
 
 四大核心特性：
 
@@ -10,9 +19,9 @@
 ng-app
 ng-controller
 
-[模块]()
+[模块](https://github.com/zhuwei05)
 
-[双向数据绑定]()
+[双向数据绑定](https://github.com/zhuwei05)
 
 ##前端自动化工具
 
@@ -87,7 +96,7 @@ karma.config.js:配置文件
 
 专为angularjs的测试工具
 
-[完整目录结构实例]()
+[完整目录结构实例](https://github.com/zhuwei05)
 
 ## 基本概念和用法
 -----
@@ -101,7 +110,7 @@ ng-controller
 
 控制器通用的部分：通过service实现，不要通过继承
 
-[controller注意点]()
+[controller注意点](https://github.com/zhuwei05)
 
 
 ### models
