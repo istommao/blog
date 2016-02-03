@@ -68,11 +68,11 @@ Activity具体生命周期：
 
 * layout_margin
 
-![layout_margin]()
+![layout_margin](http://image17-c.poco.cn/mypoco/myphoto/20160203/19/17349718220160203195040037_640.jpg?1620x980_130)
 
 * layout_padding
 
-![layout_padding]()
+![layout_padding](http://image17-c.poco.cn/mypoco/myphoto/20160203/19/17349718220160203195105068_640.jpg?1554x826_130)
 
 * gravity: 用于设置View组件对齐的方式
 
