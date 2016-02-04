@@ -146,7 +146,18 @@ android:layout_weight权重：控件占用的空间
 	
 	
 
+### 框架布局FrameLayout
 
+层叠式。第一个添加到布局中的视图在最底层，最后一个添加的布局在最上面。
+
+属性
+
+* top
+* buttom
+* left
+* right
+* center_vertical
+* center_horizontal
 
 
 
