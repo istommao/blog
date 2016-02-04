@@ -176,7 +176,11 @@ android:layout_weight权重：控件占用的空间
 * Stretchable：android:stretchColumns该列可拉伸
 * Collapsed：  android:collapseColumns可隐藏
 
+## HTTP协议介绍
 
+![请求体](http://image17-c.poco.cn/mypoco/myphoto/20160204/10/17349718220160204100303058_640.jpg?1522x948_130)
+
+![响应体](http://image17-c.poco.cn/mypoco/myphoto/20160204/10/17349718220160204100459027_640.jpg?1504x960_130)
 
 
 
