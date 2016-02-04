@@ -153,13 +153,20 @@ android:layout_weight权重：控件占用的空间
 属性
 
 * top
-* buttom
+* bottom
 * left
 * right
 * center_vertical
 * center_horizontal
 
+### 相对布局
 
+设置视图相对某个视图的位置。
+
+* android:layout_below
+* android:layout_above
+* android:layout_toLeftOf
+* android:layout_toRightOf
 
 
 
