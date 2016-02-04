@@ -168,6 +168,18 @@ android:layout_weight权重：控件占用的空间
 * android:layout_toLeftOf
 * android:layout_toRightOf
 
+### TableLayout布局
+
+表格的布局由行列构成。
+
+* Shrinkable： android:shrinkColumns 该列可收缩
+* Stretchable：android:stretchColumns该列可拉伸
+* Collapsed：  android:collapseColumns可隐藏
+
+
+
+
+
 
 
 
