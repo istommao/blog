@@ -108,8 +108,96 @@ java:
 
 ## RDDs
 
-RDD(Resilient Distributes Data)
-		
+RDD(Resilient Distributes Data).
+
+* Spark RDD存储不可变的分布式objects的集合。每个RDD都被分片。
+* RDDs可以存储Python，Java，Sacla的任意类型的objects
+
+#### 小结
+
+每个Spark程序工作流程：
+
+* 从外部数据创建RDDs
+* 使用*transformations*将其转为新的预定义的RDDs
+* persist()需要重用的RDDs
+* 启动*actions*进行并行计算
+
+
+### RDDs的创建
+
+* 从外部数据集中导入
+
+		val lines = sc.textFile("README.md")
+
+* 使用list或者set等分布式对象集合操作进行创建
+
+		val lines = sc.parallelize(List("pandas", "i like pandas"))
+
+
+### RDD的operations
+
+RDD创建后提供两个操作：
+
+* **transformations**：根据当前的RDD构建一个新的RDD的操作，如*map(), filter()*
+* **actions**：返回driver program的结果或者将其写到存储的操作, 如*count(), first()*
+
+> spark计算RDD的方式为：**lazy fashion**
+
+#### transformations
+
+spark记录不同RDDs之间的依赖关系，称为**lineage graph**
+
+![RDD lineage graph of log analysis]()
+
+
+##### RDD.persist()
+RDD.persist(): 如果需要多次进行Action，可以将RDD进行persist到不同地方
+
+
+#### actions
+
+### spark中的传递函数	
+	
+python
+
+* lambda: 简单函数
+
+
+scala
+
+#### 基本的transformations和actions
+
+##### transformations:
+
+* filter()
+* map()
+* flatMap()
+* sample()
+* distinct()
+
+集合操作
+
+* union(other)
+* intersetion(other)
+* subtract(other)
+* cartesian(other)
+
+##### actions
+
+* reduce(func): 返回值和操作数一致
+* fold(zero)(func): 返回值和操作数一致
+* 	aggregate(zeroValue)(seqOp, combOp): 提供初始的返回值和一个函数
+* 	foreach(func)
+* 	collect()
+* 	count()
+* 	countByValue()
+* 	take(num)
+* 	top(num)
+* 	takeOrdered(num)(ordering)
+* 	takeSample(withReplacement, num, [seed])
+
+
+
 	
 
 
