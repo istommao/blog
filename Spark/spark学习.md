@@ -197,6 +197,50 @@ scala
 * 	takeSample(withReplacement, num, [seed])
 
 
+## KV pairs
+
+### 创建Pair RDDS
+
+### transformations on Pair RDDs
+
+one pair RDD({(1,2),(3,4),(3,6)})
+
+* reduceByKey(func)
+* groupByKey()
+* combineByKey(createCombiner, mergeValue, mergeCombiners, partitioner)
+* mapValues(func)
+* flatMapValues(func)
+* keys()
+* values()
+* sorteByKey()
+
+
+two pair RDDs(rdd = {(1,2),(3,4),(	3,6)} other = {(3,9)})
+
+* subtractByKey(other)
+* join(other)
+* rightOuterJoin(other)
+* leftOuterJoin(other)
+* cogroup(other)
+
+### actions on pair RDDs
+
+one pair RDD({(1,2),(3,4),(3,6)})
+
+* countByKey()
+* collectAsMap()
+* lookup(key)
+* 
+
+two pair RDDs(rdd = {(1,2),(3,4),(	3,6)} other = {(3,9)})
+
+
+### paritioners
+
+
+
+
+
 
 	
 
