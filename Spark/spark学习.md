@@ -238,6 +238,99 @@ two pair RDDs(rdd = {(1,2),(3,4),(	3,6)} other = {(3,9)})
 ### paritioners
 
 
+## loading and saving your data
+
+### 文件
+
+支持的文件格式
+
+* text files
+* json
+* csv
+* sequence files
+* protocol buffers
+* object files
+
+text files：
+
+	// 读取
+	val input = sc.textFile(path)
+	// 保存
+	result.saveAsTextFile(outputFile)
+
+json:
+
+	// 保存
+	result.filter(p => P.lovesPandas).map(mapper.writeValueAsString(_)).saveAsTextFile(outputFile)
+	
+
+csv:
+
+	// 读取with textFile
+	val input = 	sc.textFile(path)
+	val result = input.map{ line => 
+		val reader = new CSVReader(new StringReader(line));
+		reader.readNext();
+	}
+	
+	// 读取with full in
+	
+	val input = 	sc.wholeTextFile(path)
+	val result = input.flatMap{ case(_ txt) =>
+		val reader = new CSVReader(new StringReader(line));
+		reader.readAll().map(x => Person(x(0), x(1)))
+	}
+	
+	
+	// 保存
+	
+	pandaLovers.map(person => List(person.name, person.favoriteAnimal).toArray)
+	.mapPartitions{people => 
+	val stringWriter = new StringWriter();
+	val csvWriter new CSVWriter(stringWriter);
+	csvWriter.writeAll(people.toList)
+	Iterator(stringWriter.toString)
+	}.saveAsTextFile(outFile)
+
+
+sequenceFiles:
+
+
+	// loading
+	val data = sc.sequenceFile(inFile, classOf[Text], classOf[IntWritable]).
+	map{case (x, y) => (x.toString, y.get())}
+	
+	// saving
+	val data = sc.parallelize(List(("Panda", 3), ("Kay", 6), ("Snail", 2)))
+	data.saveAsSequenceFile(outputFile)
+	
+hadoop input and output formats
+
+	// loading
+	val input = sc.hadoopFile[Text, Text, KeyValueTextInputFormat](inputFile).map{
+		case(x, y) => (x.toString, y.toString)
+	}
+	
+	// saving
+	
+
+file compression
+
+
+filesystems
+
+
+spark sql操作结构化数据
+
+* apache hive
+* json
+* databases：cassandra、hbase、es
+
+
+	
+
+	
+
 
 
 
