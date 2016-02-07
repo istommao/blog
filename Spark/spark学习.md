@@ -327,9 +327,68 @@ spark sql操作结构化数据
 * databases：cassandra、hbase、es
 
 
+## 进阶
+
+共享变量
+
+* accumulators
+* broadcast variables
+
+
+### accumulators
+
+	val sc = new SparkContext()
+	val file = sc.textFile("file.txt")
+	val blankLines = sc.accumulator(0) // 创建Accumulator[Int] initialized to 0
+	
+	val callSigns = file.flatMap(line => {
+		if (line == "") {
+			blankLines += 1
+		}
+		line.split(" ")
+	})
+	
+	callSigns.saveAsTextFile("output.txt")
+	println("Blank lines")
+
+
+
+### broadcast
+
+
+*e.g.*
+	
+	// Look up the countries for each call sign for the
+	// contactCounts RDD.  We load an array of call sign
+	// prefixes to country code to support this lookup.
+	val signPrefixes = sc.broadcast(loadCallSignTable())
+	val countryContactCounts = contactCounts.map{case (sign, count) =>
+	  val country = lookupInArray(sign, signPrefixes.value)
+	  (country, count)
+	}.reduceByKey((x, y) => x + y)
+	countryContactCounts.saveAsTextFile(outputDir + "/countries.txt")	
 	
 
+### piping to external programs
+
 	
+
+### numeric RDD operations
+
+统计方法
+
+* count()
+* mean()
+* sum()
+* max()
+* min()
+* variance()
+* sampleVariance()
+* stdev()
+* sampleStdev()
+
+
+
 
 
 
