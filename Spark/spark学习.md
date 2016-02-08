@@ -388,6 +388,46 @@ spark sql操作结构化数据
 * sampleStdev()
 
 
+## spark集群
+
+* spark-submit
+* spark-submit加载driver并调用main()函数
+* driver从cluster manager中获取资源并加载executors
+* 
+
+
+![spark-cluster-concept]()
+
+### driver
+
+运行main方法，处理用户的代码：创建sc，RDDs和执行transformations和actions。
+
+### executors
+
+运行独立的spark job。
+
+### cluster manager
+
+
+### 使用spark-submit部署
+
+
+	bin/spark-submit [options] <app jar | python file> [app options]
+
+### 打包依赖
+
+### spark应用程序之间的调度
+
+通过cluster manager进行资源共享。
+
+#### cluster managers
+
+* standalone
+* hadoop yarn
+* apache mesos
+* amazon ec2
+
+
 
 
 
