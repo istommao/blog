@@ -436,7 +436,69 @@ SparkConf包含key/value的配置，使用set()进行设置。
 
 ### execution的组成：jobs/tasks/stages
 
+## spark sql
 
+### 在Applications使用Spark SQl
+
+构建HiveContext
+
+	// Import Spark SQL
+	import org.apache.spark.sql.hive.HiveContext
+	// Or if you can't have the hive dependencies
+	import org.apache.spark.sql.SQLContext
+	
+	val sc = new SparkContext(...)
+	val hiveCtx = new HiveContext(sc)
+	
+	
+### 查询例子
+
+	val input = hiveCtx.jsonFile(inputFile)
+	input.registerTempTable("tweets")
+	
+	val topTweets = hiveCtx.sql("SELECT text, retweetCount FROM tweets ORDER BY retweetCount LIMIT 10")
+	
+### SchemaRDDs
+
+SchemaRDDs类似于关系型数据库中的表。
+
+#### Row objects
+
+**Row objects**表示SchemaRDDs中的记录。在scala中，**Row objects**通过*get*方法可以通过列号获得对应的object类型的值。例如getString(0)以string类型返回field 0的值：
+
+	val topTweetText = topTweets.map(row => row.getString(0))
+	
+### caching		
+	
+	
+#### apache hive
+
+	import org.apache.spark.sql.hive.HiveContext
+	
+	val hiveCtx = new HiveContext(sc)
+	val rows = hiveCtx.sql("SELECT key, value FROM mytable")
+	val keys = rows.map(row => row.getInt(0))
+	
+#### parquet
+
+
+
+#### json
+
+	{"name": "Holden"}
+	{"name":"Sparky The Bear", "lovesPandas":true, "knows":{"friends": ["holden"]}}		
+
+	val input = hiveCtx.jsonFile(inputFile)
+
+
+
+#### from RDDs
+
+### User-Defined Functions(UDFs)
+
+#### Spark SQL UDFs
+
+#### Hive UDFs
 
 
 
