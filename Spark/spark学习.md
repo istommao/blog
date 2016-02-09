@@ -428,6 +428,13 @@ spark sql操作结构化数据
 * amazon ec2
 
 
+## spark调优和调试
+
+### sparkconf
+
+SparkConf包含key/value的配置，使用set()进行设置。
+
+### execution的组成：jobs/tasks/stages
 
 
 
