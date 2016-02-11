@@ -500,10 +500,89 @@ SchemaRDDs类似于关系型数据库中的表。
 
 #### Hive UDFs
 
+## spark steaming
 
+DStreams(Discretized steams)
 
+### transformations
 
+#### 无状态
+
+	* map()
+	* flatMap()
+	* filter()
+	* repartition()
+	* reduceByKey()
+	* groupByKey()
 	
+*e.g.*: map() and reduceByKey()		
+		
+	// Assumes ApacheAccessLog is a utility class for parsing entries from Apache logs
+	val accessLogDStream = logData.map(line => ApacheAccessLog.parseFromLogLine(line))
+	val ipDStream = accessLogsDStream.map(entry => (entry.getIpAddress(), 1))
+	val ipCountsDStream = ipDStream.reduceByKey((x, y) => x + y)
+
+##### join-related transformations
+
+* cogroup()
+* join()
+* leftOuterJoin()	
+	
+*e.g.*: join two DStreams	
+	
+	val ipBytesDStream =
+	  accessLogsDStream.map(entry => (entry.getIpAddress(), entry.getContentSize()))
+	val ipBytesSumDStream =
+	  ipBytesDStream.reduceByKey((x, y) => x + y)
+	val ipBytesRequestCountDStream =
+	  ipCountsDStream.join(ipBytesSumDStream)
+
+##### transform()
+
+DStream提供高级操作：transform()直接操作RDDs。
+
+	val outlierDStream = accessLogsDStream.transform { rdd =>
+	  extractOutliers(rdd)
+	}
+	
+#### 有状态	
+
+##### Windowed transformations
+
+* count()
+* reduceByWindow()
+* reduceByKeyAndWindow()
+* countByWindow()
+* countByValueAndWindow()
+
+*e.g.* count data over a window
+
+	val accessLogsWindow = accessLogsDStream.window(Seconds(30), Seconds(10))
+	val windowCounts = accessLogsWindow.count()	
+##### UpdateStateByKey
+
+	def updateRunningSum(values: Seq[Long], state: Option[Long]) = {
+	  Some(state.getOrElse(0L) + values.size)
+	}
+	
+	val responseCodeDStream = accessLogsDStream.map(log => (log.getResponseCode(), 1L))
+	val responseCodeCountDStream = responseCodeDStream.updateStateByKey(updateRunningSum _)
+
+### Output Operations
+
+### Input Sources
+
+* SteamingContext
+* steam of files
+* akka actor steam
+* apache kafka
+* apache flume
+
+
+### 24/7 operation
+* checkpointing
+* driver fault tolerance
+
 
 
 
