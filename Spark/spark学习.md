@@ -584,6 +584,63 @@ DStream提供高级操作：transform()直接操作RDDs。
 * driver fault tolerance
 
 
+## MLlib
+
+### 数据类型
+
+* Vector
+* LabeledPoint
+* Rating
+
+
+### vectors
+
+创建vector
+
+	import org.apache.spark.mllib.linalg.Vectors
+	
+	// Create the dense vector <1.0, 2.0, 3.0>; Vectors.dense takes values or an array
+	
+	val denseVec1 = Vectors.dense(1.0, 2.0, 3.0)
+	val denseVec2 = Vectors.dense(Array(1.0, 2.0, 3.0))
+	
+	// Create the sparse vector <1.0, 0.0, 2.0, 0.0>; Vectors.sparse takes the size of
+	// the vector (here 4) and the positions and values of nonzero entries
+	val sparseVec1 = Vectors.sparse(4, Array(0, 2), Array(1.0, 2.0))
+
+
+### 算法
+
+#### feature extraction
+
+#### TF-IDF
+
+Term Frequency-Inverse Document Frequency
+
+#### scaling
+
+#### Normalization
+
+#### Word2Vec
+
+#### statistics
+
+#### Classification and Regression
+
+##### Linear regression
+
+##### Logistic regression
+
+##### Support Vector Machines
+
+##### Naive Bayes
+
+#### Clustering
+
+##### K-means
+
+ 
+
 
 
 
