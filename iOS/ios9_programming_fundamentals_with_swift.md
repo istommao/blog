@@ -694,13 +694,91 @@ subscript是一个特殊的实例访问，使用*[]*进行调用。
 ### 实例引用
 
 
+### 枚举--Enums
 
+定义一系列唯一的可替换的值。使用*case*语法
 
+	enum Filter {
+	    case Albums
+	    case Playlists
+	    case Podcasts
+	    case Books
+	}
 
+#### 构造器
 
+最常用构造器：枚举名.cases之一
 
+	let type = Filter.Albums
 	
+如果类型可知，还可缩写：
 
+	let type : Filter = .Albums
+	
+#### 指定类型
+
+	enum Filter : String {
+	    case Albums
+	    case Playlists
+	    case Podcasts
+	    case Books
+	}		
+	
+指定值：
+
+	enum Filter : String {
+	    case Albums = "Albums"
+	    case Playlists = "Playlists"
+	    case Podcasts = "Podcasts"
+	    case Books = "Audiobooks"
+	}
+
+
+可通过*rawValue访问*
+
+#### case中指定类型
+
+	enum Error {
+	    case Number(Int)
+	    case Message(String)
+	    case Fatal
+	}
+
+#### 构造器
+
+显式构造器，需要指定特定的case给self
+
+	enum Filter : String {
+	    case Albums = "Albums"
+	    case Playlists = "Playlists"
+	    case Podcasts = "Podcasts"
+	    case Books = "Audiobooks"
+	    static var cases : [Filter] = [Albums, Playlists, Podcasts, Books]
+	    init(_ ix:Int) {
+	        self = Filter.cases[ix]
+	    }
+	}	
+	
+三种实例化Filter方法：
+
+	let type1 = Filter.Albums
+	let type2 = Filter(rawValue:"Playlists")!
+	let type3 = Filter(2) // .Podcasts
+
+##### failable
+
+	init!(_ ix:Int) {
+        if !(0...3).contains(ix) {
+            return nil
+        }
+        self = Filter.cases[ix]
+    }
+    
+#### enum属性
+
+#### enum方法
+
+     
 
 
 
