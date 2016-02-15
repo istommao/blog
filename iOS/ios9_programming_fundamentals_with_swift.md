@@ -605,7 +605,100 @@ optinally解包**?**
 
 * 与OC的交互
 * defer initialization
-* 允许值为空（最重要作用）	
+* 允许值为空（最重要作用）
+
+
+## Object Types
+
+### 声明
+
+	class Manny {
+	}
+	struct Moe {
+	}
+	enum Jack {
+	}	
+
+### 构造器--Initializers
+
+用于构造对象的实例。
+
+* 使用关键字*init*定义
+* 可以有多个构造器
+* 除了用于设置属性外，不能使用self，直到所有实例属性被初始化
+
+#### 隐式构造器
+
+#### delegating构造器
+
+调用其他构造器的构造器。
+
+要求：必须首先调用被代理的的构造器，然后在能进行其他操作。
+
+
+#### Failable构造器
+
+构造器可能返回一个Optional的实例。
+
+在构造器关键字*init*后添加Optional符号：*?或!*，如果failable构造器需要返回*nil*，需要显式指定：
+
+	class Dog {
+	    let name : String
+	    let license : Int
+	    init!(name:String, license:Int) {
+	        self.name = name
+	        self.license = license
+	        if name.isEmpty {
+	            return nil
+	        }
+	        if license <= 0 {
+	            return nil
+	        }
+	    }
+	}
+
+
+### 属性--Properties
+
+在对象类型声明的top level中声明的变量。
+
+属性是变量，所以它具备变量的所有特征：
+
+* 固定类型
+* 使用var或let声明
+* 是stored或computed
+* 可以设置setter observers
+* lazy
+* ...
+
+
+
+
+### 方法--Methods
+
+在对象类型声明的top level中声明的函数。
+
+方法默认是实例方法。
+
+static/class方法通过类型访问，其*self*指类型本身
+
+
+### 下标--Subscripts
+
+subscript是一个特殊的实例访问，使用*[]*进行调用。
+
+### 嵌套对象
+
+增加了namespace
+
+### 实例引用
+
+
+
+
+
+
+
 	
 
 
