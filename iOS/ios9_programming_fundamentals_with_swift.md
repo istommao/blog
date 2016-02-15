@@ -252,6 +252,35 @@ These are both variable declarations (and initializations):
 
 ### 闭包
 
+Swift的函数是闭包。闭包可以捕获外部变量的引用在函数体内使用。
 
+### 柯里化函数
 
+一个函数返回值是带参数的函数
+
+*e.g.:*
+	
+	func makeRoundedRectangleMaker(sz:CGSize) -> (CGFloat) -> UIImage {
+	    return {
+	        r in
+	        imageOfSize(sz) {
+	            let p = UIBezierPath(
+	                roundedRect: CGRect(origin:CGPointZero, size:sz),
+	                cornerRadius: r)
+	            p.stroke()
+	        }
+	  	   }
+		}
+
+省略箭头操作符：
+
+	func makeRoundedRectangleMaker(sz:CGSize)(_ r:CGFloat) -> UIImage {
+	    return imageOfSize(sz) {
+	        let p = UIBezierPath(
+	            roundedRect: CGRect(origin:CGPointZero, size:sz),
+	            cornerRadius: r)
+	        p.stroke()
+	    }
+	}
+	
 	
