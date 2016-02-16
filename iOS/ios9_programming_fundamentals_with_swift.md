@@ -778,7 +778,85 @@ subscript是一个特殊的实例访问，使用*[]*进行调用。
 
 #### enum方法
 
-     
+### 结构体--struct     
+
+#### 构造器
+
+不需要直接指定构造器，
+
+### 类--Classes
+
+类与结构体类似，但是有如下不同：
+
+* 类是引用类型
+* 类的可变性
+* 可以多次引用
+* 可继承
+
+
+#### 子类和父类
+
+#### 类构造器
+
+##### 默认构造器
+
+> A class with no stored properties, or with stored properties all of which are initialized as part of their declaration, and that has no explicit initializers, has an implicit initializer init().
+
+
+##### 命名构造器
+
+不能代理其他构造器，即不可使用`self.init(...)`
+
+##### Convenience构造器
+
+关键字*convenience*修饰，且为代理构造器，必须调用`self.init(...)`
+
+
+#### 子类构造器
+
+##### 无构造器
+
+调用父类构造器
+
+##### Convenience构造器
+
+##### 命名构造器
+
+构造器不在继承，需要自己手动完成构造器（包括父类，调用`super.init(...)`）
+
+##### 覆盖构造器
+
+* 相同的签名
+* 签名不同，但是标注有关键字`override`
+
+一般来说，子类有命名构造器的化，不会继承构造器，但是如果其覆盖了所有父类的构造器，它会继承父类的convenience构造器
+
+##### Failable构造器
+
+optional的限制：
+
+* init can override init?, but not vice versa.
+* init? can call init.
+* init can call init? by saying init and unwrapping the result (with an exclamation mark, because if the init? fails, you’ll crash).
+
+	
+	
+	class A:NSObject {
+	    init?(ok:Bool) {
+	        super.init()         // init? can call init
+	    }
+	}
+	class B:A {
+	    override init(ok:Bool) { // init can override init?
+	        super.init(ok:ok)!   // init can call init? using "!"
+	    }
+	}
+
+
+##### required构造器
+
+关键字*required*，表明子类必须继承或者重写该构造器
+
 
 
 
