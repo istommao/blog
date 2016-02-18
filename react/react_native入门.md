@@ -64,9 +64,114 @@ tags:
 打开生成的*FirstProject.xcodeproj*，点击运行按钮（Run）。
 
  	
+## 代码初探
+
+### 在View中增加Component
+
+AppDelegate.m
+
+* jsCodeLocation: 指定部署的物理设备
+
+		jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 		
+	如果需要部署到你的iPhone设备，将*localhost*改为本地Mac的IP地址
 		
+* 	RootView
+
+		
+		  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
+		                                                      moduleName:@"FirstProject"
+		                                               initialProperties:nil
+		                                                   launchOptions:launchOptions];
+		
+		  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+		  UIViewController *rootViewController = [UIViewController new];
+		  rootViewController.view = rootView;
+		  self.window.rootViewController = rootViewController;
+		  [self.window makeKeyAndVisible];
+		
+
+	上述代码实现了：
+	1. 定义RCTRootView，是一个React Native的类。
+	2. 将RCTRootView与UIViewController关联起来
+	3. 渲染RCTRootView到窗口中（类似于react中挂载和渲染组件）
 	
+### Component的注册	
+
+*为了使用组件，还需要进行注册*
+
+index.ios.js
+
+	AppRegistry.registerComponent('FirstProject', () => FirstProject);	
+		
+上述代码实现了组件`FirstProject`的注册，这样在`AppDelegate.m`中就可以使用该组件。
+	
+### 分析index.ios.js
+
+#### 第一部分：导入React Native
+
+	import React, {
+	  AppRegistry,
+	  Component,
+	  StyleSheet,
+	  Text,
+	  View
+	} from 'react-native';
+	
+> 上述代码使用`ES6`中的语法
+
+#### 第二部分：组件*FirstProject*
+
+	class FirstProject extends Component {
+	  render() {
+	    return (
+	      <View style={styles.container}>
+	        <Text style={styles.welcome}>
+	          Welcome to React Native!
+	        </Text>
+	        <Text style={styles.instructions}>
+	          To get started, edit index.ios.js
+	        </Text>
+	        <Text style={styles.instructions}>
+	          Press Cmd+R to reload,{'\n'}
+	          Cmd+D or shake for dev menu
+	        </Text>
+	      </View>
+	    );
+	  }
+	}
+	
+> 与React语法非常类似, 同时使用了`StyleSheet`设置的样式。
+	
+#### 第三部分：设置样式
+
+	const styles = StyleSheet.create({
+	  container: {
+	    flex: 1,
+	    justifyContent: 'center',
+	    alignItems: 'center',
+	    backgroundColor: '#F5FCFF',
+	  },
+	  welcome: {
+	    fontSize: 20,
+	    textAlign: 'center',
+	    margin: 10,
+	  },
+	  instructions: {
+	    textAlign: 'center',
+	    color: '#333333',
+	    marginBottom: 5,
+	  },
+	});
+
+> 通过`StyleSheet`设置样式
+
+#### 第四部分：注册组件
+
+	AppRegistry.registerComponent('FirstProject', () => FirstProject);	
+	
+> 注册组件*FirstProject*	
+
 
 
 ## 参考
