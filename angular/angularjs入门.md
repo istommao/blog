@@ -126,7 +126,7 @@ ng-model
 **angular的mvc通过scope实现**
 
 * $scope是一个POJO
-* $scop;e提供了一一些工具方法$watch()、$apply()
+* $scope提供了一一些工具方法$watch()、$apply()
 * $scope是表达式的执行环境（或者叫作用域）
 * $scope是一个树形结构，与DOM标签平行
 * 子$scope对象会继承父$scope上的属性和方法
