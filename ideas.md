@@ -34,6 +34,9 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## 学习koa
 > 学习koa，比较其和express用什么不同，并用其实现simple blog
 
+## python-flask+sqlalchemy
+
+## react构建座席台面板
 
 
 #TODO
@@ -42,8 +45,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## 使用spring开发web项目
 
 ## Spring源码阅读
-
-## python-flask+sqlalchemy
 
 ## python-django
 
