@@ -40,6 +40,9 @@ WeatherProject.js
 ## 增加背景图片
 
 
+## 通过网络获取数据
+
+## 设置styles
 
 
 		
