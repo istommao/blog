@@ -315,6 +315,32 @@ PanResponder不是一个组件，而是RN提供的一个类
 根据不同情况选择TouchableHighlight，或者PanResponder/GestureResponder，或者使用PanResponder/GestureResponder创建符合需求的APIs。但是，大多是时候不需要这么做，有一些组件已经帮我们封装好了。
 
 
+### ListView
+
+需要提供两个props：
+
+* dataSource
+* renderRow
+
+*e.g.*:
+
+
+	getInitialState: function() {
+	  var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+	  return {
+	    dataSource: ds.cloneWithRows(['a', 'b', 'c', 'a longer example', 'd', 'e'])
+	  };
+	}
+	
+	_renderRow: function(rowData) {
+	  return <Text style={styles.row}>{rowData}</Text>;
+	}
+	
+	
+	<ListView
+	  dataSource={this.state.dataSource}
+	  renderRow={this._renderRow}
+	  />
 
 	
 	
