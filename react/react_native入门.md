@@ -218,8 +218,106 @@ index.ios.js
 	  {/* Your content here... */}
 	</Image>
 	
-	
+#### TouchableHighlight
 
+TouhcableHighlight	的事件：onPressIn, onPressOut, onLongPress
+
+	<TouchableHighlight
+	  onPressIn={this._onPressIn}
+	  onPressOut={this._onPressOut}
+	  style={styles.touchable}>
+	    <View style={styles.button}>
+	      <Text style={styles.welcome}>
+	        {this.state.pressing ? 'EEK!' : 'PUSH ME'}
+	      </Text>
+	    </View>
+	</TouchableHighlight>
+
+#### GestureResponder
+
+* GestureResponder
+* PanResponder
+
+如果\<View\>要实现touch responder，需要实现这4个props：
+
+* View.props.onStartShouldSetResponder
+* View.props.onMoveShouldSetResponder
+* View.props.onResponderGrant
+* View.props.onResponderReject
+
+Responder: 主要是View.props.onResponderMove和View.props.onResponderRelease
+
+* View.props.onResponderMove
+
+	The user is moving her finger
+* View.props.onResponderRelease
+	
+	Fired at the end of the touch (i.e., “touchUp”)
+
+* View.props.onResponderTerminationRequest
+
+	Something else wants to become responder. Should this view release the responder? Returning true allows release
+
+* View.props.onResponderTerminate
+
+	The responder has been taken from the view. It might be taken by other views after a call to onResponderTerminationRequest, or by the OS without asking (happens with control center/notification center on iOS)
+	
+touch event对象属性
+
+* changedTouches
+* identifier
+* locactionX
+* locationY
+* pageX
+* pageY
+* target
+* timestamp
+* touches
+
+#### PanResponder
+
+PanResponder不是一个组件，而是RN提供的一个类
+
+* stateID
+* moveX
+* moveY
+* x0
+* y0
+* dx
+* dy
+* vx
+* vy
+* numberActiveTouches
+
+使用PanResponser，首先创建PanResponder对象，然后在组件的渲染render中指定：
+
+	this._panResponder = PanResponder.create({
+	  onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder,
+	  onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,
+	  onPanResponderGrant: this._handlePanResponderGrant,
+	  onPanResponderMove: this._handlePanResponderMove,
+	  onPanResponderRelease: this._handlePanResponderEnd,
+	  onPanResponderTerminate: this._handlePanResponderEnd,
+	});
+	
+	render: function() {
+	  return (
+	    <View
+	      {...this._panResponder.panHandlers}>
+	      { /* View contents here */ }
+	    </View>
+	  );
+	}
+
+
+#### 如何处理touch事件
+
+根据不同情况选择TouchableHighlight，或者PanResponder/GestureResponder，或者使用PanResponder/GestureResponder创建符合需求的APIs。但是，大多是时候不需要这么做，有一些组件已经帮我们封装好了。
+
+
+
+	
+	
 
 
 ## 参考
