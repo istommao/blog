@@ -343,7 +343,20 @@ PanResponder不是一个组件，而是RN提供的一个类
 	  />
 
 	
-	
+### Navigators
+
+### 其他组合组件
+
+* TabarIOS
+* SegmentedControlIOS
+* DrawerLayoutAndroid
+* ToolbarAndroid
+
+
+### 与平台相关的组件
+
+
+
 
 
 ## 参考
