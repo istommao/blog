@@ -172,6 +172,47 @@ index.ios.js
 	
 > 注册组件*FirstProject*	
 
+## Mobile组件
+
+* \<View\>
+* \<Image\>
+* \<Text\>
+* \<ListView\>
+* \<TabView\>
+* \<NavigatorView\>
+* ...
+
+### HTML元素和Native Components区别
+
+|HTML|React Native|
+|-:-|-:-|
+|div|View|
+|img|Image|
+|span,p|Text|
+|ul/ol,li|ListView, child items|
+
+#### Text组件
+
+	<View>
+	  <Text>This is OK!</Text>
+	</View>
+
+不支持\<em\>等标签，通过内嵌样式：
+
+	<Text>
+	  The quick <Text style={{fontStyle: "italic"}}>brown</Text> fox
+	  jumped over the lazy <Text style={{fontWeight: "bold"}}>dog</Text>.
+	</Text>
+	
+进一步，可以创建样式组件\<Em\>，就可以写出如下类似HTML的代码：
+
+	<Text>
+	  The quick <Em>brown</Em> fox jumped
+	  over the lazy <Strong>dog</Strong>.
+	</Text>	
+
+
+
 
 
 ## 参考
