@@ -212,6 +212,13 @@ index.ios.js
 	</Text>	
 
 
+#### Image组件
+
+	<Image source={require('image!puppies')}>
+	  {/* Your content here... */}
+	</Image>
+	
+	
 
 
 
