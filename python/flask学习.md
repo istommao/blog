@@ -311,6 +311,19 @@ bootstrap/base.html定义的一些block：
 
 ### 静态文件
 
-		
+	/static/<filename>
+	
+*e.g.:*favicon定义
+
+	{% block head %}
+	{{ super() }}
+	<link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}"
+	    type="image/x-icon">
+	<link rel="icon" href="{{ url_for('static', filename = 'favicon.ico') }}"
+	    type="image/x-icon">
+	{% endblock %}
+
+
+			
 	
 	    
