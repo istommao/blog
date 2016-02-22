@@ -52,6 +52,57 @@ tags:
 	if __name__ == '__main__':
 	    app.run(debug=True)
 	    
+## 请求和响应
+
+### Context和request
+
+为了避免每个函数都需要传递`request`参数，flask通过将request设置为在`context`下的“全局”参数。flask有两种`context`：
+
+* application context: 变量current_app和g
+* request context：变量request和session
+
+### request hooks
+
+4个装饰器：
+
+* before_first_request
+* before_request
+* after_request
+* teardown_request
+
+一般可以通过`g`变量在request hook函数和view函数之间共享数据。
+
+### response
+
+view函数返回：
+
+* 字符串[ ,status code [,有关header的字典]]
+* response对象
+
+*e.g.*:
+
+	@app.route('/')
+	def index():
+		return '<h1>Bad Request</h1>', 400	
+	
+	@app.route('/')
+	def index():
+	    response = make_response('<h1>This document carries a cookie!</h1>')
+	    response.set_cookie('answer', '42')
+	    return response
 
 
+重定向：
+
+	@app.route('/')
+	def index():
+	    return redirect('http://www.example.com')
+
+404：
+
+	abort(404)
+	
+## flask扩展
+
+	
 	    
