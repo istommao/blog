@@ -296,7 +296,21 @@ bootstrap/base.html定义的一些block：
 	</div>
 	{% endblock %}
 	
+### 自定义错误页面
+
+	@app.errorhandler(404)
+	def page_not_found(e):
+	    return render_template('404.html'), 404
 	
-	
+	@app.errorhandler(500)
+	def internal_server_error(e):
+	    return render_template('500.html'), 500	
+### 链接
+
+	url_for('view function name'[, 动态参数kv])
+
+### 静态文件
+
+		
 	
 	    
