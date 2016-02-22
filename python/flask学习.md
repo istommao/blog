@@ -104,5 +104,123 @@ view函数返回：
 	
 ## flask扩展
 
+### flask-script
+
+命令行选项
+
+## 模板
+
+### Jinja2模板引擎
+
+flask默认查找**templates**子目录的模板文件
+
+#### 渲染模板
+
+templates/user.html
+
+	<h1>Hello, {{name}}!<h1>
+	
+hello.py
+
+	@app.route('/user/	<name>')
+	def user(name):
+		return render_template('user.html', name=name)
+		
+第一个参数指定模板文件，其余参数为key/value类型，可以在模板中作为变量和变量值使用。
+
+#### 变量
+
+	{{ name }}
+
+#### 过滤
+
+* safe
+* capitalize
+* lower
+* upper
+* title
+* trim
+* striptags
+
+*e.g.*	
+
+	{{ name|captalize }}
+			
+#### 控制结构
+
+条件
+
+	{% if user %}
+    Hello, {{ user }}!
+	{% else %}
+	    Hello, Stranger!
+	{% endif %}
+
+循环
+
+	<ul>
+	    {% for comment in comments %}
+	        <li>{{ comment }}</li>
+	    {% endfor %}
+	</ul>	
+
+宏定义
+
+	{% macro render_comment(comment) %}
+	    <li>{{ comment }}</li>
+	{% endmacro %}
+	
+	<ul>
+	    {% for comment in comments %}
+	        {{ render_comment(comment) }}
+	    {% endfor %}
+	</ul>
+
+
+导入
+
+	{% import 'macros.html' as macros %}
+	<ul>
+	    {% for comment in comments %}
+	        {{ macros.render_comment(comment) }}
+	    {% endfor %}
+	</ul>
+
+include
+
+	{% include 'common.html' %}
+	
+模板继承
+
+*base.html*
+
+	<html>
+	<head>
+	    {% block head %}
+	    <title>{% block title %}{% endblock %} - My Application</title>
+	    {% endblock %}
+	</head>
+	<body>
+	    {% block body %}
+	    {% endblock %}
+	</body>
+	</html>		
+
+**block中的tag在继承的模本中可以修改**
+
+	{% extends "base.html" %}
+	{% block title %}Index{% endblock %}
+	{% block head %}
+	    {{ super() }}
+	    <style>
+	    </style>
+	{% endblock %}
+	{% block body %}
+	<h1>Hello, World!</h1>
+	{% endblock %}
+
+
+
+	
 	
 	    
