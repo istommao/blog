@@ -131,7 +131,14 @@ hello.py
 #### 变量
 
 	{{ name }}
+	
+支持多种类型：
 
+	<p>A value from a dictionary: {{ mydict['key'] }}.</p>
+	<p>A value from a list: {{ mylist[3] }}.</p>
+	<p>A value from a list, with a variable index: {{ mylist[myintvar] }}.</p>
+	<p>A value from an object's method: {{ myobj.somemethod() }}.</p>
+	
 #### 过滤
 
 * safe
@@ -219,8 +226,77 @@ include
 	<h1>Hello, World!</h1>
 	{% endblock %}
 
+### 集成Bootstrap with Flask-Bootstrap
 
+	pip install flask-bootstrap
 
+初始化：
+
+	from flask.ext.bootstrap import Bootstrap
+	# ...
+	bootstrap = Bootstrap(app)	
+	
+bootstrap/base.html定义的一些block：
+
+* doc
+* html_attribs
+* html
+* head
+* title
+* metas
+* styles
+* body_attribs
+* body
+* navbar
+* content
+* scripts
+
+如果要增加和bootstrap预定义的block，可以通过调用super()实现：
+
+	{% block scripts %}
+	{{ super() }}
+	<script type="text/javascript" src="my-script.js"></script>
+	{% endblock %}
+
+使用了bootstrap的user.html
+
+*e.g.*:	templates/user.html
+
+	{% extends "bootstrap/base.html" %}
+	
+	{% block title %}Flasky{% endblock %}
+	
+	{% block navbar %}
+	<div class="navbar navbar-inverse" role="navigation">
+	    <div class="container">
+	        <div class="navbar-header">
+	            <button type="button" class="navbar-toggle"
+	             data-toggle="collapse" data-target=".navbar-collapse">
+	                <span class="sr-only">Toggle navigation</span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="/">Flasky</a>
+	        </div>
+	        <div class="navbar-collapse collapse">
+	            <ul class="nav navbar-nav">
+	                <li><a href="/">Home</a></li>
+	            </ul>
+	        </div>
+	    </div>
+	</div>
+	{% endblock %}
+	
+	{% block content %}
+	<div class="container">
+	    <div class="page-header">
+	        <h1>Hello, {{ name }}!</h1>
+	    </div>
+	</div>
+	{% endblock %}
+	
+	
 	
 	
 	    
