@@ -122,6 +122,14 @@ templates/user.html
 	
 hello.py
 
+	from flask import Flask, render_template
+	
+	# ...
+	
+	@app.route('/index')
+	def index():
+	    return render_template('index.html')
+	    
 	@app.route('/user/	<name>')
 	def user(name):
 		return render_template('user.html', name=name)
@@ -431,6 +439,19 @@ WTFForms还定义了validators：
 
 	{% import "bootstrap/wtf.html" as wtf %}
 	{{ wtf.quick_form(form) }}
+
+### 表单处理函数
+
+	@app.route('/', methods=['GET', 'POST'])
+	def index():
+	    name = None
+	    form = NameForm()
+	    if form.validate_on_submit():
+	        name = form.name.data
+	        form.name.data = ''
+	    return render_template('index.html', form=form, name=name)
+
+
 
 
 	    
