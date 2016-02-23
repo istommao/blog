@@ -323,6 +323,44 @@ bootstrap/base.html定义的一些block：
 	    type="image/x-icon">
 	{% endblock %}
 
+### 时间处理:flask-moment
+
+	pip install flask-moment
+	
+初始化：
+
+	from flask.ext.moment import Moment
+	moment = Moment(app)
+
+加载moment.js
+
+	{% block scripts %}
+	{{ super() }}
+	{{ moment.include_moment() }}
+	{% endblock %}	
+
+moment.js实现的函数：
+
+* format
+* fromNow
+* fromeTime
+* calendar
+* valueOf
+* unix
+
+[moment文档](http://momentjs.com/docs/#/displaying/)
+
+*e.g.*:
+
+	<p>The local date and time is {{ moment(current_time).format('LLL') }}.</p>
+	<p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
+
+### 小结
+
+> flask通过jinja2可以实现模板的渲染，并且可以通过扩展插件，如flask-bootstrap等，可以完成友好的web页面。
+
+
+
 
 			
 	
