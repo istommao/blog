@@ -452,6 +452,75 @@ WTFForms还定义了validators：
 	    return render_template('index.html', form=form, name=name)
 
 
+### 重定向和session
 
+#### 重定向
+
+Post/Redirect/Get pattern
+
+*e.g.*: redirect和session进行名字的保存
+
+	from flask import Flask, render_template, session, redirect, url_for
+	
+	@app.route('/', methods=['GET', 'POST'])
+	def index():
+	    form = NameForm()
+	    if form.validate_on_submit():
+	        session['name'] = form.name.data
+	        return redirect(url_for('index'))
+	    return render_template('index.html', form=form, name=session.get('name'))
+
+
+### flashing消息
+
+Flask提供flash函数（产生消息）和get_flashed_messages函数（在模板中获取函数）。
+
+`flash('Looks like you have changed your name!')`
+和
+
+``
+
+*e.g.:*
+
+hello.py
+
+	from flask import Flask, render_template, session, redirect, url_for, flash
+	
+	@app.route('/', methods=['GET', 'POST'])
+	def index():
+	    form = NameForm()
+	    if form.validate_on_submit():
+	        old_name = session.get('name')
+	        if old_name is not None and old_name != form.name.data:
+	           	flash('Looks like you have changed your name!')
+	        session['name'] = form.name.data
+	        form.name.data = ''
+	        return redirect(url_for('index'))
+	    return render_template('index.html',
+	        form = form, name = session.get('name'))
+
+templates/base.html
+
+	{% block content %}
+	<div class="container">
+	    {% for message in get_flashed_messages() %}
+	    <div class="alert alert-warning">
+	        <button type="button" class="close" data-dismiss="alert">&times;</button>
+	        {{ message }}
+	    </div>
+	    {% endfor %}
+	
+	    {% block page_content %}{% endblock %}
+	</div>
+	{% endblock %}
+
+
+
+
+
+
+
+
+	
 
 	    
