@@ -1,9 +1,18 @@
-#RabbitMQ学习
+title: RabbitMQ学习
+date: 2016-02-23 10:38:30
+tags:
+- rabbitmq
+- rabbitmq远程连接
+
+----
+
+
+# RabbitMQ学习
 ====
 
 主要通过学习[CSDN博客](http://blog.csdn.net/column/details/rabbitmq.html)，他以MQ的python的pika库进行分析。本文就是将阅读过程中一些重要的点摘录，以便后续使用。
 
-##基础知识
+## 基础知识
 
 该文写的很清楚：
 <http://blog.csdn.net/anzhsoft/article/details/19563091>
@@ -29,7 +38,7 @@
 
 * Channels： 虚拟连接。它建立在上述的TCP连接中。数据流动都是在Channel中进行的。也就是说，一般情况是程序起始建立TCP连接，第二步就是建立这个Channel。
 
-###细节Q&A
+### 细节Q&A
 > * 那么，为什么使用Channel，而不是直接使用TCP连接？
 > 
 对于OS来说，建立和关闭TCP连接是有代价的，频繁的建立关闭TCP连接对于系统的性能有很大的影响，而且TCP的连接数也有限制，这也限制了系统处理高并发的能力。但是，在TCP连接中建立Channel是没有上述代价的。
@@ -58,9 +67,9 @@
 每个virtual host本质上都是一个RabbitMQ Server，拥有它自己的queue，exchagne，和bings rule等等。这保证了你可以在多个不同的application中使用RabbitMQ。
 
 
-##例子
+## 例子
 
-###生产者
+### 生产者
 1. 建立连接
 2. 创建channel：
 
@@ -93,7 +102,7 @@
  
 5. 退出前别忘了关闭connection：connection.close()                       		 
                       		 
-###消费者
+### 消费者
 
 1. 还是创建connection
 2. 还是创建channel
@@ -117,7 +126,7 @@
 
 		channel.start_consuming()  
  
-##publisher-subscribe模式
+## publisher-subscribe模式
 
 > 将同一个Message deliver到多个Consumer中。这个模式也被成为 "publish / subscribe"。                     
 
@@ -149,7 +158,7 @@
                    queue=result.method.queue) 
 
 
-##Routing消息路由
+## Routing消息路由
 
 绑定其实就是关联了exchange和queue。或者这么说：queue对exchagne的内容感兴趣，exchange要把它的Message deliver到queue中。前面，在Consumer中进行binding的时候：
 
@@ -164,14 +173,14 @@
 
 p.s routing_key是有限制的，稍后会讲到。
 
-###对于Direct exchange
+### 对于Direct exchange
 
 Direct exchange的路由算法非常简单：通过routing key的完全匹配。
 
 Multiple bindings（多绑定）:只要设置多个queue绑定同一个key是可以的。
 
 
-###对于Topic exchange
+### 对于Topic exchange
 
 对于Message的routing_key是有限制的，不能使任意的。格式是以点号“."分割的字符表。你可以放任意的key在routing_key中，当然最长不能超过255 bytes。
 
@@ -180,7 +189,7 @@ Multiple bindings（多绑定）:只要设置多个queue绑定同一个key是可
 * \* (星号) 代表任意 一个单词
 * \# (hash) 0个或者多个单词
 
-####Topic exchange和其他exchange
+#### Topic exchange和其他exchange
 
 > 由于有"*" (star) and "#" (hash)， Topic exchange 非常强大并且可以转化为其他的exchange：
 
@@ -203,6 +212,66 @@ Multiple bindings（多绑定）:只要设置多个queue绑定同一个key是可
                        routing_key=binding_key)  
 
 **需要注意的是，如果不是faout模式，消息只会被一个consumer接受。**
+
+
+## 开启远程连接
+* [RabbitMQ（六）远程连接](http://www.cnblogs.com/coder2012/p/4457381.html)
+* [解决RabbitMQ远程不能访问的问题](http://dwf07223.blog.51cto.com/8712758/1547226)
+
+
+有两种方式：图形界面和命令行
+
+### 命令行
+
+添加用户
+
+	rabbitmqctl add_user root root 
+	rabbitmqctl set_user_tags root administrator 
+
+设置权限
+	
+	rabbitmqctl set_permissions -p / root".*" ".*" ".*"
+
+修改配置文件（linux下可能在/etc目录下的rabbitmq目录：rabbitmq.config), 增加loopback_users:
+
+	{loopback_users, ["root"]}
+
+*e.g.:*
+
+	[
+	{rabbit, [{disk_free_limit, 5242880}
+	          ,{vm_memory_high_watermark, 0.8}
+	          ,{loopback_users, ["root"]}
+	         ]},
+	{rabbitmq_management_agent, [ {force_fine_statistics, false} ] }
+	].
+	
+重启：
+
+	service rabbitmq-server restart	
+
+### 图形页面
+
+* 创建用户
+
+	通过guest用户打开图形页面，然后进入admin标签，选择"add a user"，然后填入你的用户名和密码，并选择对应的tags
+* 设置权限
+
+	点击新添加的用户，进入权限配置，在"Set premission"中设置该账户的权限
+	
+* 修改配置, 增加loopback_users
+
+	同命令行中修改方法一样
+	
+* 重启	
+
+
+	
+
+
+## 参考
+
+* [CSDN博客](http://blog.csdn.net/column/details/rabbitmq.html)
 
 
 
