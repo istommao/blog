@@ -1,10 +1,19 @@
-title: flask学习
+title: Flask学习
 date: 2016-02-21 22:10:10
 tags:
 - python
 - flask
 
-# flask学习
+# Flask学习
+
+[Flask Web Development](http://flaskbook.com/)分为三部分：
+
+* Flask框架基础：Flask web应用框架和一些扩展
+* 项目：[Flasky](https://github.com/miguelgrinberg/flasky)
+* 发布Application前的准备：单测、性能分析、部署
+
+## Flask框架基础
+
 
 ## 安装
 
@@ -515,7 +524,117 @@ templates/base.html
 	{% endblock %}
 
 
+## 数据库
 
+选择数据库框架：
+
+* 易用
+* 性能
+* 可移植性性
+
+### Flask-SQLAlchemy
+
+SQLAlchemy一个支持多种数据库的ORM框架。
+
+安装Flask-SQLAlchemy
+
+	pip install flask-sqlalchemy
+
+在Flask-SQLAlchemy中，数据库通过URL表示
+
+* MySQL: *mysql://username:password@hostname/database*
+* Postgres: *postgrequl://username:password@hostname/database*
+* SQLite(Unix): *sqlite:////absulte/path/to/database*
+* SQLite(Windows): *sqlite:///c:/absulte/path/to/database*
+
+在Flask中使用，需要配置`SQLALCHEMY_DATABASE_URI`和`SQLALCHEMY_COMMIT_ON_TEARDOWN`
+
+*e.g.:*
+
+	from flask.ext.sqlalchemy import SQLAlchemy
+	
+	basedir = os.path.abspath(os.path.dirname(__file__))
+	
+	app = Flask(__name__)
+	app.config['SQLALCHEMY_DATABASE_URI'] =\
+	    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+	app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+	
+	db = SQLAlchemy(app)
+
+### 模型定义
+
+ORM简单说来就是一个Python类，它具有一些属性，这些属性与数据库中表中的列对应。
+
+Flask-SQLAlchemy提供基类：`db.Model`。
+
+类变量`__tablename__`指定表名。
+
+类`db.Column`可以定义类的属性（表中列）。
+
+db.Column构造器第一个参数指定类型：
+
+* 参数: python类型（说明）
+* Integer：int(32bit)
+* Small-Integer: int(16bit)
+* Big-Integer: int/long
+* Float: float
+* Numberic: decimal.Decimal
+* String: str(可变字符串)
+* Text: str（可变字符串，会优化）
+* Unicode: unicode(可变unicode字符串)
+* Unicode-Text: unicode(可变字符串, 会优化)
+* Boolean: bool
+* Date: datetime.date
+* Time: datetime.time
+* Date-Time: datetime.datetime
+* Interval: datetime.timedelta
+* Enum: str
+* Pickle-Type: 任意python对象
+* LargeBinary: str(Binary blob)
+
+其他参数属性的选项：
+
+* primary_key
+* unique
+* index
+* nullable
+* default
+
+虽然并不是必要，但是通常都会给模型定义`__repr__()`函数用来生成可读的字符串表示。
+
+
+*e.g.*：
+
+	class Role(db.Model):
+	    __tablename__ = 'roles'
+	    id = db.Column(db.Integer, primary_key=True)
+	    name = db.Column(db.String(64), unique=True)
+	
+	    def __repr__(self):
+	        return '<Role %r>' % self.name
+	
+	class User(db.Model):
+	    __tablename__ = 'users'
+	    id = db.Column(db.Integer, primary_key=True)
+	    username = db.Column(db.String(64), unique=True, index=True)
+	
+	    def __repr__(self):
+	        return '<User %r>' % self.username
+
+
+
+## 博客小项目Flasky
+
+## 发布应用前准备
+
+
+
+
+
+## 参考
+* [Flask Web Development](http://flaskbook.com/)
+* [Flasky](https://github.com/miguelgrinberg/flasky)
 
 
 
