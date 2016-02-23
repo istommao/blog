@@ -359,9 +359,78 @@ moment.js实现的函数：
 
 > flask通过jinja2可以实现模板的渲染，并且可以通过扩展插件，如flask-bootstrap等，可以完成友好的web页面。
 
+## Web表单
 
+表单处理扩展插件：
 
-
-			
+	pip install flask-wtf
 	
+### CSRF:跨域保护
+
+flask-wtf防止CSRF攻击，通过产生加密的tokens去认证来自表单的请求：
+
+	app = Flask(__name__)
+	app.config['SECRET_KEY'] = 'hard to guess string
+
+app.config用于存储配置，字典类型。
+
+### 表单类
+
+Flask-WTF的web表单继承自`Form`类。
+
+`Form`类定义一系列表单的字段，这些字段是类变量。
+
+WTFForms定义了一些标准的HTML标签对应字段：
+
+|Field type|描述|
+|-:-|-:-|
+|StringField|Text field|
+|...|...|
+
+WTFForms还定义了validators：
+
+* Email
+* EqualTo
+* IPAddress
+* Length
+* NumberRange
+* Optional
+* Required
+* Regexp
+* URL
+* AnyOf
+* NoneOf
+
+*e.g.*:
+
+	from flask.ext.wtf import Form
+	from wtforms import StringField, SubmitField
+	from wtforms.validators import Required
+
+	sclass NameForm(Form):
+	    name = StringField('What is your name?', validators=[Required()])
+	    submit = SubmitField('Submit')
+
+### 表单渲染
+
+简单：
+
+	<form method="POST">
+	    {{ form.name.label }} {{ form.name() }}
+	    {{ form.submit() }}
+	</form>
+
+通过定义id进行CSS样式设置：
+
+	<form method="POST">
+	    {{ form.name.label }} {{ form.name(id='my-text-field') }}
+	    {{ form.submit() }}
+	</form>		
+	
+使用bootstrap提供的wft样式：
+
+	{% import "bootstrap/wtf.html" as wtf %}
+	{{ wtf.quick_form(form) }}
+
+
 	    
