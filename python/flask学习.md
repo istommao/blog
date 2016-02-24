@@ -245,7 +245,7 @@ include
 
 ### 集成Bootstrap with Flask-Bootstrap
 
-	pip install flask-bootstrap
+	(venv) $ pip install flask-bootstrap
 
 初始化：
 
@@ -342,7 +342,7 @@ bootstrap/base.html定义的一些block：
 
 ### 时间处理:flask-moment
 
-	pip install flask-moment
+	(venv) $ pip install flask-moment
 	
 初始化：
 
@@ -380,7 +380,7 @@ moment.js实现的函数：
 
 表单处理扩展插件：
 
-	pip install flask-wtf
+	(venv) $ pip install flask-wtf
 	
 ### CSRF:跨域保护
 
@@ -538,7 +538,7 @@ SQLAlchemy一个支持多种数据库的ORM框架。
 
 安装Flask-SQLAlchemy
 
-	pip install flask-sqlalchemy
+	(venv) $ pip install flask-sqlalchemy
 
 在Flask-SQLAlchemy中，数据库通过URL表示
 
@@ -847,7 +847,7 @@ hello.py
 
 Flask-Migrate
 	
-	pip install flask-migrate
+	(venv) $ pip install flask-migrate
 	
 配置：导出MigrateCommand类
 
@@ -870,14 +870,14 @@ hello.py:
 
 更新数据库：第一次执行时，类似于执行`db.create_all()`，但是后来执行时，会更新表而不影响对应的内容。
 
-	python hello.py db upgrade
+	(venv) $ python hello.py db upgrade
 
 	
 ## Email
 
 python自带smtplib支持邮件的发送。Flask-Mail对其进行了封装并与Flask集成。
 
-	pip install flask-mail
+	(venv) $ pip install flask-mail
 	
 SMTP服务配置：
 
@@ -950,8 +950,291 @@ template不用给指定扩展名，这样可以传递不同的内容，`**kwargs
 	    return thr    
 	
 注意：大部分Flask的扩展都在active的application和request context中，而上面代码使用多线程时，就需要调用`app.app_context()`手动构建application context。
+
+
+## Flask构建大型应用的结构
+
+Flask没有要求应用的结构。下面给出一种可能的应用结构。
+
+### 目录结构
+
+	|-app_name
+	  |-app/
+	    |-templates/
+	    |-static/
+	    |-main/
+	      |-__init__.py
+	      |-errors.py
+	      |-forms.py
+	      |-views.py
+	    |-__init__.py
+	    |-email.py
+	    |-models.py
+	  |-migrations/
+	  |-tests/
+	    |-__init__.py
+	    |-test*.py
+	  |-venv/
+	  |-requirements.txt
+	  |-config.py
+	  |-manage.py
+	
+	
+* app/：Flask应用
+* migrations/: 数据库migration的脚本
+* tests/: 测试包
+* venv/: virtualenv	  
+* requirements.txt: 列出依赖的包
+* config.py: 配置文件
+* manage.py: 启动应用和其他任务
+
+	  
+	  
+### config.py
+
+配置文件。
+
+定义**开发、测试、生成**的配置文件。
+
+	import os
+	basedir = os.path.abspath(os.path.dirname(__file__))
+	
+	class Config:
+		# ...
+		@staticmethod
+	    def init_app(app):
+	        pass
+		# ...
+		  
+		  
+	class DevelopmentConfig(Config):
+		# ...
+	
+	class TestingConfig(Config):
+		# ...
+		
+	class ProductionConfig(Config):
+		# ...
+		
+	config = {
+		'development': DevelopmentConfig,
+		'testing': TestingConfig,
+		'production': ProductionConfig,
+		
+		'default': DevelopmentConfig
+	}
+
+### App包
+
+#### 使用一个app工厂
+
+* 使用无参数构造器初始化flask扩展应用
+* 根据配置文件，使用flask提供的config.from_object()读取配置
+* 调用init_app()?
+
+*e.g:*
+
+app/\_\_init\_\_.py
+ 
+	from flask import Flask, render_template
+	from flask.ext.bootstrap import Bootstrap
+	from flask.ext.mail import Mail
+	from flask.ext.moment import Moment
+	from flask.ext.sqlalchemy import SQLAlchemy
+	from config import config
+	
+	bootstrap = Bootstrap()
+	mail = Mail()
+	moment = Moment()
+	db = SQLAlchemy()
+	
+	def create_app(config_name):
+	    app = Flask(__name__)
+	    app.config.from_object(config[config_name])
+	    config[config_name].init_app(app)
+	
+	    bootstrap.init_app(app)
+	    mail.init_app(app)
+	    moment.init_app(app)
+	    db.init_app(app)
+	
+	    # attach routes and custom error pages here
+	
+	    return app
+
+#### 实现app的功能：blueprint
+
+在单个脚本的应用中，app实例在全局变量中，所以路由的设置通过app.route装饰器可以很容易实现。
+
+但是，现在的app在运行时在被创建，所以`app.route`和`app.errorhandler`都不能再使用了。
+
+因此，Flask提供给了一个叫`blueprints`的解决方案。
+
+`blueprints`定义路由类似于`app.route`，但是blueprint直到应用注册才变成可用。
+
+*e.g.:*
+
+app/main/\_\_init\_\_.py
+	
+	from flask import Blueprint
+	
+	main = Blueprint('main', __name__)
+	
+	from . import views, errors	
+	
+**注意：由于views和errors依赖main，因此要放在main之后，不然出现相互依赖的问题**	
+	
+在包中定义的：
+
+* app/main/views.py：处理应用路由
+* app/main/errors.py: 处理错误
+
+##### 注册blueprint
+
+app/\_\_init\_\_.py
+
+
+	def create_app(config_name):
+	    # ...
+	
+	    from main import main as main_blueprint
+	    app.register_blueprint(main_blueprint)
+	
+	    return app	
+	
+##### app/main/errors.py
+
+	from flask import render_template
+	from . import main
+	
+	@main.app_errorhandler(404)
+	
+	def page_not_found(e):
+	    return render_template('404.html'), 404
+	
+	@main.app_errorhandler(500)
+	def internal_server_error(e):
+	    return render_template('500.html'), 500
+
+与app.errorhandler的区别为main.app_errorhandler	
+	
+##### app/main/errors.py
+
+	from datetime import datetime
+	from flask import render_template, session, redirect, url_for
+	from . import main
+	from .forms import NameForm
+	from .. import db
+	from ..models import User
+	
+	@main.route('/', methods=['GET', 'POST'])
+	def index():
+	    form = NameForm()
+	    if form.validate_on_submit():
+	        # ...
+	        return redirect(url_for('.index'))
+	    return render_template('index.html',
+	                           form=form, name=session.get('name'),
+	                           known=session.get('known', False),
+	                           current_time=datetime.utcnow())	
+	
+区别：
+
+* app.route变为main.route
+* url_for函数：由于使用blueprint其构建了一个命名空间（blueprint的名字），因此原来`url_for('index)`就要改为`url_for('main.index')`或简写为`url_for('.index')`
+。在不同的blueprint，不能使用简写的方式。
+
+### 启动脚本
+
+manage.py
+
+	#!/usr/bin/env python
+	import os
+	from app import create_app, db
+	from app.models import User, Role
+	from flask.ext.script import Manager, Shell
+	from flask.ext.migrate import Migrate, MigrateCommand
+	
+	app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+	manager = Manager(app)
+	migrate = Migrate(app, db)
+	
+	def make_shell_context():
+	    return dict(app=app, db=db, User=User, Role=Role)
+	manager.add_command("shell", Shell(make_context=make_shell_context))
+	manager.add_command('db', MigrateCommand)
+	
+	if __name__ == '__main__':
+	    manager.run()
+		
+
+### requirements文件
+
+记录依赖的特定版本的包
+
+	(venv) $ pip freeze > requirements.txt
+	
+根据requirements.txt重新构建：
+
+	(venv) $ pip install -r requirements.txt
+	
+### 单元测试
+
+tests/test_basic.py
+
+	import unittest
+	from flask import current_app
+	from app import create_app, db
+	
+	class BasicsTestCase(unittest.TestCase):
+	    def setUp(self):
+	        self.app = create_app('testing')
+	        self.app_context = self.app.app_context()
+	        self.app_context.push()
+	        db.create_all()
+	        
+	    def tearDown(self):
+	        db.session.remove()
+	        db.drop_all()
+	        self.app_context.pop()
+	
+	    def test_app_exists(self):
+	        self.assertFalse(current_app is None)
+	
+	    def test_app_is_testing(self):
+	        self.assertTrue(current_app.config['TESTING'])
+	        
+
+Python单测包：
+
+* setUp(): 每个测试前执行
+* tearDown(): 每个测试后执行
+* test_前缀: 测试函数
+
+#### 运行单测
+
+manage.py
+
+	@manager.command
+	def test():
+	    """Run the unit tests."""
+	    import unittest
+	    tests = unittest.TestLoader().discover('tests')
+	    unittest.TextTestRunner(verbosity=2).run(tests)
+    		
+
+manager.command装饰器可以很容易实现自己的命令，被它修饰的函数名作为自定义的命令，函数的docstring作为help messages。
+
+	(venv) $ python manage.py test
+	
+### 设置数据库
+
+	(venv) $ python manage.py db upgrade
+    			
 	
 ## 博客小项目Flasky
+
+[flask学习2]()
 
 ## 发布应用前准备
 
