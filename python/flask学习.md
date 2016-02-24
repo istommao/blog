@@ -668,7 +668,9 @@ db.Column构造器第一个参数指定类型：
 	>>> from hello import db
 	>>> db.create_all()
 
-更新表：(重新创建，弊端：旧数据被删除)
+#### 更新表
+
+重新创建，弊端：旧数据被删除。更好的方法通过Flask-Migrate
 
 	db.drop_all()
 	db.create_all()	
@@ -779,8 +781,100 @@ db.Column构造器第一个参数指定类型：
 	>>> user_role.users.count()
 	2
 	
+#### 在View Functions中使用数据库
+
+直接使用前面学习的数据库的操作	
+
+*e.g.:*
+
+hello.py
+
+	@app.route('/', methods=['GET', 'POST'])
+	def index():
+	    form = NameForm()
+	    if form.validate_on_submit():
+	        user = User.query.filter_by(username=form.name.data).first()
+	        if user is None:
+	            user = User(username = form.name.data)
+	            db.session.add(user)
+	            session['known'] = False
+	        else:
+	            session['known'] = True
+	        session['name'] = form.name.data
+	        form.name.data = ''
+	        return redirect(url_for('index'))
+	    return render_template('index.html',
+	        form = form, name = session.get('name'),
+	        known = session.get('known', False))
+
+templates/index.html
+
+	{% extends "base.html" %}
+	{% import "bootstrap/wtf.html" as wtf %}
+	
+	{% block title %}Flasky{% endblock %}
+	
+	{% block page_content %}
+	<div class="page-header">
+	    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+	    {% if not known %}
+	    <p>Pleased to meet you!</p>
+	    {% else %}
+	    <p>Happy to see you again!</p>
+	    {% endif %}
+	</div>
+	{{ wtf.quick_form(form) }}
+	{% endblock %}
+	
+#### 使用Flask-Script集成
+
+每次都要导入数据库实例很麻烦，通过Flask-Script
+
+	from flask.ext.script import Shell
+	
+将要导入的对象在`make_context`中注册：
+
+hello.py
+
+	from flask.ext.script import Shell
+	
+	def make_shell_context():
+	    return dict(app=app, db=db, User=User, Role=Role)
+	    
+	manager.add_command("shell", Shell(make_context=make_shell_context))
 	
 
+### 数据库迁移
+
+Flask-Migrate
+	
+	pip install flask-migrate
+	
+配置：导出MigrateCommand类
+
+hello.py:
+
+	from flask.ext.migrate import Migrate, MigrateCommand
+	
+	# ...
+	
+	migrate = Migrate(app, db)
+	manager.add_command('db', MigrateCommand)
+	
+迁移前，创建一个迁移库：
+
+	(venv) $ python hello.py db init
+	
+创建migration脚本：upgrade()和downgrade()
+
+	(venv) $ python hello.py db migrate -m "initial migration"
+
+更新数据库：第一次执行时，类似于执行`db.create_all()`，但是后来执行时，会更新表而不影响对应的内容。
+
+	python hello.py db upgrade
+
+	
+	
 ## 博客小项目Flasky
 
 ## 发布应用前准备
