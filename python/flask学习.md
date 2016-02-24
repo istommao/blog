@@ -622,7 +622,164 @@ db.Column构造器第一个参数指定类型：
 	    def __repr__(self):
 	        return '<User %r>' % self.username
 
+### 关系
 
+#### one-to-many
+
+一个role属于多个user，每个user都只有一个角色。
+
+`db.realationship`第一个参数指定对象模型。
+
+其他参数：
+
+* backref: 反向关系
+* primaryjoin: 指定两个模型的join条件。一般有多个外键的时候，SQLAlchemy不能自己决定关系时，需要指定
+* lazy：指定相关联的items什么时候加载, *select, immediate,joined,subquery,noload,dynamic* 
+* userlist：为Flase时，使用标量
+* order_by：
+* secondary: 指定关联表的名称，用于many-to-many
+* secondaryjoin: 指定第二个join条件，当SQLAlchemy不能自己决定时关系时，需要使用
+
+*e.g.*:
+
+	class Role(db.Model):
+	    # ...
+	    users = db.relationship('User', backref='role')
+	
+	class User(db.Model):
+	    # ...
+	    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+#### one-to-one
+
+`ono-to-one`的使用类似`one-to-many`,只是将`userlist`设置为`Flase`。
+
+#### many-to-many
+
+需要提供额外的`association table`。
+
+### 数据库操作
+
+#### 创建表
+
+	SQLAlchemy基于model类来创建表
+	
+	(venv) $ python hello.py shell
+	>>> from hello import db
+	>>> db.create_all()
+
+更新表：(重新创建，弊端：旧数据被删除)
+
+	db.drop_all()
+	db.create_all()	
+	
+#### 插入
+
+构建对象
+
+	>>> from hello import Role, User
+	>>> admin_role = Role(name='Admin')
+	>>> mod_role = Role(name='Moderator')
+	>>> user_role = Role(name='User')
+	>>> user_john = User(username='john', role=admin_role)
+	>>> user_susan = User(username='susan', role=user_role)
+	>>> user_david = User(username='david', role=user_role)
+
+> 构造器模型接受模型属性的关键字参数作为初始值。主键的指定由Flask-SQLAlchemy自动指定。
+
+添加到session中：
+
+	>>> db.session.add(admin_role)
+	>>> db.session.add(mod_role)
+	>>> db.session.add(user_role)
+	>>> db.session.add(user_john)
+	>>> db.session.add(user_susan)
+	>>> db.session.add(user_david)
+
+	或：
+	
+	>>> db.session.add_all([admin_role, mod_role, user_role,
+	...     user_john, user_susan, user_david])
+
+提交：commit()
+
+	>>> db.session.commit()
+	
+#### 修改
+
+增加：add()
+
+	>>> admin_role.name = 'Administrator'
+	>>> db.session.add(admin_role)
+	>>> db.session.commit()	
+
+#### 删除
+
+删除：delete()
+
+	>>> db.session.delete(mod_role)
+	>>> db.session.commit()
+
+#### 查询
+
+每个模型类都有一个`query`对象
+
+*e.g.:*
+
+	>>> Role.query.all()
+	[<Role u'Administrator'>, <Role u'User'>]
+	>>> User.query.all()
+	[<User u'john'>, <User u'susan'>, <User u'david'>]
+
+过滤器:
+
+* filter():
+* filter_by():
+* limit(): 
+* offset():
+* order_by():
+* group_by():
+
+执行器：
+
+* all():
+* first():
+* first_or_404():
+* get():
+* get_or_404():
+* count():
+* paginate():
+
+
+*e.g.*
+
+
+	>>> User.query.filter_by(role=user_role).all()
+	[<User u'susan'>, <User u'david'>]
+
+使用SQL语句：转换query对象为字符串
+
+	>>> str(User.query.filter_by(role=user_role))
+	'SELECT users.id AS users_id, users.username AS users_username,
+	users.role_id AS users_role_id FROM users WHERE :param_1 = users.role_id'
+
+##### 完善关系：（没明白）
+
+由于不指定lazy的话，`user_role.users`表达式会内部调用all()返回结果，因为`query`对象被隐藏，这样就不能添加过滤器，因此最好添加上`lazy`字段：
+
+	class Role(db.Model):
+	    # ...
+	    users = db.relationship('User', backref='role', lazy='dynamic')
+	    # ... 
+
+这样修改后，`user_role.users`不会马上执行，就可以添加过滤器了：
+
+	>>> user_role.users.order_by(User.username).all()
+	[<User u'david'>, <User u'susan'>]
+	>>> user_role.users.count()
+	2
+	
+	
 
 ## 博客小项目Flasky
 
