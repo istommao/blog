@@ -709,7 +709,6 @@ db.Column构造器第一个参数指定类型：
 	
 #### 修改
 
-增加：add()
 
 	>>> admin_role.name = 'Administrator'
 	>>> db.session.add(admin_role)
@@ -874,6 +873,83 @@ hello.py:
 	python hello.py db upgrade
 
 	
+## Email
+
+python自带smtplib支持邮件的发送。Flask-Mail对其进行了封装并与Flask集成。
+
+	pip install flask-mail
+	
+SMTP服务配置：
+
+* MAIL_HOSTNAME: localhost
+* MAIL_PORT: 25	
+* MAIL_USE_TLS: False
+* MAIL_USE_SSL: False
+* MAIL_USERNAME: None
+* MAIL_PASSWORD: None
+
+*e.g.:*配置外部服务器机初始化：
+
+hello.py
+
+	# 配置
+	import os
+	# ...
+	app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+	app.config['MAIL_PORT'] = 587
+	app.config['MAIL_USE_TLS'] = True
+	app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+	app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+
+	# 初始化
+	
+	from flask.ext.mail import Mail
+	mail = Mail(app)
+	
+MAIL_USERNAME和MAIL_PASSWORD都需要在系统环境变量中设置：
+
+	Linux or Mac
+	(venv) $ export MAIL_USERNAME=<Gmail username>
+	(venv) $ export MAIL_PASSWORD=<Gmail password>
+
+	Windows
+	(venv) $ set MAIL_USERNAME=<Gmail username>
+	(venv) $ set MAIL_PASSWORD=<Gmail password>
+
+### 发送邮件
+
+	from flask.ext.mail import Message
+	
+	app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[Flasky]'
+	app.config['FLASKY_MAIL_SENDER'] = 'Flasky Admin <flasky@example.com>'
+	
+	def send_email(to, subject, template, **kwargs):
+	    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
+	                  sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
+	    msg.body = render_template(template + '.txt', **kwargs)
+	    msg.html = render_template(template + '.html', **kwargs)
+	    mail.send(msg)
+	    
+template不用给指定扩展名，这样可以传递不同的内容，`**kwargs`传递给template使用
+
+### 异步发送
+
+	from threading import Thread
+	
+	def send_async_email(app, msg):
+	    with app.app_context():
+	        mail.send(msg)
+	
+	def send_email(to, subject, template, **kwargs):
+	    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
+	                  sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
+	    msg.body = render_template(template + '.txt', **kwargs)
+	    msg.html = render_template(template + '.html', **kwargs)
+	    thr = Thread(target=send_async_email, args=[app, msg])
+	    thr.start()
+	    return thr    
+	
+注意：大部分Flask的扩展都在active的application和request context中，而上面代码使用多线程时，就需要调用`app.app_context()`手动构建application context。
 	
 ## 博客小项目Flasky
 
