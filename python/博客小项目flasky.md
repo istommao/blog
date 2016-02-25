@@ -52,6 +52,20 @@ tags:
 * Flask-WTF: Form表单	
 * Flask的blueprint的@before_app_request或@before_request
 
+## 用户角色
+
+* 用户角色表：用户权限，角色名，关联的user
+
+* 超级管理员：
+
+* 角色认证
+
+	使用Flask-login的UserMixin和AnonymousMixin
+	
+* permission_required装饰器的实现
+* admin_required装饰器的实现
+* blueprint的app_context_processor装饰器：让变量在所有模板都可用	
+
 
 
 
