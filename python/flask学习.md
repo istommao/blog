@@ -984,7 +984,7 @@ Flask没有要求应用的结构。下面给出一种可能的应用结构。
 * migrations/: 数据库migration的脚本
 * tests/: 测试包
 * venv/: virtualenv	  
-* requirements.txt: 列出依赖的包
+* requirements.txt: 列出依赖的包（可以改成文件夹，里面分别存放生产环境、开发环境所需要的依赖文件，可以将公共部分提出到common.txt文件，然后在对应的dev.txt头部添加`-r common.txt`）
 * config.py: 配置文件
 * manage.py: 启动应用和其他任务
 
