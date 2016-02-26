@@ -67,6 +67,70 @@ tags:
 * blueprint的app_context_processor装饰器：让变量在所有模板都可用	
 
 
+## 文章发布
+
+* Post model
+* Post Form
+* View Functions
+
+* ForgeryPy: 生成大量的假数据
+
+### 分页
+
+* paginate()
+
+paginate对象：
+
+* iterms
+* query
+* page
+* prev_num
+* next_num
+* has_next
+* has_prev
+* pages
+* per_page
+* total
+* iter_pages(...)
+* prev()
+* next()
+
+### 富文本
+
+支持markdown
+
+依赖包：
+
+* PageDown: Markdown-to-HTML的客户端转换器（js）
+
+	用到的接口或功能：
+	
+	
+* Flask-PageDown: 集成PageDown到Flask-WTF的表单
+
+	用到的接口或功能：
+	
+	* PageDownField类，与WTForms的TextAreaField接口相同
+	* {{ pagedown.include_pagedown() }}：导入PageDown到模板
+	
+	
+
+
+* Markdown：Markdown-to-HTML的服务端转换器（python）
+
+* Bleach: HTML清洁库
+
+安装：
+
+	(venv) $ pip install flask-pagedown markdown bleach
+
+
+### Post的链接
+
+### 编辑Post
+
+
+
 
 
 
