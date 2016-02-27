@@ -130,6 +130,11 @@ paginate对象：
 ### 编辑Post
 
 
+## Followers
+
+### many-to-many relationships
+
+### self-referential
 
 
 
