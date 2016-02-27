@@ -137,6 +137,38 @@ paginate对象：
 ### self-referential
 
 
+## User comments
+
+* comments model
+* 对应posts增加comments及显示
+* 修改comments
+
+## 应用程序接口--REST
+
+* 创建API blueprint
+* 错误处理
+
+	一般返回200，201，400，401， 403，404，405，500
+
+	其中404和500，由于Flask将其以HTML的形式返回，这可能会给客户端带来混淆，因此需要做特殊处理，其他可以通过web service直接处理即可。
+	
+* 用户认证
+
+		(venv) $ pip install flask-httpauth	
+	* @auth.login_required: 由于所有路由都需要设置该值，所以可以直接与@api.before_requst一起使用
+	* @auth.verify_password
+	* token-based authentication：发送登录认证给一个特定的URL，产生一个token
+
+* 资源序列化：to/from json
+* 根据路由实现对应的资源endpoints
+* 测试：httpi库
+
+
+
+	
+
+
+
 
 
 
