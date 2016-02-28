@@ -1239,7 +1239,12 @@ manager.command装饰器可以很容易实现自己的命令，被它修饰的�
 ## 发布应用前准备
 
 
+## 资料
 
+* [Flask Extention]()
+* [Python Package Index](http://pypi.python.org/)
+* [Github](github.com)
+* 
 
 
 ## 参考
