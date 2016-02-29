@@ -1,6 +1,18 @@
-#Cowboy之routing笔记
+title: Cowboy之routing笔记
+date: 2016-02-29 17:30:30
+tags: 
+- cowboy
+- routing
+- route
 
-#简介
+-----
+
+
+
+# Cowboy之routing笔记
+----
+
+## 简介
 cowboy默认什么都不做，要想cowboy可以处理请求，需要将URLs映射到用于处理请求的Erlang模块中。这个过程称为routing。
 
 当cowboy收到一个request，它会尝试比较请求中的host和path是否和routing指定的dispatch rules一致。如果一致，相应的Erlang代码就会执行。
@@ -10,7 +22,7 @@ cowboy默认什么都不做，要想cowboy可以处理请求，需要将URLs映�
 Routes要先在Cowboy中compile，然后才可以使用。
 
 
-#Routes的结构
+## Routes的结构
 
 主要由Hosts、Paths构成。
 
@@ -28,7 +40,7 @@ PathsList的组成和Hosts的组成类似：
 	Path1 = {PathMatch, Handler, Opts}.
 	Path2 = {PathMatch, Constraints, Handler, Opts}.
 
-#Match的语法
+## Match的语法
 
 Match语法用来将host names、paths与它们各自的handles关联起来。
 
@@ -95,7 +107,7 @@ Path定义必须以斜线** '/' **开头。
 
 
 
-#Constrains
+## Constrains
 
 在完成matching后，产生的bindings可以通过constraints进行测试。只有定义了binding之后，constrains测试才会进行。它们会根据定义的顺序有序进行，只有全部成功后，匹配才成功。
 
@@ -103,7 +115,8 @@ constrains一般都是2或3的元组。第一个元素是bingding的名字，第
 
 	{Name, int}
 	{Name, function, fun ((Value) -> true | {true, NewValue} | false)}	
-#Compilation
+	
+## Compilation
 Routes要先在Cowboy中compile，然后才可以使用。使用cowboy_router:compile/1进行compile。
 
 来看例子：
@@ -120,14 +133,14 @@ Routes要先在Cowboy中compile，然后才可以使用。使用cowboy_router:co
 
 如果structure不正确，这个函数会返回{error, badarg}。
 
-#在线更新
+## 在线更新
 
 可以通过cowboy:set_env/3在线更新dispatch。
 
 	cowboy:set_env(my_http_listener, dispatch,
     		cowboy_router:compile(Dispatch)).	
 	
-#Cowboy和socket.io实例
+## Cowboy和socket.io实例
 
 
 	Dispatch = cowboy_router:compile([
@@ -168,4 +181,10 @@ Routes要先在Cowboy中compile，然后才可以使用。使用cowboy_router:co
 2. 要实现自己的callback模块；
 3. 要实现自己的'socketio_handler'；
 4. 使用自己的线程'‘socketio_http_listener'
+
+## 参考
+
+* [Routing](http://ninenines.eu/docs/en/cowboy/HEAD/guide/routing/)
+* [cowboy_router](http://ninenines.eu/docs/en/cowboy/HEAD/manual/cowboy_router/)
 	
+
