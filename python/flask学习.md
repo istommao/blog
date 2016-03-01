@@ -1241,7 +1241,7 @@ manager.command装饰器可以很容易实现自己的命令，被它修饰的�
 
 ## 资料
 
-* [Flask Extention]()
+* [Flask Extention](http://flask.pocoo.org/extensions/)
 * [Python Package Index](http://pypi.python.org/)
 * [Github](github.com)
 * 
