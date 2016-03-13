@@ -34,7 +34,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## 学习koa
 > 学习koa，比较其和express用什么不同，并用其实现simple blog
 
-## python-flask+sqlalchemy
 
 ## react构建座席台面板
 
@@ -131,6 +130,13 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > <https://github.com/zhuwei05/react-demo/tree/master/react-qa>
 
 `2016.01.24 zhuwei05`
+
+## python-flask+sqlalchemy
+
+> [flask-blog](https://github.com/zhuwei05/flask-blog)
+
+`2016.03.06 zhuwei05`
+
 
 
 
