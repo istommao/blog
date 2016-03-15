@@ -219,4 +219,8 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 
 1~3是初始化操作，执行一次即可。在翻译前必须执行第4步同步我的库（这样避免冲突），然后执行5~7既可。
 
+### 参考
+
+* [Elasticsearch权威指南（中文版）](https://www.gitbook.com/book/looly/elasticsearch-the-definitive-guide-cn/details)
+
 		
