@@ -184,8 +184,82 @@ React 把组件看成是一个状态机（State Machines）。通过与用户的
 ### Props 验证
 Props 验证使用 propTypes，它可以保证我们的应用组件被正确使用，React.PropTypes 提供很多[验证器 (validator)](http://facebook.github.io/react/docs/reusable-components.html) 来验证传入数据是否有效。当向 props 传入无效数据时，JavaScript 控制台会抛出警告。
 
+## 组件API
 
+### 设置状态：setState
 
+	setState(object nextState[, function callback])
+
+* nextState，将要设置的新状态，该状态会和当前的state合并
+* callback，可选参数，回调函数。该函数会在setState设置成功，且组件重新渲染后调用。
+
+> 合并nextState和当前state，并重新渲染组件。
+
+> setState是React事件处理函数中和请求回调函数中**触发UI更新的主要方法**。
+
+#### setState注意点
+
+* 不能在组件内部通过this.state修改状态，因为该状态会在调用setState()后被替换。
+* setState()并不会立即改变this.state，而是创建一个即将处理的state。setState()并不一定是同步的，为了提升性能React会批量执行state和DOM渲染。
+* setState()总是会触发一次组件重绘，除非在shouldComponentUpdate()中实现了一些条件渲染逻辑。
+
+### 替换状态：replaceState
+
+	replaceState(object nextState[, function callback])
+
+* nextState，将要设置的新状态，该状态会替换当前的state。
+* callback，可选参数，回调函数。该函数会在replaceState设置成功，且组件重新渲染后调用。
+
+> replaceState()方法与setState()类似，但是方法只会保留nextState中状态，原state不在nextState中的状态都会被删除。
+
+### 设置属性：setProps
+
+	setProps(object nextProps[, function callback])
+
+* nextProps，将要设置的新属性，该状态会和当前的props合并
+* callback，可选参数，回调函数。该函数会在setProps设置成功，且组件重新渲染后调用。
+
+> 设置组件属性，并重新渲染组件。
+
+> props相当于组件的数据流，它总是会从父组件向下传递至所有的子组件中。当和一个外部的JavaScript应用集成时，我们可能会需要**向组件传递数据或通知React.render()组件**需要重新渲染，可以使用setProps()。
+
+> 更新组件，我可以在节点上再次调用React.render()，也可以通过setProps()方法改变组件属性，触发组件重新渲染。
+
+### 替换属性：replaceProps
+	replaceProps(object nextProps[, function callback])
+
+* nextProps，将要设置的新属性，该属性会替换当前的props。
+* callback，可选参数，回调函数。该函数会在replaceProps设置成功，且组件重新渲染后调用。
+
+> replaceProps()方法与setProps类似，但它会删除原有props
+
+### 强制更新：forceUpdate
+
+	forceUpdate([function callback])
+
+* callback，可选参数，回调函数。该函数会在组件render()方法调用后调用。
+
+> forceUpdate()方法会使组件调用自身的render()方法重新渲染组件，组件的子组件也会调用自己的render()。但是，组件重新渲染时，依然会读取this.props和this.state，如果状态没有改变，那么React只会更新DOM。
+> 
+> forceUpdate()方法**适用于this.props和this.state之外的组件重绘**（如：修改了this.state后），通过该方法通知React需要调用render()
+> 
+> 一般来说，应该尽量避免使用forceUpdate()，而仅从this.props和this.state中读取状态并由React触发render()调用。
+
+### 获取DOM节点：getDOMNode
+
+	DOMElement getDOMNode()
+
+* 返回值：DOM元素DOMElement
+
+> 如果组件已经挂载到DOM中，该方法返回对应的本地浏览器 DOM 元素。当render返回null 或 false时，this.getDOMNode()也会返回null。**从DOM 中读取值的时候，该方法很有用**，如：获取表单字段的值和做一些 DOM 操作。
+
+### 判断组件挂载状态：isMounted
+
+	bool isMounted()
+	
+* 返回值：true或false，表示组件是否已挂载到DOM中
+
+> isMounted()方法用于判断组件是否已挂载到DOM中。可以使用该方法**保证了setState()和forceUpdate()在异步场景**下的调用不会出错。
 
 
 
