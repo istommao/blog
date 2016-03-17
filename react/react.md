@@ -286,7 +286,11 @@ Props 验证使用 propTypes，它可以保证我们的应用组件被正确使�
 
 * componentWillUnmount在组件从 DOM 中移除的时候立刻被调用。
 
+## React AJAX
 
+* React 组件的数据可以通过 `componentDidMount` 方法中的 Ajax 来获取，当从服务端获取数据库可以将数据存储在 state 中，再用 this.setState 方法重新渲染 UI。
+
+* 当使用异步加载数据时，在组件卸载前使用 `componentWillUnmount` 来取消未完成的请求。
 
 
 ## 事件events
@@ -302,6 +306,41 @@ React处理的事件本质上和原生js事件一样：MouseEvents事件用于�
 * 更新状态
 * 事件对象
 
+### examples
+
+**e.g.**
+
+	var Content = React.createClass({
+	  render: function() {
+	    return  <div>
+	            <input type="text" value={this.props.myDataProp} onChange={this.props.updateStateProp} /> 
+	            <h4>{this.props.myDataProp}</h4>
+	            </div>;
+	  }
+	});
+	var HelloMessage = React.createClass({
+	  getInitialState: function() {
+	    return {value: 'Hello world!'};
+	  },
+	  handleChange: function(event) {
+	    this.setState({value: event.target.value});
+	  },
+	  render: function() {
+	    var value = this.state.value;
+	    return <div>
+	            <Content myDataProp = {value} 
+	              updateStateProp = {this.handleChange}></Content>
+	           </div>;
+	  }
+	});
+	ReactDOM.render(
+	  <HelloMessage />,
+	  document.getElementById('example')
+	);
+	
+本例中子组件(Content)使用表单，当你需要从子组件中更新父组件的 state 时，通过在父组件(HelloMessage)创建事件句柄 (`handleChange`) ，并作为 `prop (updateStateProp)` 传递到你的子组件上。
+		
+	
 **小结：**
 
 从用户输入到更新用户界面，处理步骤非常简单：
@@ -312,6 +351,29 @@ React处理的事件本质上和原生js事件一样：MouseEvents事件用于�
 
 
 ## 指向ref
+
+React 支持一种非常特殊的属性 Ref ，你可以用来绑定到 render() 输出的任何组件上。
+
+这个特殊的属性允许你引用render()返回的相应的 `backing instance`。
+
+使用ref可以在讲子组件的接口暴露给父组件。例如：
+
+	var ParentComponent = React.createClass({
+	    render: function(){
+	        return (
+	            <div>
+	                //其他组件
+	                <ChildComponent ref="childRef"/>
+	                //其他组件
+	            </div>
+	        );
+	    }
+	});
+	
+如果ChildComponent中定义了接口interfaceA,那么在父组件可以这样调用：`this.refs.childRef.interfaceA()`
+	
+	
+
 
 ## 双向数据流
 
