@@ -36,7 +36,88 @@ React本质上是一个“状态机”，可以帮助开发者管理复杂的随
 
 JSX（JavaScrip XML）：一种在react组件内部构建标签的类XML语法。React在不适用JSX的情况下一样可以工作，然而使用JSX可以提高组件的可读性。
 
+使用 JSX，但它有以下优点：
 
+* JSX 执行更快，因为它在编译为 JavaScript 代码后进行了优化。
+* 它是类型安全的，在编译过程中就能发现错误。
+* 使用 JSX 编写模板更加简单快速。
+
+**demo:**
+
+	ReactDOM.render(
+		<h1>Hello, world!</h1>,
+		document.getElementById('example')
+	);
+	
+### 语法规则
+
+* 嵌套多个 HTML 标签，需要使用一个 `div `元素包裹它
+
+* React JSX 代码可以放在一个独立文件上
+
+* 在 JSX 中使用 JavaScript 表达式。表达式写在花括号 `{} `中
+
+		ReactDOM.render(
+			<div>
+			  <h1>{1+1}</h1>
+			</div>
+			,
+			document.getElementById('example')
+		);
+
+* 在 JSX 中不能使用 if else 语句，但可以使用 conditional (三元运算) 表达式来替代
+
+* 样式：React 推荐使用`内联样式`。我们可以使用 `camelCase` 语法来设置内联样式. React 会在指定元素数字后自动添加 `px`
+
+		var myStyle = {
+			fontSize: 100,
+			color: '#FF0000'
+		};
+		ReactDOM.render(
+			<h1 style = {myStyle}>菜鸟教程</h1>,
+			document.getElementById('example')
+		);
+		
+* 注释需要写在花括号中
+
+		ReactDOM.render(
+			<div>
+		    <h1>菜鸟教程</h1>
+		    {/*注释...*/}
+		 	</div>,
+			document.getElementById('example')
+		);		
+
+* JSX 允许在模板中插入数组，数组会自动展开所有成员
+
+		var arr = [
+		  <h1>菜鸟教程</h1>,
+		  <h2>学的不仅是技术，更是梦想！</h2>,
+		];
+		ReactDOM.render(
+		  <div>{arr}</div>,
+		  document.getElementById('example')
+		);	
+
+* HTML 标签 vs. React 组件
+
+	React 的 JSX 使用大、小写的约定来区分本地组件的类和 HTML 标签。
+	
+	React 可以渲染 HTML 标签 (strings) 或 React 组件 (classes)。
+
+	要`渲染 HTML 标签`，只需在 JSX 里使用小写字母的标签名。
+	
+		var myDivElement = <div className="foo" />;
+		ReactDOM.render(myDivElement, document.getElementById('example'));		
+	要`渲染 React 组件`，只需创建一个大写字母开头的本地变量。
+
+		var MyComponent = React.createClass({/*...*/});
+		var myElement = <MyComponent someProperty={true} />;
+		ReactDOM.render(myElement, document.getElementById('example'));	
+
+
+**注意:
+由于 JSX 就是 JavaScript，一些标识符像 class 和 for 不建议作为 XML 属性名。作为替代，React DOM 使用 className 和 htmlFor 来做对应的属性。**
 
 	
 ## helloworld
@@ -85,7 +166,11 @@ React处理的事件本质上和原生js事件一样：MouseEvents事件用于�
 
 
 					
-	
+## 参考
+
+* [菜鸟](http://www.runoob.com/react/react-tutorial.html)
+* [react-webpack](https://github.com/zhuwei05/react-demo)
+* [react]()
  
 
 
