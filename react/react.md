@@ -114,20 +114,64 @@ JSX（JavaScrip XML）：一种在react组件内部构建标签的类XML语法�
 		var MyComponent = React.createClass({/*...*/});
 		var myElement = <MyComponent someProperty={true} />;
 		ReactDOM.render(myElement, document.getElementById('example'));	
-
-
-**注意:
+> **注意:
 由于 JSX 就是 JavaScript，一些标识符像 class 和 for 不建议作为 XML 属性名。作为替代，React DOM 使用 className 和 htmlFor 来做对应的属性。**
 
 	
 ## helloworld
 
 ## 组件
-### 组件嵌套			
+
+**demo**
+
+输出"hello world"
+
+	var HelloMessage = React.createClass({
+	  render: function() {
+	    return <h1>Hello World！</h1>;
+	  }
+	});
+	
+	ReactDOM.render(
+	  <HelloMessage />,
+	  document.getElementById('example')
+	);
+	
+解析：
+
+* React.createClass 方法用于生成一个组件类 HelloMessage。
+* `<HelloMessage />` 实例组件类并输出信息。
+
+> 注意，原生 HTML 元素名以小写字母开头，而自定义的 React 类名以大写字母开头，比如 HelloMessage 不能写成 helloMessage。除此之外还需要注意组件类只能包含一个顶层标签，否则也会报错。	
+
+
+### 组件参数`props`
+
+需要向组件传递参数，可以使用 `this.props` 对象，传递给组件的参数（变量或函数）都会保存到`this.props`对象中。
+
+	var HelloMessage = React.createClass({
+	  render: function() {
+	    return <h1>Hello {this.props.name}</h1>;
+	  }
+	});
+	
+	ReactDOM.render(
+	  <HelloMessage name="world" />,
+	  document.getElementById('example')
+	);
+	
+解析：上述例子将参数`name`传递给了组件`HelloMessage`，所以在组件`HelloMessage`中，通过`this.props.name`可以得到参数值`world`
+	
+
+### 组件嵌套`state`
+
+通过创建多个组件来合成一个组件，即把组件的不同功能点进行分离.		
 
 ### 组件的状态	
 
-### 组件参数props
+React 把组件看成是一个状态机（State Machines）。通过与用户的交互，实现不同状态，然后渲染 UI，让用户界面和数据保持一致。
+React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
+
 
 ## 事件events
 
