@@ -1,6 +1,6 @@
 #linux知识、命令和技巧
 
-##统计文件夹下的总行数
+## 统计文件夹下的总行数
 
 	$ wc -l `find . -name *.c`
 	$ find . -name "*.html" | xargs wc -l
@@ -24,14 +24,18 @@
 	查看文件大小
 	ls -lAh /var/log
 	
+## 历史命令
+
+终端输入`ctrl+r`，然后根据提示输入想要输入的命令，这时会自动查找历史命令，给出相关提示。
+
 	
-##screen工具的使用
+## screen工具的使用
 
 进入使用：
 	
 	screen
 
-或指定名字 
+或指定session名字 
 
 	screen -S name
 
@@ -46,13 +50,17 @@
 	得到的结果后，从结果中获得screen的标示xxx, 然后执行： 
 	screen -r xxx。
 	
-如果设置了name，可以直接使用
+如果设置了session的名字name，可以直接使用
 
 	screen -r name
+	
+如果想重新连接已经attach的session（这种情况往往会发生在短暂断网，该session会被原来的连接占用）：
+
+	screee -x name
 
 关闭： 
 
-	ctral +a k
+	ctrl +a k
 
 清除死掉的窗口： 
 	
@@ -67,3 +75,14 @@
 
 	screen -S session_name
 	screen -r session_name	
+	
+在一个session中新建窗口并切换
+
+	新建： ctrl +a c
+	切换： ctrl +a n(下一个) ctrl +a p(前一个)
+
+更多命令：
+
+	crtl +a ?
+	
+	
