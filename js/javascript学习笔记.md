@@ -1,7 +1,7 @@
-#JavaScript学习笔记
+# JavaScript学习笔记
 ========
 
-#为什么学习 JavaScript?
+# 为什么学习 JavaScript?
 ====
 JavaScript web 开发人员必须学习的 3 门语言中的一门：
 
@@ -9,7 +9,7 @@ JavaScript web 开发人员必须学习的 3 门语言中的一门：
 * CSS 描述了网页的布局
 * JavaScript 网页的行为
 
-#JavaScript 是脚本语言
+# JavaScript 是脚本语言
 =====
 JavaScript 是一种轻量级的编程语言。
 
@@ -18,7 +18,7 @@ JavaScript 是可插入 HTML 页面的编程代码。
 JavaScript 插入 HTML 页面后，可由所有的现代浏览器执行。
 
 
-#JS用法
+# JS用法
 ===
 
 HTML 中的脚本必须位于 <script> 与 </script> 标签之间。
