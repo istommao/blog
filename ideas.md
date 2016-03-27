@@ -5,7 +5,7 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 管理自己的ideas!!!
 
 
-#INPROGRESS
+# INPROGRESS
 ---
 
 
@@ -13,22 +13,20 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 > 学习angular，总结其知识点，动手完成项目：simple blog
 
-## html-css-js-dom-bom-angular-react
-> 解释html、css、js、dom、bom的关系。同时提取出一些必须知道的知识点和api接口。比如document, elem.innerHTML
 
 ## 文档构建工具
 
 > toc? sphinx-doc?
 
-##learn node: simple IM
+## learn node: simple IM
 > 参考网上教程，使用node + socketio开发一个简易的WebIM
 
 
-##learn java: simple blog
+## learn java: simple blog
 > 使用java开发一个简易的blog系统
 
 
-##learn java: simple IM
+## learn java: simple IM
 > 使用java开发一个简易的WebIM
 
 ## 学习koa
@@ -38,7 +36,7 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## react构建座席台面板
 
 
-#TODO
+# TODO
 ----
 
 ## 使用spring开发web项目
@@ -64,23 +62,23 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > 学习js基础，记录文档
 
 
-#DONE
+# DONE
 ----
 
-##learn bootstrap
+## learn bootstrap
 > 简要学习bootstrap的使用，方便之后自己开发项目的时候，可以快速构建出一个可用的页面。
 
 [bootstrap随笔](https://github.com/zhuwei05/blog/blob/master/bootstrap/bootstrap%E7%AC%94%E8%AE%B0.md)
 
 
-##learn akka
+## learn akka
 > 学习akka的基本用法
 
 [akka随笔](https://github.com/zhuwei05/blog/blob/master/scala/akka%E9%9A%8F%E7%AC%94.md)
 
 `2016.01.03 zhuwei05`
 
-##learn node: simple blog
+## learn node: simple blog
 > 参考网上教程，使用node + extjs + mongodb开发一个简易的blog
 > <https://github.com/zhuwei05/node-blog>
 
@@ -136,6 +134,15 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > [flask-blog](https://github.com/zhuwei05/flask-blog)
 
 `2016.03.06 zhuwei05`
+
+## html-css-js-dom-bom-angular-react
+> 解释html、css、js、dom、bom的关系。同时提取出一些必须知道的知识点和api接口。比如document, elem.innerHTML
+
+> [HTML-CSS-Mindmap](https://github.com/zhuwei05/blog/blob/master/html_css/HTML-CSS-JS.xmind)
+
+`2016.03.27 zhuwei05`
+
+
 
 
 
