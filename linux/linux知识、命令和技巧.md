@@ -85,4 +85,6 @@
 
 	crtl +a ?
 	
+> 类似工具tmux[使用tmux](http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html)	
+	
 	
