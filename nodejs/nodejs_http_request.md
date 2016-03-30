@@ -55,7 +55,8 @@ example：from [request/request](https://github.com/request/request)：
 	})	
 	
 	
-
+## 示例代码
+<https://github.com/zhuwei05/node-demo/tree/master/node-http>
 
 
 ## 参考
