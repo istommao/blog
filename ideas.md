@@ -43,6 +43,12 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > 学习js基础，记录文档
 > [JavaScript 标准参考教程（alpha）](http://javascript.ruanyifeng.com/)
 
+## ES6学习
+
+> 学习ES6，做读书笔记
+> [ECMAScript 6入门](http://es6.ruanyifeng.com/#README)
+
+
 ## Promise
 
 > 学习Promise，写读书笔记，动手实现简易Promise
