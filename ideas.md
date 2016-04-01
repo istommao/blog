@@ -31,9 +31,23 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ## 学习koa
 > 学习koa，比较其和express用什么不同，并用其实现simple blog
+> 实例koa版的[node-agent-koa](https://github.com/zhuwei05/node-agent-koa), express版[node-agent实例](https://github.com/zhuwei05/node-agent)
 
 
 ## react构建座席台面板
+
+## jslint
+
+## js学习
+
+> 学习js基础，记录文档
+> [JavaScript 标准参考教程（alpha）](http://javascript.ruanyifeng.com/)
+
+## 学习前端测试框架
+
+## flask与react
+
+## node与react
 
 
 # TODO
@@ -56,10 +70,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## learn spark
 
 ## spark源码阅读
-
-## 学习js
-
-> 学习js基础，记录文档
 
 
 # DONE
@@ -141,6 +151,12 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > [HTML-CSS-Mindmap](https://github.com/zhuwei05/blog/blob/master/html_css/HTML-CSS-JS.xmind)
 
 `2016.03.27 zhuwei05`
+
+## node-agent
+
+> 通过`express`和`ejs`构建，数据使用`node_redis`获取redis中座席的数据，然后使用bootstrap显示到页面。
+> [node-agent实例](https://github.com/zhuwei05/node-agent)
+> `2016.04.01 zhuwei05`
 
 
 
