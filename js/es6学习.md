@@ -444,6 +444,42 @@ ES6为字符串添加了`遍历器接口`（详见《Iterator》一章），使�
 
 标签模板其实不是模板，而是函数调用的一种特殊形式。“标签”指的就是函数，紧跟在后面的模板字符串就是它的参数。
 
+## 正则的扩展
+
+	// 1.
+	var regex = new RegExp('xyz', 'i');
+	// 等价于
+	var regex = /xyz/i;
+	
+	// 2.
+	var regex = new RegExp(/xyz/i);
+	// 等价于
+	var regex = /xyz/i;
+	
+	// 3.
+	var regex = new RegExp(/xyz/, i);
+
+### 字符串的正则方法
+
+字符串对象共有4个方法，可以使用正则表达式：`match()`、`replace()`、`search()`和`split()`。
+
+ES6将这4个方法，在语言内部全部调用`RegExp`的实例方法，从而做到所有与正则相关的方法，全都定义在`RegExp`对象上。
+
+* `String.prototype.match` 调用 `RegExp.prototype[Symbol.match]`
+* `String.prototype.replace` 调用 `RegExp.prototype[Symbol.replace]`
+* `String.prototype.search` 调用 `RegExp.prototype[Symbol.search]`
+* `String.prototype.split` 调用 `RegExp.prototype[Symbol.split]`
+
+
+### u修饰符
+
+ES6对正则表达式添加了`u`修饰符，含义为“Unicode模式”，用来正确处理大于`\uFFFF`的Unicode字符
+
+### y修饰符
+
+y修饰符的作用与g修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，g修饰符只要剩余位置中存在匹配就可，而y修饰符确保匹配必须从剩余的*第一个位置开始*，这也就是“粘连”的涵义
+
+
 
 			
 		
