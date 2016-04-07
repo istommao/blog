@@ -36,17 +36,11 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ## react构建座席台面板
 
-## jslint
 
 ## js学习
 
 > 学习js基础，记录文档
 > [JavaScript 标准参考教程（alpha）](http://javascript.ruanyifeng.com/)
-
-## ES6学习
-
-> 学习ES6，做读书笔记
-> [ECMAScript 6入门](http://es6.ruanyifeng.com/#README)
 
 
 ## Promise
@@ -166,8 +160,27 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 ## node-agent
 
 > 通过`express`和`ejs`构建，数据使用`node_redis`获取redis中座席的数据，然后使用bootstrap显示到页面。
+> 
 > [node-agent实例](https://github.com/zhuwei05/node-agent)
-> `2016.04.01 zhuwei05`
+
+`2016.04.01 zhuwei05`
+
+## ES6学习
+
+> 学习ES6，做[读书笔记](https://github.com/zhuwei05/blog/blob/master/js/es6%E5%AD%A6%E4%B9%A0\(1\).md)
+> 
+> [ECMAScript 6入门](http://es6.ruanyifeng.com/#README)
+
+`2016.04.04 zhuwei05`
+
+## lint
+
+> * [ESLint的使用](https://github.com/zhuwei05/blog/blob/master/feTools/eslint%E7%9A%84%E4%BD%BF%E7%94%A8.md)
+> * [JSLint简介](https://github.com/zhuwei05/blog/blob/master/feTools%2Fjslint%E7%AE%80%E4%BB%8B.md)
+
+
+`2016.04.07 zhuwei05`
+
 
 
 
