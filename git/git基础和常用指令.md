@@ -1,8 +1,8 @@
-#git基础和常用指令
+# git基础和常用指令
 
-##git常用操作
+## git常用操作
 	
-###必懂和常使用的指令	
+### 必懂和常使用的指令	
 	git clone
 	git init
 	git log
@@ -20,15 +20,24 @@
 		git pull origin master
 	git tag
 	git branch
-	git checkout 
+	git checkout
+		git checkout -b <new_branch>
+		git checkout -b <new_branch> [start_point] 
+		
+	指令详解[git-checkout](https://git-scm.com/docs/git-checkout)：
+
+		git checkout [-q] [<commit>] [--] <paths> ...
+		git checkout [<branch>]
+		git checkout [-m] [ [-b | -- orphan ] <new_branch>]  [start_point] 
+		
 	git merge
 	
 [直观的命令总结](https://github.com/zhuwei05/blog/blob/master/git/%E7%9B%B4%E8%A7%82%E7%9A%84git%E5%91%BD%E4%BB%A4%E8%A1%A8.png)	
-###远程库的常见操作
+### 程库的常见操作
 
 [远程库常见操作](https://github.com/zhuwei05/blog/blob/master/git/git%E8%BF%9C%E7%A8%8B%E5%BA%93.md)	
 
-###部分指令介绍
+### 部分指令介绍
 
 	git init
 	初始化当前目录为git可管理的目录。
@@ -65,9 +74,9 @@
 	从branch产生一个新的分支，默认是master分支。
 	git branch -d <branch>
 	删除分支。
-	git check <branch>
+	git checkout <branch>
 	切换分支。
-	git check <filename>
+	git checkout <filename>
 	把文件恢复到最后一次提交。
 	git merge <branch>
 	把指定分支合并到当前分支。
@@ -76,16 +85,14 @@
 	git stash pop
 	把暂存区里的取出并与当前合并。
 
-##*git工作流程图：*
+## git工作流程图
 
 ![git工作流程图](https://raw.githubusercontent.com/zhuwei05/blog/master/Res/git-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
 
-##git的学习和命令链接：
+## git的学习和命令链接：
 	
-[快速入门：git简易指南](http://www.bootcss.com/p/git-guide/)
-
-[git使用简单汇总](http://blog.csdn.net/richardysteven/article/details/5956854)
-
-[Pro git en](http://git-scm.com/book/en/v2)
-
-[Pro git cn](http://git-scm.com/book/zh/v1)
+* [快速入门：git简易指南](http://www.bootcss.com/p/git-guide/)
+* [git使用简单汇总](http://blog.csdn.net/richardysteven/article/details/5956854)
+* [Pro git en](http://git-scm.com/book/en/v2)
+* [Pro git cn](http://git-scm.com/book/zh/v1)
+* [git命令](https://git-scm.com/docs)
