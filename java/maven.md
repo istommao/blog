@@ -1,4 +1,4 @@
-#Maven
+# Maven
 
 下载安装maven后，mvn会将下载一些jar包保存到repo
 
@@ -54,5 +54,14 @@ maven标准目录结构
 		GroupId： 组织或公司
 		Artifact： 项目或产品
 		version： 不同版本
+		
+## 目录
+
+* ${basedir} 存放 pom.xml和所有的子目录
+* ${basedir}/src/main/java 项目的 java源代码
+* ${basedir}/src/main/resources 项目的资源，比如说 property文件
+* ${basedir}/src/test/java 项目的测试类，比如说 JUnit代码
+* ${basedir}/src/test/resources 测试使用的资源
+* 在默认情况下会产生 JAR 文件，另外 ，编译后 的 classes 会放在 ${basedir}/target/classes 下面， JAR 文件会放在 ${basedir}/target 下面		
 		
 			
