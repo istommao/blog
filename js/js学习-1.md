@@ -1109,24 +1109,66 @@ JavaScript是一种动态类型语言，变量是没有类型的，可以随时�
 * 空对象 + 空对象： `NaN`
 
 	JavaScript同样将第一个空对象视为一个空代码块，整个表达式就变成“+ {}”。这时，后一个空对象的ValueOf方法得到本身，再调用toSting方法，得到字符串“[object Object]”，然后再将这个字符串转成数值，得到NaN。所以，最后的结果就是NaN。
-		
-
-
 	
 	
+# 错误处理机制		
 
 
+## Error对象
 
+一旦代码解析或运行时发生错误，JavaScript引擎就会自动产生并抛出一个Error对象的实例，然后整个程序就中断在发生错误的地方。
 
+rror对象的实例有三个最基本的属性：
 
+* name：错误名称
+* message：错误提示信息
+* stack：错误的堆栈（非标准属性，但是大多数平台支持）
+	
+## JavaScript的原生错误类型
 
+Error对象是最一般的错误类型，在它的基础上，JavaScript还定义了其他6种错误，也就是说，存在Error的6个派生对象。
 
+* SyntaxError： 解析代码时发生的语法错误
+* ReferenceError： 引用一个不存在的变量时发生的错误。另一种触发场景是，将一个值分配给无法分配的对象，比如对函数的运行结果或者this赋值
+* RangeError： 当一个值超出有效范围时发生的错误。
+* TypeError： 变量或参数不是预期类型时发生的错误
+* URIError： URI相关函数的参数不正确时抛出的错误，主要涉及encodeURI()、decodeURI()、encodeURIComponent()、decodeURIComponent()、escape()和unescape()这六个函数
+* EvalError：eval函数没有被正确执行时，会抛出EvalError错误。该错误类型已经不再在ES5中出现了，只是为了保证与以前代码兼容，才继续保留
 
+## 自定义错误
 
+除了JavaScript内建的7种错误对象，还可以定义自己的错误对象。
 
+	function UserError(message) {
+	   this.message = message || "默认信息";
+	   this.name = "UserError";
+	}
+	
+	UserError.prototype = new Error();
+	UserError.prototype.constructor = UserError;
 
+上面代码自定义一个错误对象UserError，让它继承Error对象。然后，就可以生成这种自定义的错误了。
 
+	new UserError("这是自定义的错误！");
+	
+## throw语句
 
+throw语句的作用是中断程序执行，抛出一个意外或错误。它接受一个表达式作为参数，可以抛出各种值。	
+
+## try…catch结构
+
+为了对错误进行处理，需要使用`try...catch`结构
+
+* `catch`代码块捕获错误之后，程序不会中断，会按照正常流程继续执行下去
+* `catch`代码块之中，还可以再抛出错误，甚至使用嵌套的`try...catch`结构
+* 为了捕捉不同类型的错误，`catch`代码块之中可以加入判断语句。
+
+## finally代码块
+
+`try...catch`结构允许在最后添加一个`finally`代码块，表示不管是否出现错误，都必需在最后运行的语句。
+
+* 即使有`return`语句在前，`finally`代码块依然会得到执行，且在其执行完毕后，才会显示`return`语句的值
+* `return`语句的执行是排在`finally`代码之前，只是等`finally`代码执行完毕后才返回
 
 
 
