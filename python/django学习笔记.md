@@ -532,8 +532,7 @@ request.GET 可以看成一个字典，用GET方法传递的值都会保存到�
 * 对应的模板文件 index.html
 	
 		<form method='post'>
-		<!-- {% csrf_token %}
-		{{ form }} -->
+
 		<input type="submit" value="提交">
 		</form>	
 
