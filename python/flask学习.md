@@ -29,38 +29,38 @@ tags:
 * routes和函数
 
 	> 装饰器：
-	
+
 	> 路由：不带参数和带参数，如'/'和'/user/\<name\>'
 	> 	
 
-	
+
 		@app.route('/')
 		def index():
 	    	return '<h1>Hello World!</h1>'
-	    
+
 	   @app.route('/user/<name>')
 			def user(name):
     		return '<h1>Hello, %s!</h1>' % name
-    	
-    				
+
+
 * 	server启动
 
 		if __name__ == '__main__':
 	    	app.run(debug=True)
-		
+
 
 ## Hello world
 
 	from flask import Flask
 	app = Flask(__name__)
-	
+
 	@app.route('/')
 	def index():
 	    return '<h1>Hello World!</h1>'
-	
+
 	if __name__ == '__main__':
 	    app.run(debug=True)
-	    
+
 ## 请求和响应
 
 ### Context和request
@@ -92,8 +92,8 @@ view函数返回：
 
 	@app.route('/')
 	def index():
-		return '<h1>Bad Request</h1>', 400	
-	
+		return '<h1>Bad Request</h1>', 400
+
 	@app.route('/')
 	def index():
 	    response = make_response('<h1>This document carries a cookie!</h1>')
@@ -110,7 +110,7 @@ view函数返回：
 404：
 
 	abort(404)
-	
+
 ## flask扩展
 
 ### flask-script
@@ -128,34 +128,34 @@ flask默认查找**templates**子目录的模板文件
 templates/user.html
 
 	<h1>Hello, {{name}}!<h1>
-	
+
 hello.py
 
 	from flask import Flask, render_template
-	
+
 	# ...
-	
+
 	@app.route('/index')
 	def index():
 	    return render_template('index.html')
-	    
+
 	@app.route('/user/	<name>')
 	def user(name):
 		return render_template('user.html', name=name)
-		
+
 第一个参数指定模板文件，其余参数为key/value类型，可以在模板中作为变量和变量值使用。
 
 #### 变量
 
 	{{ name }}
-	
+
 支持多种类型：
 
 	<p>A value from a dictionary: {{ mydict['key'] }}.</p>
 	<p>A value from a list: {{ mylist[3] }}.</p>
 	<p>A value from a list, with a variable index: {{ mylist[myintvar] }}.</p>
 	<p>A value from an object's method: {{ myobj.somemethod() }}.</p>
-	
+
 #### 过滤
 
 * safe
@@ -166,10 +166,10 @@ hello.py
 * trim
 * striptags
 
-*e.g.*	
+*e.g.*
 
 	{{ name|captalize }}
-			
+
 #### 控制结构
 
 条件
@@ -186,14 +186,14 @@ hello.py
 	    {% for comment in comments %}
 	        <li>{{ comment }}</li>
 	    {% endfor %}
-	</ul>	
+	</ul>
 
 宏定义
 
 	{% macro render_comment(comment) %}
 	    <li>{{ comment }}</li>
 	{% endmacro %}
-	
+
 	<ul>
 	    {% for comment in comments %}
 	        {{ render_comment(comment) }}
@@ -213,7 +213,7 @@ hello.py
 include
 
 	{% include 'common.html' %}
-	
+
 模板继承
 
 *base.html*
@@ -251,8 +251,8 @@ include
 
 	from flask.ext.bootstrap import Bootstrap
 	# ...
-	bootstrap = Bootstrap(app)	
-	
+	bootstrap = Bootstrap(app)
+
 bootstrap/base.html定义的一些block：
 
 * doc
@@ -280,9 +280,9 @@ bootstrap/base.html定义的一些block：
 *e.g.*:	templates/user.html
 
 	{% extends "bootstrap/base.html" %}
-	
+
 	{% block title %}Flasky{% endblock %}
-	
+
 	{% block navbar %}
 	<div class="navbar navbar-inverse" role="navigation">
 	    <div class="container">
@@ -304,7 +304,7 @@ bootstrap/base.html定义的一些block：
 	    </div>
 	</div>
 	{% endblock %}
-	
+
 	{% block content %}
 	<div class="container">
 	    <div class="page-header">
@@ -312,16 +312,16 @@ bootstrap/base.html定义的一些block：
 	    </div>
 	</div>
 	{% endblock %}
-	
+
 ### 自定义错误页面
 
 	@app.errorhandler(404)
 	def page_not_found(e):
 	    return render_template('404.html'), 404
-	
+
 	@app.errorhandler(500)
 	def internal_server_error(e):
-	    return render_template('500.html'), 500	
+	    return render_template('500.html'), 500
 ### 链接
 
 	url_for('view function name'[, 动态参数kv])
@@ -329,7 +329,7 @@ bootstrap/base.html定义的一些block：
 ### 静态文件
 
 	/static/<filename>
-	
+
 *e.g.:*favicon定义
 
 	{% block head %}
@@ -343,7 +343,7 @@ bootstrap/base.html定义的一些block：
 ### 时间处理:flask-moment
 
 	(venv) $ pip install flask-moment
-	
+
 初始化：
 
 	from flask.ext.moment import Moment
@@ -354,7 +354,7 @@ bootstrap/base.html定义的一些block：
 	{% block scripts %}
 	{{ super() }}
 	{{ moment.include_moment() }}
-	{% endblock %}	
+	{% endblock %}
 
 moment.js实现的函数：
 
@@ -381,7 +381,7 @@ moment.js实现的函数：
 表单处理扩展插件：
 
 	(venv) $ pip install flask-wtf
-	
+
 ### CSRF:跨域保护
 
 flask-wtf防止CSRF攻击，通过产生加密的tokens去认证来自表单的请求：
@@ -443,7 +443,7 @@ WTFForms还定义了validators：
 	    {{ form.name.label }} {{ form.name(id='my-text-field') }}
 	    {{ form.submit() }}
 	</form>		
-	
+
 使用bootstrap提供的wft样式：
 
 	{% import "bootstrap/wtf.html" as wtf %}
@@ -470,7 +470,7 @@ Post/Redirect/Get pattern
 *e.g.*: redirect和session进行名字的保存
 
 	from flask import Flask, render_template, session, redirect, url_for
-	
+
 	@app.route('/', methods=['GET', 'POST'])
 	def index():
 	    form = NameForm()
@@ -494,7 +494,7 @@ Flask提供flash函数（产生消息）和get_flashed_messages函数（在模�
 hello.py
 
 	from flask import Flask, render_template, session, redirect, url_for, flash
-	
+
 	@app.route('/', methods=['GET', 'POST'])
 	def index():
 	    form = NameForm()
@@ -510,7 +510,6 @@ hello.py
 
 templates/base.html
 
-	{% block content %}
 	<div class="container">
 	    {% for message in get_flashed_messages() %}
 	    <div class="alert alert-warning">
@@ -518,10 +517,9 @@ templates/base.html
 	        {{ message }}
 	    </div>
 	    {% endfor %}
-	
+
 	    {% block page_content %}{% endblock %}
 	</div>
-	{% endblock %}
 
 
 ## 数据库
@@ -552,14 +550,14 @@ SQLAlchemy一个支持多种数据库的ORM框架。
 *e.g.:*
 
 	from flask.ext.sqlalchemy import SQLAlchemy
-	
+
 	basedir = os.path.abspath(os.path.dirname(__file__))
-	
+
 	app = Flask(__name__)
 	app.config['SQLALCHEMY_DATABASE_URI'] =\
 	    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 	app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-	
+
 	db = SQLAlchemy(app)
 
 ### 模型定义
@@ -610,15 +608,15 @@ db.Column构造器第一个参数指定类型：
 	    __tablename__ = 'roles'
 	    id = db.Column(db.Integer, primary_key=True)
 	    name = db.Column(db.String(64), unique=True)
-	
+
 	    def __repr__(self):
 	        return '<Role %r>' % self.name
-	
+
 	class User(db.Model):
 	    __tablename__ = 'users'
 	    id = db.Column(db.Integer, primary_key=True)
 	    username = db.Column(db.String(64), unique=True, index=True)
-	
+
 	    def __repr__(self):
 	        return '<User %r>' % self.username
 
@@ -634,7 +632,7 @@ db.Column构造器第一个参数指定类型：
 
 * backref: 反向关系
 * primaryjoin: 指定两个模型的join条件。一般有多个外键的时候，SQLAlchemy不能自己决定关系时，需要指定
-* lazy：指定相关联的items什么时候加载, *select, immediate,joined,subquery,noload,dynamic* 
+* lazy：指定相关联的items什么时候加载, *select, immediate,joined,subquery,noload,dynamic*
 * userlist：为Flase时，使用标量
 * order_by：
 * secondary: 指定关联表的名称，用于many-to-many
@@ -645,7 +643,7 @@ db.Column构造器第一个参数指定类型：
 	class Role(db.Model):
 	    # ...
 	    users = db.relationship('User', backref='role')
-	
+
 	class User(db.Model):
 	    # ...
 	    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
@@ -663,7 +661,7 @@ db.Column构造器第一个参数指定类型：
 #### 创建表
 
 	SQLAlchemy基于model类来创建表
-	
+
 	(venv) $ python hello.py shell
 	>>> from hello import db
 	>>> db.create_all()
@@ -673,8 +671,8 @@ db.Column构造器第一个参数指定类型：
 重新创建，弊端：旧数据被删除。更好的方法通过Flask-Migrate
 
 	db.drop_all()
-	db.create_all()	
-	
+	db.create_all()
+
 #### 插入
 
 构建对象
@@ -699,20 +697,20 @@ db.Column构造器第一个参数指定类型：
 	>>> db.session.add(user_david)
 
 	或：
-	
+
 	>>> db.session.add_all([admin_role, mod_role, user_role,
 	...     user_john, user_susan, user_david])
 
 提交：commit()
 
 	>>> db.session.commit()
-	
+
 #### 修改
 
 
 	>>> admin_role.name = 'Administrator'
 	>>> db.session.add(admin_role)
-	>>> db.session.commit()	
+	>>> db.session.commit()
 
 #### 删除
 
@@ -736,7 +734,7 @@ db.Column构造器第一个参数指定类型：
 
 * filter():
 * filter_by():
-* limit(): 
+* limit():
 * offset():
 * order_by():
 * group_by():
@@ -771,7 +769,7 @@ db.Column构造器第一个参数指定类型：
 	class Role(db.Model):
 	    # ...
 	    users = db.relationship('User', backref='role', lazy='dynamic')
-	    # ... 
+	    # ...
 
 这样修改后，`user_role.users`不会马上执行，就可以添加过滤器了：
 
@@ -779,10 +777,10 @@ db.Column构造器第一个参数指定类型：
 	[<User u'david'>, <User u'susan'>]
 	>>> user_role.users.count()
 	2
-	
+
 #### 在View Functions中使用数据库
 
-直接使用前面学习的数据库的操作	
+直接使用前面学习的数据库的操作
 
 *e.g.:*
 
@@ -810,9 +808,9 @@ templates/index.html
 
 	{% extends "base.html" %}
 	{% import "bootstrap/wtf.html" as wtf %}
-	
+
 	{% block title %}Flasky{% endblock %}
-	
+
 	{% block page_content %}
 	<div class="page-header">
 	    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
@@ -824,46 +822,46 @@ templates/index.html
 	</div>
 	{{ wtf.quick_form(form) }}
 	{% endblock %}
-	
+
 #### 使用Flask-Script集成
 
 每次都要导入数据库实例很麻烦，通过Flask-Script
 
 	from flask.ext.script import Shell
-	
+
 将要导入的对象在`make_context`中注册：
 
 hello.py
 
 	from flask.ext.script import Shell
-	
+
 	def make_shell_context():
 	    return dict(app=app, db=db, User=User, Role=Role)
-	    
+
 	manager.add_command("shell", Shell(make_context=make_shell_context))
-	
+
 
 ### 数据库迁移
 
 Flask-Migrate
-	
+
 	(venv) $ pip install flask-migrate
-	
+
 配置：导出MigrateCommand类
 
 hello.py:
 
 	from flask.ext.migrate import Migrate, MigrateCommand
-	
+
 	# ...
-	
+
 	migrate = Migrate(app, db)
 	manager.add_command('db', MigrateCommand)
-	
+
 迁移前，创建一个迁移库：
 
 	(venv) $ python hello.py db init
-	
+
 创建migration脚本：upgrade()和downgrade()
 
 	(venv) $ python hello.py db migrate -m "initial migration"
@@ -872,17 +870,17 @@ hello.py:
 
 	(venv) $ python hello.py db upgrade
 
-	
+
 ## Email
 
 python自带smtplib支持邮件的发送。Flask-Mail对其进行了封装并与Flask集成。
 
 	(venv) $ pip install flask-mail
-	
+
 SMTP服务配置：
 
 * MAIL_HOSTNAME: localhost
-* MAIL_PORT: 25	
+* MAIL_PORT: 25
 * MAIL_USE_TLS: False
 * MAIL_USE_SSL: False
 * MAIL_USERNAME: None
@@ -902,10 +900,10 @@ hello.py
 	app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
 	# 初始化
-	
+
 	from flask.ext.mail import Mail
 	mail = Mail(app)
-	
+
 MAIL_USERNAME和MAIL_PASSWORD都需要在系统环境变量中设置：
 
 	Linux or Mac
@@ -919,27 +917,27 @@ MAIL_USERNAME和MAIL_PASSWORD都需要在系统环境变量中设置：
 ### 发送邮件
 
 	from flask.ext.mail import Message
-	
+
 	app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[Flasky]'
 	app.config['FLASKY_MAIL_SENDER'] = 'Flasky Admin <flasky@example.com>'
-	
+
 	def send_email(to, subject, template, **kwargs):
 	    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
 	                  sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
 	    msg.body = render_template(template + '.txt', **kwargs)
 	    msg.html = render_template(template + '.html', **kwargs)
 	    mail.send(msg)
-	    
+
 template不用给指定扩展名，这样可以传递不同的内容，`**kwargs`传递给template使用
 
 ### 异步发送
 
 	from threading import Thread
-	
+
 	def send_async_email(app, msg):
 	    with app.app_context():
 	        mail.send(msg)
-	
+
 	def send_email(to, subject, template, **kwargs):
 	    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
 	                  sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
@@ -948,7 +946,7 @@ template不用给指定扩展名，这样可以传递不同的内容，`**kwargs
 	    thr = Thread(target=send_async_email, args=[app, msg])
 	    thr.start()
 	    return thr    
-	
+
 注意：大部分Flask的扩展都在active的application和request context中，而上面代码使用多线程时，就需要调用`app.app_context()`手动构建application context。
 
 
@@ -978,8 +976,8 @@ Flask没有要求应用的结构。下面给出一种可能的应用结构。
 	  |-requirements.txt
 	  |-config.py
 	  |-manage.py
-	
-	
+
+
 * app/：Flask应用
 * migrations/: 数据库migration的脚本
 * tests/: 测试包
@@ -988,8 +986,8 @@ Flask没有要求应用的结构。下面给出一种可能的应用结构。
 * config.py: 配置文件
 * manage.py: 启动应用和其他任务
 
-	  
-	  
+
+
 ### config.py
 
 配置文件。
@@ -998,29 +996,29 @@ Flask没有要求应用的结构。下面给出一种可能的应用结构。
 
 	import os
 	basedir = os.path.abspath(os.path.dirname(__file__))
-	
+
 	class Config:
 		# ...
 		@staticmethod
 	    def init_app(app):
 	        pass
 		# ...
-		  
-		  
+
+
 	class DevelopmentConfig(Config):
 		# ...
-	
+
 	class TestingConfig(Config):
 		# ...
-		
+
 	class ProductionConfig(Config):
 		# ...
-		
+
 	config = {
 		'development': DevelopmentConfig,
 		'testing': TestingConfig,
 		'production': ProductionConfig,
-		
+
 		'default': DevelopmentConfig
 	}
 
@@ -1035,31 +1033,31 @@ Flask没有要求应用的结构。下面给出一种可能的应用结构。
 *e.g:*
 
 app/\_\_init\_\_.py
- 
+
 	from flask import Flask, render_template
 	from flask.ext.bootstrap import Bootstrap
 	from flask.ext.mail import Mail
 	from flask.ext.moment import Moment
 	from flask.ext.sqlalchemy import SQLAlchemy
 	from config import config
-	
+
 	bootstrap = Bootstrap()
 	mail = Mail()
 	moment = Moment()
 	db = SQLAlchemy()
-	
+
 	def create_app(config_name):
 	    app = Flask(__name__)
 	    app.config.from_object(config[config_name])
 	    config[config_name].init_app(app)
-	
+
 	    bootstrap.init_app(app)
 	    mail.init_app(app)
 	    moment.init_app(app)
 	    db.init_app(app)
-	
+
 	    # attach routes and custom error pages here
-	
+
 	    return app
 
 #### 实现app的功能：blueprint
@@ -1075,15 +1073,15 @@ app/\_\_init\_\_.py
 *e.g.:*
 
 app/main/\_\_init\_\_.py
-	
+
 	from flask import Blueprint
-	
+
 	main = Blueprint('main', __name__)
-	
-	from . import views, errors	
-	
-**注意：由于views和errors依赖main，因此要放在main之后，不然出现相互依赖的问题**	
-	
+
+	from . import views, errors
+
+**注意：由于views和errors依赖main，因此要放在main之后，不然出现相互依赖的问题**
+
 在包中定义的：
 
 * app/main/views.py：处理应用路由
@@ -1096,28 +1094,28 @@ app/\_\_init\_\_.py
 
 	def create_app(config_name):
 	    # ...
-	
+
 	    from main import main as main_blueprint
 	    app.register_blueprint(main_blueprint)
-	
-	    return app	
-	
+
+	    return app
+
 ##### app/main/errors.py
 
 	from flask import render_template
 	from . import main
-	
+
 	@main.app_errorhandler(404)
-	
+
 	def page_not_found(e):
 	    return render_template('404.html'), 404
-	
+
 	@main.app_errorhandler(500)
 	def internal_server_error(e):
 	    return render_template('500.html'), 500
 
-与app.errorhandler的区别为main.app_errorhandler	
-	
+与app.errorhandler的区别为main.app_errorhandler
+
 ##### app/main/errors.py
 
 	from datetime import datetime
@@ -1126,7 +1124,7 @@ app/\_\_init\_\_.py
 	from .forms import NameForm
 	from .. import db
 	from ..models import User
-	
+
 	@main.route('/', methods=['GET', 'POST'])
 	def index():
 	    form = NameForm()
@@ -1136,8 +1134,8 @@ app/\_\_init\_\_.py
 	    return render_template('index.html',
 	                           form=form, name=session.get('name'),
 	                           known=session.get('known', False),
-	                           current_time=datetime.utcnow())	
-	
+	                           current_time=datetime.utcnow())
+
 区别：
 
 * app.route变为main.route
@@ -1154,30 +1152,30 @@ manage.py
 	from app.models import User, Role
 	from flask.ext.script import Manager, Shell
 	from flask.ext.migrate import Migrate, MigrateCommand
-	
+
 	app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 	manager = Manager(app)
 	migrate = Migrate(app, db)
-	
+
 	def make_shell_context():
 	    return dict(app=app, db=db, User=User, Role=Role)
 	manager.add_command("shell", Shell(make_context=make_shell_context))
 	manager.add_command('db', MigrateCommand)
-	
+
 	if __name__ == '__main__':
 	    manager.run()
-		
+
 
 ### requirements文件
 
 记录依赖的特定版本的包
 
 	(venv) $ pip freeze > requirements.txt
-	
+
 根据requirements.txt重新构建：
 
 	(venv) $ pip install -r requirements.txt
-	
+
 ### 单元测试
 
 tests/test_basic.py
@@ -1185,25 +1183,25 @@ tests/test_basic.py
 	import unittest
 	from flask import current_app
 	from app import create_app, db
-	
+
 	class BasicsTestCase(unittest.TestCase):
 	    def setUp(self):
 	        self.app = create_app('testing')
 	        self.app_context = self.app.app_context()
 	        self.app_context.push()
 	        db.create_all()
-	        
+
 	    def tearDown(self):
 	        db.session.remove()
 	        db.drop_all()
 	        self.app_context.pop()
-	
+
 	    def test_app_exists(self):
 	        self.assertFalse(current_app is None)
-	
+
 	    def test_app_is_testing(self):
 	        self.assertTrue(current_app.config['TESTING'])
-	        
+
 
 Python单测包：
 
@@ -1221,17 +1219,17 @@ manage.py
 	    import unittest
 	    tests = unittest.TestLoader().discover('tests')
 	    unittest.TextTestRunner(verbosity=2).run(tests)
-    		
+
 
 manager.command装饰器可以很容易实现自己的命令，被它修饰的函数名作为自定义的命令，函数的docstring作为help messages。
 
 	(venv) $ python manage.py test
-	
+
 ### 设置数据库
 
 	(venv) $ python manage.py db upgrade
-    			
-	
+
+
 ## 博客小项目Flasky
 
 [flask学习2]()
@@ -1244,17 +1242,9 @@ manager.command装饰器可以很容易实现自己的命令，被它修饰的�
 * [Flask Extention](http://flask.pocoo.org/extensions/)
 * [Python Package Index](http://pypi.python.org/)
 * [Github](github.com)
-* 
+*
 
 
 ## 参考
 * [Flask Web Development](http://flaskbook.com/)
 * [Flasky](https://github.com/miguelgrinberg/flasky)
-
-
-
-
-
-	
-
-	    
