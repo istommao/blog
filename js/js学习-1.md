@@ -16,11 +16,11 @@ tags:
 
 **语句（statement）**是为了完成某种任务而进行的操作
 
-	var a = 1 + 3;
+    var a = 1 + 3;
 
 **表达式（expression）**为了得到返回值的计算式。
 
-	1 + 3
+    1 + 3
 
 > 语句和表达式的区别在于，前者主要为了进行某种操作，一般情况下不需要返回值；后者则是为了得到返回值，一定会返回一个值。
 
@@ -29,9 +29,9 @@ tags:
 
 ### 变量
 
-	var a;
-	a = 1;
-	var a = 1;
+    var a;
+    a = 1;
+    var a = 1;
 
 * 变量是对“值”的引用，使用变量等同于引用一个值。
 * 变量的声明和赋值，是分开的两个步骤。但是可以合起来一起写。
@@ -42,14 +42,14 @@ tags:
 
 JavaScript引擎的工作方式是，先解析代码，获取所有被声明的变量，然后再一行一行地运行。这造成的结果，就是所有的变量的声明语句，都会被提升到代码的头部，这就叫做**变量提升（hoisting）**
 
-	console.log(a); // undefined
-	var a = 1;
-	
-	==>
-	
-	var a;
-	console.log(a);  // undefined
-	a = 1;
+    console.log(a); // undefined
+    var a = 1;
+    
+    ==>
+    
+    var a;
+    console.log(a);  // undefined
+    a = 1;
 
 变量提升只对var命令声明的变量有效，如果一个变量不是用var命令声明的，就不会发生变量提升。
 
@@ -75,33 +75,33 @@ JavaScript引擎的工作方式是，先解析代码，获取所有被声明的�
 
 ### if 结构
 
-	if (m === 3) {
-	  m += 1;	
-	}	
+    if (m === 3) {
+      m += 1;    
+    }    
 
-	if (m === 0) {
-	  // ...
-	} else if (m === 1) {
-	  // ...
-	} else if (m === 2) {
-	  // ...
-	} else {
-	  // ...
-	}
+    if (m === 0) {
+      // ...
+    } else if (m === 1) {
+      // ...
+    } else if (m === 2) {
+      // ...
+    } else {
+      // ...
+    }
 
 ### switch结构
 
-	switch (fruit) {
-	  case "banana":
-	    // ...
-	    break;
-	  case "apple":
-	    // ...
-	    break;
-	  default:
-	    // ...
-	}
-	
+    switch (fruit) {
+      case "banana":
+        // ...
+        break;
+      case "apple":
+        // ...
+        break;
+      default:
+        // ...
+    }
+    
 * `switch`语句部分和`case`语句部分，都可以使用`表达式`
 * 每个`case`代码块内部的`break`语句不能少，否则会接下去执行下一个`case`代码块，而不是跳出`switch`结构
 * `switch`语句后面的表达式与`case`语句后面的表示式，在比较运行结果时，采用的是严格相等运算符（`===`），而不是相等运算符（`==`），这意味着比较时不会发生类型转换
@@ -111,15 +111,15 @@ JavaScript引擎的工作方式是，先解析代码，获取所有被声明的�
 
 ### while循环
 
-	while (expression) {
-	  statement
-	}
+    while (expression) {
+      statement
+    }
 
 ### for循环
-	
-	for(initialize; test; increment) {
-	  statement
-	}	
+    
+    for(initialize; test; increment) {
+      statement
+    }    
 
 * `for`语句后面的括号里面，有三个`表达式`
 * `for`语句的三个部分（`initialize`，`test`，`increment`），可以省略任何一个，也可以全部省略
@@ -128,9 +128,9 @@ JavaScript引擎的工作方式是，先解析代码，获取所有被声明的�
 
 `do...while`循环与`while`循环类似，唯一的区别就是先运行一次循环体，然后判断循环条件
 
-	do {
-	  statement
-	} while(expression);
+    do {
+      statement
+    } while(expression);
 
 ### break语句和continue语句
 
@@ -138,8 +138,8 @@ JavaScript引擎的工作方式是，先解析代码，获取所有被声明的�
 
 ### 标签（label）
 
-	label:
-	  statement
+    label:
+      statement
 
 * 标签可以是任意的标识符，但是不能是保留字，语句部分可以是任意语句
 * 标签通常与`break`语句和`continue`语句配合使用，跳出特定的循环
@@ -173,34 +173,34 @@ JavaScript有三种方法，可以确定一个值到底是什么类型:
 `typeof`运算符可以返回一个值的数据类型:
 
 * 原始类型: 数值、字符串、布尔值分别返回`number`、`string`、`boolean`
-	
-		typeof 123 // "number"
+    
+        typeof 123 // "number"
 * 函数: 返回`function`
 * `undefined`: 返回`undefined`。利用这一点，typeof可以用来检查一个没有声明的变量，而不报错
 * 其他：都返回`object`
 
-		typeof window // "object"
-		typeof {} // "object"
-		typeof [] // "object"
-		typeof null // "object"
+        typeof window // "object"
+        typeof {} // "object"
+        typeof [] // "object"
+        typeof null // "object"
 
-	null的类型也是object，这是由于历史原因造成的
-	
-	`typeof`对数组（`array`）和对象（`object`）的显示结果都是`object`。`instanceof`运算符可以区分：
-		
-		var o = {};
-		var a = [];
-	
-		o instanceof Array // false
-		a instanceof Array // true
+    null的类型也是object，这是由于历史原因造成的
+    
+    `typeof`对数组（`array`）和对象（`object`）的显示结果都是`object`。`instanceof`运算符可以区分：
+        
+        var o = {};
+        var a = [];
+    
+        o instanceof Array // false
+        a instanceof Array // true
 
 ## null和undefined
 
 `null`与`undefined`都可以表示“没有”，含义非常相似。将一个变量赋值为undefined或null，老实说，语法效果几乎没区别。
 
-	var a = undefined;
-	// 或者
-	var a = null;
+    var a = undefined;
+    // 或者
+    var a = null;
 
 ### 用法和含义
 
@@ -259,40 +259,40 @@ JavaScript有三种方法，可以确定一个值到底是什么类型:
 
 具体的最大值和最小值，JavaScript提供Number对象的`MAX_VALUE`和`MIN_VALUE`属性表示
 
-	Number.MAX_VALUE // 1.7976931348623157e+308
-	Number.MIN_VALUE // 5e-324
+    Number.MAX_VALUE // 1.7976931348623157e+308
+    Number.MIN_VALUE // 5e-324
 
 ## 数值的表示法
 
 * 字面形式
 * 采用科学计数法(`e`或`E`)
-	
-		123e3 // 123000
-		123e-3 // 0.123
-		-3.1E+12
-		.1e-23
+    
+        123e3 // 123000
+        123e-3 // 0.123
+        -3.1E+12
+        .1e-23
 
 以下两种情况，JavaScript会自动将数值转为科学计数法表示，其他情况都采用字面形式直接表示。
 
 * 小数点前的数字多于21位
 
-		1234567890123456789012
-		// 1.2345678901234568e+21
+        1234567890123456789012
+        // 1.2345678901234568e+21
 
-		123456789012345678901
-		// 123456789012345680000
+        123456789012345678901
+        // 123456789012345680000
 
 * 小数点后的零多于5个
 
-		0.0000003 // 3e-7
-		0.000003 // 0.000003
-		
+        0.0000003 // 3e-7
+        0.000003 // 0.000003
+        
 ## 数值的进制
 
 * 十进制：没有前导0的数值。
 * 八进制：有前缀0o或0O的数值，或者有前导0、且只用到0-7的七个阿拉伯数字的数值。
 * 十六进制：有前缀0x或0X的数值。
-* 二进制：有前缀0b或0B的数值。		
+* 二进制：有前缀0b或0B的数值。        
 
 用前导0表示八进制，处理时很容易造成混乱。ES5的严格模式和ES6，已经废除了这种表示法，但是浏览器目前还支持。
 
@@ -302,12 +302,12 @@ JavaScript有三种方法，可以确定一个值到底是什么类型:
 
 严格来说，JavaScript提供零的三种写法：`0`、`+0`、`-0`。它们是等价的
 
-	-0 === +0 // true
-	0 === -0 // true
-	0 === +0 // true
+    -0 === +0 // true
+    0 === -0 // true
+    0 === +0 // true
 但是，如果正零和负零分别当作分母，它们返回的值是不相等的。
 
-	(1/+0) === (1/-0) // false
+    (1/+0) === (1/-0) // false
 
 上面代码之所以出现这样结果，是因为除以正零得到`+Infinity`，除以负零得到-`Infinity`，这两者是不相等的
 
@@ -337,15 +337,15 @@ JavaScript有三种方法，可以确定一个值到底是什么类型:
 
 因此，使用isNaN之前，最好判断一下数据类型：
 
-	function myIsNaN(value) {
-	  return typeof value === 'number' && isNaN(value);
-	}
+    function myIsNaN(value) {
+      return typeof value === 'number' && isNaN(value);
+    }
 
 更可靠的方法是，利用NaN是JavaScript之中唯一不等于自身的值这个特点，进行判断：
 
-	function myIsNaN(value) {
-	  return value !== value;
-	}
+    function myIsNaN(value) {
+      return value !== value;
+    }
 
 ### Infinity
 
@@ -451,10 +451,10 @@ JavaScript原生提供两个Base64相关方法。
 
 ```javascript
 
-	var o1 = {};
-	var o2 = new Object();
-	var o3 = Object.create(null);
-	
+    var o1 = {};
+    var o2 = new Object();
+    var o3 = Object.create(null);
+    
 ```
 
 ### 读写属性
@@ -466,24 +466,24 @@ JavaScript原生提供两个Base64相关方法。
 * 数值键名不能使用点运算符（因为会被当成小数点），只能使用方括号运算符
 * 检查变量是否声明：如果读取一个不存在的键，会返回undefined，而不是报错。可以利用这一点，来检查一个变量是否被声明
 
-		if('a' in window) {
-  			...
-		}
-		
+        if('a' in window) {
+              ...
+        }
+        
 **写入属性：**`[]`和`.`
 
 JavaScript允许属性的“后绑定”，也就是说，你可以在任意时刻新增属性，没必要在定义对象的时候，就定义好属性。
 
-	var o = { p: 1 };
-	
-	// 等价于
-	
-	var o = {};
-	o.p = 1;
+    var o = { p: 1 };
+    
+    // 等价于
+    
+    var o = {};
+    o.p = 1;
 
 ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.assign`
 
-**查看所有属性**： 查看一个对象本身的所有属性，可以使用`Object.keys`方法	
+**查看所有属性**： 查看一个对象本身的所有属性，可以使用`Object.keys`方法    
 
 ### 属性的删除
 
@@ -491,8 +491,8 @@ ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.
 
 * 如果删除一个不存在的属性，delete不报错，而且返回true。
 
-	换句话说：delete命令只能用来保证某个属性的值为undefined，而无法保证该属性是否真的存在
-	
+    换句话说：delete命令只能用来保证某个属性的值为undefined，而无法保证该属性是否真的存在
+    
 * 该属性存在，且不得删除，delete命令会返回false
 * delete命令只能删除对象本身的属性，不能删除继承的属性
 * delete命令也不能删除var命令声明的变量，只能用来删除属性
@@ -501,22 +501,22 @@ ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.
 
 如果不同的变量名指向同一个对象，那么它们都是这个对象的引用，也就是说指向同一个内存地址。修改其中一个变量，会影响到其他所有变量。
 
-	var o1 = {};
-	var o2 = o1;
-	
-	o1.a = 1;
-	o2.a // 1
-	
-	o2.b = 2;
-	o1.b // 2
-	
+    var o1 = {};
+    var o2 = o1;
+    
+    o1.a = 1;
+    o2.a // 1
+    
+    o2.b = 2;
+    o1.b // 2
+    
 这种引用只局限于对象，对于原始类型的数据则是传值引用，也就是说，都是值的拷贝
 
 ### in运算符
 
-* in运算符用于检查对象是否包含某个属性（注意，检查的是键名，不是键值），如果包含就返回`true`，否则返回`false`	
-	在JavaScript语言中，所有全局变量都是顶层对象（浏览器的顶层对象就是window对象）的属性，因此*可以用in运算符判断，一个全局变量是否存在*
-	
+* in运算符用于检查对象是否包含某个属性（注意，检查的是键名，不是键值），如果包含就返回`true`，否则返回`false`    
+    在JavaScript语言中，所有全局变量都是顶层对象（浏览器的顶层对象就是window对象）的属性，因此*可以用in运算符判断，一个全局变量是否存在*
+    
 * in运算符的一个问题是，它不能识别对象继承的属性，对继承的属性也返回`true`
 
 
@@ -525,49 +525,49 @@ ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.
 * `for...in`循环用来遍历一个对象的全部属性
 * `for...in`循环遍历的是对象所有可`enumberable`的属性，其中不仅包括定义在对象本身的属性，还包括对象继承的属性
 
-		// name 是 Person 本身的属性
-		function Person(name) {
-		  this.name = name;
-		}
-		
-		// describe是Person.prototype的属性
-		Person.prototype.describe = function () {
-		  return 'Name: '+this.name;
-		};
-		
-		var person = new Person('Jane');
-		
-		// for...in循环会遍历实例自身的属性（name），
-		// 以及继承的属性（describe）
-		for (var key in person) {
-		  console.log(key);
-		}
-		// name
-		// describe	
-		
+        // name 是 Person 本身的属性
+        function Person(name) {
+          this.name = name;
+        }
+        
+        // describe是Person.prototype的属性
+        Person.prototype.describe = function () {
+          return 'Name: '+this.name;
+        };
+        
+        var person = new Person('Jane');
+        
+        // for...in循环会遍历实例自身的属性（name），
+        // 以及继承的属性（describe）
+        for (var key in person) {
+          console.log(key);
+        }
+        // name
+        // describe    
+        
 * 如果只想遍历对象本身的属性，可以使用hasOwnProperty方法，在循环内部做一个判断
 
-		for (var key in person) {
-		  if (person.hasOwnProperty(key)) {
-		    console.log(key);
-		  }
-		}
-		// name
-		
+        for (var key in person) {
+          if (person.hasOwnProperty(key)) {
+            console.log(key);
+          }
+        }
+        // name
+        
 ### with语句
 
 `with`语句：
 
-	with (object) {
-	  statements;
-	}
+    with (object) {
+      statements;
+    }
 
 它的作用是操作同一个对象的多个属性时，提供一些书写的方便。
 
 * `with`区块内部的变量，必须是当前对象已经存在的属性，否则会创造一个当前作用域的全局变量。这是因为with区块没有改变作用域，它的内部依然是当前作用域。`with`语句的一个很大的弊病，就是绑定对象不明确。
 * with语句少数有用场合之一，就是替换模板变量。
 
-	
+    
 # 数组
 
 ## 定义
@@ -582,12 +582,12 @@ ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.
 
 本质上，数组属于一种特殊的对象。`typeof`运算符会返回数组的类型是`object`。
 
-	typeof [1, 2, 3] // "object"
+    typeof [1, 2, 3] // "object"
 
 * 数组的特殊性体现在，它的键名是按次序排列的一组整数（0，1，2…）。
 
-	对象的键名一律为字符串，所以，数组的键名其实也是字符串。之所以可以用数值读取，是因为非字符串的键名会被转为字符串。
-	
+    对象的键名一律为字符串，所以，数组的键名其实也是字符串。之所以可以用数值读取，是因为非字符串的键名会被转为字符串。
+    
 ## length属性
 
 * 数组的length属性，返回数组的成员数量
@@ -603,37 +603,37 @@ ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.
 
 下面就是一个类似数组的对象。
 
-	var obj = {
-	  0: 'a',
-	  1: 'b',
-	  2: 'c',
-	  length: 3
-	};
-	
-	obj[0] // 'a'
-	obj[2] // 'c'
-	obj.length // 3
-	
+    var obj = {
+      0: 'a',
+      1: 'b',
+      2: 'c',
+      length: 3
+    };
+    
+    obj[0] // 'a'
+    obj[2] // 'c'
+    obj.length // 3
+    
 * 典型的类似数组的对象是函数的`arguments`对象，以及大多数`DOM`元素集，还有`字符串`
 * 数组的slice方法将类似数组的对象，变成真正的数组
 
-		var arr = Array.prototype.slice.call(arrayLike);
-		
+        var arr = Array.prototype.slice.call(arrayLike);
+        
 * 遍历类似数组的对象，可以采用`for`循环，也可以采用数组的`forEach`方法
 
-		// for循环
-		function logArgs() {
-		  for (var i = 0; i < arguments.length; i++) {
-		    console.log(i + '. ' + arguments[i]);
-		  }
-		}
-		
-		// forEach方法
-		function logArgs() {
-		    Array.prototype.forEach.call(arguments, function (elem, i) {
-		        console.log(i+'. '+elem);
-		    });
-		}		
+        // for循环
+        function logArgs() {
+          for (var i = 0; i < arguments.length; i++) {
+            console.log(i + '. ' + arguments[i]);
+          }
+        }
+        
+        // forEach方法
+        function logArgs() {
+            Array.prototype.forEach.call(arguments, function (elem, i) {
+                console.log(i+'. '+elem);
+            });
+        }        
 
 ## in运算符
 
@@ -642,7 +642,7 @@ ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.
 ## for…in
 
 * 使用`for...in`循环，可以遍历数组的所有元素。需要注意的是，`for...in`会遍历数组所有的键，即使是非数字键
-* 其他的数组遍历方法，就是使用`length`属性，结合`for`循环或者`while`循环	
+* 其他的数组遍历方法，就是使用`length`属性，结合`for`循环或者`while`循环    
 * 数组的forEach方法，也可以用来遍历数组
 
 ## 数组的空位
@@ -666,42 +666,42 @@ ES6不建议这么使用，要么一开始定义好属性，要么使用`Object.
 
 * function命令
 
-		function print(s) {
-		  console.log(s);
-		}
+        function print(s) {
+          console.log(s);
+        }
 
 
 * 函数表达式
 
-	可以采用变量赋值的写法:
+    可以采用变量赋值的写法:
 
-		var print = function(s) {
-		  console.log(s);
-		};	
-	
-	采用函数表达式声明函数时，function命令后面不带有函数名。如果加上函数名，该函数名只在函数体内部有效，在函数体外部无效
-	
-	需要注意的是，函数的表达式需要在语句的结尾加上分号，表示语句结束。而函数的声明在结尾的大括号后面不用加分号
-	
-	这两种声明函数的方式，差别很细微（参阅后文《变量提升》一节）
-	
+        var print = function(s) {
+          console.log(s);
+        };    
+    
+    采用函数表达式声明函数时，function命令后面不带有函数名。如果加上函数名，该函数名只在函数体内部有效，在函数体外部无效
+    
+    需要注意的是，函数的表达式需要在语句的结尾加上分号，表示语句结束。而函数的声明在结尾的大括号后面不用加分号
+    
+    这两种声明函数的方式，差别很细微（参阅后文《变量提升》一节）
+    
 * Function构造函数
 
-		var add = new Function(
-		  'x',
-		  'y',
-		  'return (x + y)'
-		);
-		
-		// 等同于
-		
-		function add(x, y) {
-		  return (x + y);
-		}	
+        var add = new Function(
+          'x',
+          'y',
+          'return (x + y)'
+        );
+        
+        // 等同于
+        
+        function add(x, y) {
+          return (x + y);
+        }    
 
-	Function构造函数可以不使用new命令，返回结果完全一样。
+    Function构造函数可以不使用new命令，返回结果完全一样。
 
-	总的来说，这种声明函数的方式非常不直观，几乎无人使用
+    总的来说，这种声明函数的方式非常不直观，几乎无人使用
 
 
 说明：
@@ -728,88 +728,88 @@ JavaScript引擎将函数名视同变量名，所以采用function命令声明�
 
 * name属性
 
-	name属性返回紧跟在function关键字之后的那个函数名
+    name属性返回紧跟在function关键字之后的那个函数名
 
 * length属性
 
-	length属性返回函数预期传入的参数个数，即函数定义之中的参数个数
-	
+    length属性返回函数预期传入的参数个数，即函数定义之中的参数个数
+    
 * toString()
 
-	函数的toString方法返回函数的源码
-	
+    函数的toString方法返回函数的源码
+    
 ## 函数作用域
 
 作用域（scope）指的是变量存在的范围。Javascript只有两种作用域：一种是全局作用域，变量在整个程序中一直存在，所有地方都可以读取；另一种是函数作用域，变量只在函数内部存在。
 
-**注意： ES6中新增块作用域**		
+**注意： ES6中新增块作用域**        
 
 
 * 函数内部的变量提升
 
-	与全局作用域一样，函数作用域内部也会产生“变量提升”现象。var命令声明的变量，不管在什么位置，变量声明都会被提升到函数体的头部
+    与全局作用域一样，函数作用域内部也会产生“变量提升”现象。var命令声明的变量，不管在什么位置，变量声明都会被提升到函数体的头部
 
 * 函数本身的作用域
 
-	函数本身也是一个值，也有自己的作用域。它的作用域绑定其声明时所在的作用域
+    函数本身也是一个值，也有自己的作用域。它的作用域绑定其声明时所在的作用域
 
 ## 参数
 
 * 参数的省略
 
-	函数参数不是必需的，Javascript允许省略参数
+    函数参数不是必需的，Javascript允许省略参数
 
-	被省略的参数的值就变为`undefined`。需要注意的是，函数的`length`属性与实际传入的参数个数无关，只反映函数预期传入的参数个数。
+    被省略的参数的值就变为`undefined`。需要注意的是，函数的`length`属性与实际传入的参数个数无关，只反映函数预期传入的参数个数。
 
-	但是，没有办法只省略靠前的参数，而保留靠后的参数。如果一定要省略靠前的参数，只有显式传入`undefined`
-	
+    但是，没有办法只省略靠前的参数，而保留靠后的参数。如果一定要省略靠前的参数，只有显式传入`undefined`
+    
 * 默认值
 
-	通过下面的方法，可以为函数的参数设置默认值	
+    通过下面的方法，可以为函数的参数设置默认值    
 
 * 传递方式
 
-	函数参数如果是原始类型的值（数值、字符串、布尔值），传递方式是传值传递（passes by value）
-	
-	如果函数参数是复合类型的值（数组、对象、其他函数），传递方式是传址传递（pass by reference）。也就是说，传入函数的原始值的地址，因此在函数内部修改参数，将会影响到原始值
-	
+    函数参数如果是原始类型的值（数值、字符串、布尔值），传递方式是传值传递（passes by value）
+    
+    如果函数参数是复合类型的值（数组、对象、其他函数），传递方式是传址传递（pass by reference）。也就是说，传入函数的原始值的地址，因此在函数内部修改参数，将会影响到原始值
+    
 * 同名参数
 
-	如果有同名的参数，则取最后出现的那个值	
+    如果有同名的参数，则取最后出现的那个值    
 * arguments对象
 
-	由于JavaScript允许函数有不定数目的参数，所以我们需要一种机制，可以在函数体内部读取所有参数。这就是`arguments`对象的由来。
+    由于JavaScript允许函数有不定数目的参数，所以我们需要一种机制，可以在函数体内部读取所有参数。这就是`arguments`对象的由来。
 
-	`arguments`对象包含了函数运行时的所有参数，`arguments[0]`就是第一个参数，`arguments[1]`就是第二个参数，以此类推。这个对象只有在函数体内部，才可以使用。	
-	`arguments`对象除了可以读取参数，还可以为参数赋值（严格模式不允许这种用法）
-	
-	可以通过`arguments`对象的`length`属性，判断函数调用时到底带几个参数
-	
-	虽然`arguments`很像数组，但它是一个对象。数组专有的方法（比如`slice`和`forEach`），不能在arguments对象上直接使用。
+    `arguments`对象包含了函数运行时的所有参数，`arguments[0]`就是第一个参数，`arguments[1]`就是第二个参数，以此类推。这个对象只有在函数体内部，才可以使用。    
+    `arguments`对象除了可以读取参数，还可以为参数赋值（严格模式不允许这种用法）
+    
+    可以通过`arguments`对象的`length`属性，判断函数调用时到底带几个参数
+    
+    虽然`arguments`很像数组，但它是一个对象。数组专有的方法（比如`slice`和`forEach`），不能在arguments对象上直接使用。
 
-	但是，可以通过`apply`方法，把`arguments`作为参数传进去，这样就可以让`arguments`使用数组方法了
-	
-		// 用于apply方法
-		myfunction.apply(obj, arguments).
-		
-		// 使用与另一个数组合并
-		Array.prototype.concat.apply([1,2,3], arguments)
+    但是，可以通过`apply`方法，把`arguments`作为参数传进去，这样就可以让`arguments`使用数组方法了
+    
+        // 用于apply方法
+        myfunction.apply(obj, arguments).
+        
+        // 使用与另一个数组合并
+        Array.prototype.concat.apply([1,2,3], arguments)
 
 
-	将arguments转为真正的数组。下面是两种常用的转换方法：slice方法和逐一填入新数组。
-	
-		var args = Array.prototype.slice.call(arguments);
-		
-		// or
-		
-		var args = [];
-		for (var i = 0; i < arguments.length; i++) {
-		  args.push(arguments[i]);
-		}	
+    将arguments转为真正的数组。下面是两种常用的转换方法：slice方法和逐一填入新数组。
+    
+        var args = Array.prototype.slice.call(arguments);
+        
+        // or
+        
+        var args = [];
+        for (var i = 0; i < arguments.length; i++) {
+          args.push(arguments[i]);
+        }    
 
 * callee属性
 
-	arguments对象带有一个`callee`属性，返回它所对应的原函数。可以通过`arguments.callee`，达到调用函数自身的目的
+    arguments对象带有一个`callee`属性，返回它所对应的原函数。可以通过`arguments.callee`，达到调用函数自身的目的
 
 
 ## 闭包
@@ -822,12 +822,12 @@ JavaScript引擎将函数名视同变量名，所以采用function命令声明�
 
 **e.g.**
 
-	function f1() {
-	  var n = 999;
-	  function f2() {
-	　　console.log(n); // 999
-	  }
-	}
+    function f1() {
+      var n = 999;
+      function f2() {
+    　　console.log(n); // 999
+      }
+    }
 
 上面代码中，函数`f2`就在函数`f1`内部，这时`f1`内部的所有局部变量，对`f2`都是可见的。但是反过来就不行，`f2`内部的局部变量，对`f1`就是不可见的。这就是JavaScript语言特有的”*链式作用域*”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。
 
@@ -845,14 +845,14 @@ JavaScript引擎将函数名视同变量名，所以采用function命令声明�
 
 ### 立即调用的函数表达式（IIFE）
 
-	function(){ /* code */ }();
-	// SyntaxError: Unexpected token (
-	
+    function(){ /* code */ }();
+    // SyntaxError: Unexpected token (
+    
 应该：
-		
-	(function(){ /* code */ }()); 
-	// 或者
-	(function(){ /* code */ })(); 
+        
+    (function(){ /* code */ }()); 
+    // 或者
+    (function(){ /* code */ })(); 
 
 这两种写法都是以圆括号开头，引擎就会认为后面跟的是一个表示式，而不是函数定义，所以就避免了错误。这就叫做“立即调用的函数表达式”（Immediately-Invoked Function Expression），简称IIFE
 
@@ -860,29 +860,29 @@ JavaScript引擎将函数名视同变量名，所以采用function命令声明�
 
 推而广之，任何让解释器以表达式来处理函数定义的方法，都能产生同样的效果，比如
 
-	var i = function(){ return 10; }();
-	true && function(){ /* code */ }();
-	0, function(){ /* code */ }();
-	!function(){ /* code */ }();
-	~function(){ /* code */ }();
-	-function(){ /* code */ }();
-	+function(){ /* code */ }();
-	new function(){ /* code */ }
-	new function(){ /* code */ }() // 只有传递参数时，才需要最后那个圆括号。
+    var i = function(){ return 10; }();
+    true && function(){ /* code */ }();
+    0, function(){ /* code */ }();
+    !function(){ /* code */ }();
+    ~function(){ /* code */ }();
+    -function(){ /* code */ }();
+    +function(){ /* code */ }();
+    new function(){ /* code */ }
+    new function(){ /* code */ }() // 只有传递参数时，才需要最后那个圆括号。
 
 > 通常情况下，只对匿名函数使用这种“立即执行的函数表达式”。它的目的有两个：一是不必为函数命名，避免了污染全局变量；二是IIFE内部形成了一个单独的作用域，可以封装一些外部无法读取的私有变量
 
-	// 写法一
-	var tmp = newData;
-	processData(tmp);
-	storeData(tmp);
-	
-	// 写法二
-	(function (){
-	  var tmp = newData;
-	  processData(tmp);
-	  storeData(tmp);
-	}()); 
+    // 写法一
+    var tmp = newData;
+    processData(tmp);
+    storeData(tmp);
+    
+    // 写法二
+    (function (){
+      var tmp = newData;
+      processData(tmp);
+      storeData(tmp);
+    }()); 
 
 上面代码中，写法二比写法一更好，因为完全避免了污染全局变量。
 
@@ -975,9 +975,9 @@ eval命令的作用是，将字符串当作语句执行.
 * 圆括号运算符: 如果把表达式放在圆括号之中，作用是求值；如果跟在函数的后面，作用是调用函数
 * void运算符的作用是执行一个表达式，然后不返回任何值，或者说返回undefined
 
-	这个运算符主要是用于书签工具（bookmarklet），以及用于在超级链接中插入代码，目的是返回undefined可以防止网页跳转
-	
-* 逗号运算符: 逗号运算符用于对两个表达式求值，并返回后一个表达式的值	
+    这个运算符主要是用于书签工具（bookmarklet），以及用于在超级链接中插入代码，目的是返回undefined可以防止网页跳转
+    
+* 逗号运算符: 逗号运算符用于对两个表达式求值，并返回后一个表达式的值    
 
 ## 运算顺序
 
@@ -985,17 +985,135 @@ eval命令的作用是，将字符串当作语句执行.
 * 圆括号的作用: 提高运算的优先级
 * 左结合与右结合:
 
-	大多数情况，计算顺序总是从左到右，这叫做运算符的“左结合”
-	
-	少数运算符的计算顺序是从右到左，即从右边开始计算，这叫做运算符的“右结合”（right-to-left associativity）。其中，最主要的是赋值运算符（`=`）和三元条件运算符（`?:`）
+    大多数情况，计算顺序总是从左到右，这叫做运算符的“左结合”
+    
+    少数运算符的计算顺序是从右到左，即从右边开始计算，这叫做运算符的“右结合”（right-to-left associativity）。其中，最主要的是赋值运算符（`=`）和三元条件运算符（`?:`）
 
 # 数据类型转换
 
+JavaScript是一种动态类型语言，变量是没有类型的，可以随时赋予任意值。但是，数据本身和各种运算是有类型的，因此运算时变量需要转换类型。大多数情况下，这种数据类型转换是自动的，但是有时也需要手动强制转换。
+
+
+## 强制转换
+
+强制转换主要指使用`Number`、`String`和`Boolean`三个构造函数，手动将各种类型的值，转换成数字、字符串或者布尔值
+
+    
+### Number函数：强制转换成数值
+
+#### 原始类型值的转换规则
+
+* 数值：转换后还是原来的值。
+* 字符串：如果可以被解析为数值，则转换为相应的数值，否则得到NaN。空字符串转为0。
+* 布尔值：true转成1，false转成0。
+* undefined：转成NaN。
+* null：转成0。
+
+#### 对象的转换规则
+
+对象的转换规则比较复杂。
+
+1. 先调用对象自身的valueOf方法，如果该方法返回原始类型的值（数值、字符串和布尔值），则直接对该值使用Number方法，不再进行后续步骤。
+2. 如果valueOf方法返回复合类型的值，再调用对象自身的toString方法，如果toString方法返回原始类型的值，则对该值使用Number方法，不再进行后续步骤。
+3. 如果toString方法返回的是复合类型的值，则报错。
+
+
+### String函数：强制转换成字符串
+
+#### 原始类型值的转换规则
+
+* 数值：转为相应的字符串。
+* 字符串：转换后还是原来的值。
+* 布尔值：true转为“true”，false转为“false”。
+* undefined：转为“undefined”。
+* null：转为“null”
+    
+#### 对象的转换规则
+
+如果要将对象转为字符串，则是采用以下步骤：
+
+1. 先调用toString方法，如果toString方法返回的是原始类型的值，则对该值使用String方法，不再进行以下步骤。
+2. 如果toString方法返回的是复合类型的值，再调用valueOf方法，如果valueOf方法返回的是原始类型的值，则对该值使用String方法，不再进行以下步骤。
+3. 如果valueOf方法返回的是复合类型的值，则报错 
+
+
+### Boolean函数：强制转换成布尔值
+
+#### 原始类型值的转换方法
+
+以下六个值的转化结果为false，其他的值全部为true。
+
+* undefined
+* null
+* -0
+* +0
+* NaN
+* ’‘（空字符串）
+
+#### 对象的转换规则
+
+所有对象的布尔值都是true，甚至连false对应的布尔对象也是true
+
+## 自动转换
+
+当遇到以下几种情况，JavaScript会自动转换数据类型：
+
+* 不同类型的数据进行互相运算；
+* 对非布尔值类型的数据求布尔值;
+* 对非数值类型的数据使用一元运算符（即“+”和“-”）。
+
+### 自动转换为布尔值
+
+当JavaScript遇到预期为布尔值的地方（比如if语句的条件部分），就会将非布尔值的参数自动转换为布尔值。它的转换规则与上面的“强制转换成布尔值”的规则相同，也就是说，在预期为布尔值的地方，系统内部会自动调用Boolean方法。
+
+### 自动转换为字符串
+
+当JavaScript遇到预期为字符串的地方，就会将非字符串的数据自
+动转为字符串，转换规则与“强制转换为字符串”相同。
+
+### 自动转换为数值
+
+当JavaScript遇到预期为数值的地方，就会将参数值自动转换为数值，转换规则与“强制转换为数值”相同。
+
+## 加法运算符的类型转化
+
+### 三种情况
+加法运算符的类型转换，可以分成三种情况讨论。
+
+* 运算子之中存在字符串
+
+	两个运算子之中，只要有一个是字符串，则另一个不管是什么类型，都会被自动转为字符串，然后执行字符串连接运算。前面的《自动转换为字符串》一节，已经举了很多例子。
+
+* 两个运算子都为数值或布尔值
+
+	这种情况下，执行加法运算，布尔值转为数值（true为1，false为0）。
+
+* 运算子之中存在对象
+
+	运算子之中存在对象（或者准确地说，存在非原始类型的值），则先调用该对象的valueOf方法。如果返回结果为原始类型的值，则运用上面两条规则；否则继续调用该对象的toString方法，对其返回值运用上面两条规则。
+	
+### 四个特殊表达式
+
+* 空数组 + 空数组 ： `""`
+
+	首先，对空数组调用valueOf方法，返回的是数组本身；因此再对空数组调用toString方法，生成空字符串；所以，最终结果就是空字符串。
+
+* 空数组 + 空对象： `"[object Object]"`
+
+	等同于空字符串与字符串“[object Object]”相加。因此，结果就是“[object Object]”
+	
+* 空对象 + 空数组： `0`	
+
+	JavaScript引擎将空对象视为一个空的代码块，加以忽略。因此，整个表达式就变成“+ []”，等于对空数组求正值，因此结果就是0
+	
+* 空对象 + 空对象： `NaN`
+
+	JavaScript同样将第一个空对象视为一个空代码块，整个表达式就变成“+ {}”。这时，后一个空对象的ValueOf方法得到本身，再调用toSting方法，得到字符串“[object Object]”，然后再将这个字符串转成数值，得到NaN。所以，最后的结果就是NaN。
+		
 
 
 	
-
-
+	
 
 
 
