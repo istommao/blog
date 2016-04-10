@@ -120,7 +120,7 @@
 		* [js进阶之（一）](js/js进阶之（一）.md)
 		* [js之promise](js/js之promise.md)
 	* [js标准]()
-		* [js学习(1)](js/js学习-1.md)
+		* [js学习(1)](js/js学习-1基本语法.md)
 	* [es6]()
 		* [es6学习(1)](js/es6学习-1.md)
 		* [es6学习(2)](js/es6学习-2.md)
