@@ -60,9 +60,7 @@ appname/view.py函数
 	{% if 条件%}
 	{% else %}
 	{% endif %}	
-	
-	{% for %}
-	{% endfor %}	
+
 	
 ##URL配置
 
