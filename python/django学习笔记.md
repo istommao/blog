@@ -300,7 +300,7 @@ Django中网址是写在 urls.py 文件中，用正则表达式对应 views.py �
 		站点：{{ info_dict.site }} 内容：{{ info_dict.content }}
 
 
-**小结：一般的变量之类的用 {{ ... }}（变量），功能类的，比如循环，条件判断是用 {% ... %}（标签）**
+**小结：一般的变量之类的用 `{{ ... }}`（变量），功能类的，比如循环，条件判断是用 `{% ... %}`（标签）**
 
 ###for
 
@@ -326,7 +326,7 @@ Django中网址是写在 urls.py 文件中，用正则表达式对应 views.py �
 	</ul>
 
 
-###模板上得到视图对应的网址：{% url "view-name" arg1 arg2 %}
+###模板上得到视图对应的网址：`{% url "view-name" arg1 arg2 %}`
 
 	# urls.py
 	urlpatterns = patterns('',
