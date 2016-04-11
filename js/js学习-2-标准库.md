@@ -890,24 +890,44 @@ valueOf方法返回实例对象距离1970年1月1日00:00:00 UTC对应的毫秒�
 
 可参考[匹配规则](http://javascript.ruanyifeng.com/stdlib/regexp.html#toc10)
 
+# JSON对象
 
+## 概述
 
+JSON格式（JavaScript Object Notation的缩写）是一种用于数据交换的文本格式，目的是取代繁琐笨重的XML格式。
 
+简单说，JSON格式就是一种表示一系列的“值”的方法，这些值包含在数组或对象之中，是它们的成员。对于这一系列的“值”，有如下几点格式规定：
 
+* 数组或对象的每个成员的值，可以是简单值，也可以是复合值。
+* 简单值分为四种：字符串、数值（必须以十进制表示）、布尔值和null（NaN, Infinity, -Infinity和undefined都会被转为null）。
+* 复合值分为两种：符合JSON格式的对象和符合JSON格式的数组。
+* 数组或对象最后一个成员的后面，不能加逗号。
+* 数组或对象之中的字符串必须使用双引号，不能使用单引号。
+* 对象的成员名称必须使用双引号。
 
+需要注意的是，空数组和空对象都是合格的JSON值，null本身也是一个合格的JSON值。
 
-	
+## JSON对象
 
+ES5新增了JSON对象，用来处理JSON格式数据。它有两个方法：`JSON.stringify`和`JSON.parse`
 
+### JSON.stringify
 
+* `JSON.stringify`方法用于将一个值转为字符串。该字符串符合JSON格式，并且可以被`JSON.parse`方法还原。
+* 如果原始对象中，有一个成员的值是undefined、函数或XML对象，这个成员会被省略。如果数组的成员是undefined、函数或XML对象，则这些值被转成null。
+* 正则对象会被转成空对象	
+* 忽略对象的不可遍历属性
+* JSON.stringify方法还可以接受一个数组参数，指定需要转成字符串的属性
+* JSON.stringify方法还可以接受一个函数作为参数，用来更改默认的字符串化的行为
+* JSON.stringify还可以接受第三个参数，用于增加返回的JSON字符串的可读性。如果是数字，表示每个属性前面添加的空格（最多不超过10个）；如果是字符串（不超过10个字符），则该字符串会添加在每行前面。
+* 如果JSON.stringify方法处理的对象，包含一个toJSON方法，则它会使用这个方法得到一个值，然后再将这个值转成字符串，而忽略其他成员
 
+### JSON.parse()
 
-
-
-
-
-
-	
+* JSON.parse方法用于将JSON字符串转化成对象
+* 如果传入的字符串不是有效的JSON格式，JSON.parse方法将报错
+* 为了处理解析错误，可以将JSON.parse方法放在try…catch代码块中。
+* JSON.parse方法可以接受一个处理函数，用法与JSON.stringify方法类似	
 
 
 
