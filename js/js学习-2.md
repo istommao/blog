@@ -649,11 +649,31 @@ toExponential方法用于将一个数转为科学计数法形式
 
 ## Math对象
 	
-		
+Math对象是JavaScript的内置对象，提供一系列数学常数和数学方法。该对象不是构造函数，所以不能生成实例，所有的属性和方法都必须在Math对象上调用
 
-	
+### 属性
+
+* E：常数e。
+* LN2：2的自然对数。
+* LN10：10的自然对数。
+* LOG2E：以2为底的e的对数。
+* LOG10E：以10为底的e的对数。
+* PI：常数Pi。
+* SQRT1_2：0.5的平方根。
+* SQRT2：2的平方根。	
 		
-	
+### 方法
+
+* Math.round()
+* Math.abs()，Math.max()，Math.min()
+* Math.floor()，Math.ceil()
+* Math.pow(), Math.sqrt()
+* log方法，exp方法
+* random方法
+* 三角函数方法: sin, cos, tan, asin, acos, atan
+
+
+
 
 
 	
