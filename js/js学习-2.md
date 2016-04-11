@@ -498,7 +498,7 @@ Number、String和Boolean这三个原生对象，既可以当作构造函数使�
 		return this.valueOf() + this.valueOf();
 	};
 
-## Boolean对象
+# Boolean对象
 
 Boolean对象是JavaScript的三个包装对象之一。作为构造函数，它主要用于生成布尔值的包装对象的实例。
 
@@ -572,7 +572,7 @@ toExponential方法用于将一个数转为科学计数法形式
 与其他对象一样，Number.prototype对象上面可以自定义方法，被Number的实例继承。		
 		 
 
-## String对象
+# String对象
 
 * String对象是JavaScript原生提供的三个包装对象之一，用来生成字符串的包装对象实例。
 * 除了用作构造函数，String还可以当作工具方法使用，将任意类型的值转为字符串
@@ -647,7 +647,7 @@ toExponential方法用于将一个数转为科学计数法形式
 		* split方法还可以接受第二个参数，限定返回数组的最大成员数。
 
 
-## Math对象
+# Math对象
 	
 Math对象是JavaScript的内置对象，提供一系列数学常数和数学方法。该对象不是构造函数，所以不能生成实例，所有的属性和方法都必须在Math对象上调用
 
@@ -671,6 +671,146 @@ Math对象是JavaScript的内置对象，提供一系列数学常数和数学方
 * log方法，exp方法
 * random方法
 * 三角函数方法: sin, cos, tan, asin, acos, atan
+
+# Date对象
+
+## 概述
+
+`Date`对象是JavaScript提供的日期和时间的操作接口。它有多种用法。
+
+JavaScript内部，所有日期和时间都储存为一个整数，表示当前时间距离1970年1月1日00:00:00的毫秒数，正负的范围为基准时间前后各1亿天。
+
+### Date()
+
+作为一个函数，Date对象可以直接调用，返回一个当前日期和时间的字符串。
+
+	Date()
+	// "Tue Dec 01 2015 09:34:43 GMT+0800 (CST)"
+	
+	Date(2000, 1, 1)
+	// "Tue Dec 01 2015 09:34:43 GMT+0800 (CST)"
+
+Date对象还是一个构造函数，对它使用new命令，会返回一个Date对象的实例。如果不加参数，生成的就是代表当前时间的对象。
+
+	var today = new Date();
+	
+	today
+	// "Tue Dec 01 2015 09:34:43 GMT+0800 (CST)"
+	
+	// 等同于
+	today.toString()
+	// "Tue Dec 01 2015 09:34:43 GMT+0800 (CST)"
+
+* new Date(milliseconds)
+* new Date(datestring)
+
+	所有可以被`Date.parse()`方法解析的日期字符串，都可以当作Date对象的参数
+	
+* new Date(year, month [, day, hours, minutes, seconds, ms])
+
+### 日期的运算
+
+类型转换时，Date对象的实例如果转为数值，则等于对应的毫秒数；如果转为字符串，则等于对应的日期字符串。所以，两个日期对象进行减法运算，返回的就是它们间隔的毫秒数；进行加法运算，返回的就是连接后的两个字符串。
+
+## Date对象的静态方法
+
+* Date.now()
+
+	Date.now方法返回当前距离1970年1月1日 00:00:00 UTC的毫秒数（Unix时间戳乘以1000）	
+	
+* Date.parse()
+
+	解析日期字符串，返回距离1970年1月1日 00:00:00的毫秒数
+	
+* Date.UTC()
+
+	默认情况下，Date对象返回的都是当前时区的时间。Date.UTC方法可以返回UTC时间（世界标准时间）。
+	
+## Date实例对象的方法
+
+Date的实例对象，有几十个自己的方法，分为以下三类。
+
+* to类：从Date对象返回一个字符串，表示指定的时间。
+* get类：获取Date对象的日期和时间。
+* set类：设置Date对象的日期和时间。		
+### to类方法
+
+* Date.prototype.toString()： 返回一个完整的日期字符串
+* Date.prototype.toUTCString()：返回对应的UTC时间，也就是比北京时间晚8个小时
+* Date.prototype.toISOString()：返回对应时间的ISO8601写法
+* Date.prototype.toJSON()：返回一个符合JSON格式的ISO格式的日期字符串，与toISOString方法的返回结果完全相同。
+* Date.prototype.toDateString()：返回日期的字符串形式
+* Date.prototype.toTimeString()：返回时间的字符串形式
+* Date.prototype.toLocalDateString()：返回一个字符串，代表日期的当地写法
+* Date.prototype.toLocalTimeString()：返回一个字符串，代表时间的当地写法
+
+### get类方法
+
+`get*`方法，用来获取实例对象某个方面的值
+
+* getTime()：返回实例对象距离1970年1月1日00:00:00对应的毫秒数，等同于valueOf方法。
+* getDate()：返回实例对象对应每个月的几号（从1开始）。
+* getDay()：返回星期几，星期日为0，星期一为1，以此类推。
+* getYear()：返回距离1900的年数。
+* getFullYear()：返回四位的年份。
+* getMonth()：返回月份（0表示1月，11表示12月）。
+* getHours()：返回小时（0-23）。
+* getMilliseconds()：返回毫秒（0-999）。
+* getMinutes()：返回分钟（0-59）。
+* getSeconds()：返回秒（0-59）。
+* getTimezoneOffset()：返回当前时间与UTC的时区差异，以分钟表示，返回结果考虑到了夏令时因素。
+
+UTC版本：
+
+* getUTCDate()
+* getUTCFullYear()
+* getUTCMonth()
+* getUTCDay()
+* getUTCHours()
+* getUTCMinutes()
+* getUTCSeconds()
+* getUTCMilliseconds()
+
+### set类方法
+
+一系列`set*`方法，用来设置实例对象的各个方面。
+	
+* setDate(date)：设置实例对象对应的每个月的几号（1-31），返回改变后毫秒时间戳。
+* setYear(year): 设置距离1900年的年数。
+* setFullYear(year [, month, date])：设置四位年份。
+* setHours(hour [, min, sec, ms])：设置小时（0-23）。
+* setMilliseconds()：设置毫秒（0-999）。
+* setMinutes(min [, sec, ms])：设置分钟（0-59）。
+* setMonth(month [, date])：设置月份（0-11）。
+* setSeconds(sec [, ms])：设置秒（0-59）。
+* setTime(milliseconds)：设置毫秒时间戳。
+
+这些方法基本是跟`get*`方法一一对应的，但是没有`setDay`方法，因为星期几是计算出来的，而不是设置的。另外，需要注意的是，凡是涉及到设置月份，都是从`0`开始算的，即0是1月，11是12月。
+
+`set*`系列方法除了`setTime()`和`setYear()`，都有对应的UTC版本，即设置UTC时区的时间。
+
+* setUTCDate()
+* setUTCFullYear()
+* setUTCHours()
+* setUTCMilliseconds()
+* setUTCMinutes()
+* setUTCMonth()
+* setUTCSeconds()
+
+### Date.prototype.valueOf()
+
+valueOf方法返回实例对象距离1970年1月1日00:00:00 UTC对应的毫秒数，该方法等同于getTime方法。
+
+	var d = new Date();
+	
+	d.valueOf() // 1362790014817
+	d.getTime() // 1362790014817
+
+	
+
+
+
+
 
 
 
