@@ -391,7 +391,23 @@ bind方法有一些使用注意点
 
 JavaScript通过构造函数生成新对象，因此构造函数可以视为对象的模板。实例对象的属性和方法，可以定义在构造函数内部。
 
-构造函数内部定义的所有属性，所有实例对象都会生成这些属性。但是，这样做是对系统资源的浪费，因为同一个构造函数的对象实例之间，无法共享属性
+	function Cat(name, color) {
+	  this.name = name;
+	  this.color = color;
+	  this.meow = function () {
+	    console.log('mew, mew, mew...');
+	  };
+	}
+
+	var cat1 = new Cat('大毛', '白色');
+	var cat2 = new Cat('二毛', '黑色');
+	
+	cat1.meow === cat2.meow
+	// false
+
+构造函数内部定义的所有属性，所有实例对象都会生成这些属性。但是，这样做是对系统资源的浪费，因为同一个构造函数的对象实例之间，无法共享属性。（这里有个一个原则：**构造函数与实例对象相分离的原则**，下面使用`prototype`的例子就遵循了该原则）
+
+
 
 ### prototype属性的作用
 
