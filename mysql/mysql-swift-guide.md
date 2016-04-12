@@ -1,14 +1,16 @@
-#mysql swift guide
+# mysql swift guide
 
 
-##基础命令
+## 基础命令
 
 
-###mysql创建用户
+### mysql创建用户
+
 （abc为用户，xxx为密码）
 
-	grant all privileges on *.* to 'abc'@'localhost' identified by 'xxx'
-	grant all privileges on *.* to 'abc'@'%' identified by 'xxx'
+	grant all privileges on *.* to 'abc'@'localhost' identified by 'xxx';
+	grant all privileges on *.* to 'abc'@'%' identified by 'xxx';
+	FLUSH PRIVILEGES;
 
 或者分步：
 
@@ -17,16 +19,49 @@
 	
 	设置权限：(xxx为密码)
 	
-	grant all privileges on *.* to 'abc'@'localhost' identified by 'xxx'
-	grant all privileges on *.* to 'abc'@'%' identified by 'xxx'
+	grant all privileges on *.* to 'abc'@'localhost' identified by 'xxx';
+	grant all privileges on *.* to 'abc'@'%' identified by 'xxx';
+	
+	FLUSH PRIVILEGES;
 
 连接和查询：
 
 	mysql -u abc -p
+	
+	select host,user,password from mysql.user where user='abc';
 	select * from mysql.user
+	
+### 导入导出
+
+在 `mysqldump` 命令中指定数据库名及数据表
+
+导出整个数据库的数据
+
+	mysqldump -u root -p database_name > database_dump.txt
+	
+需要备份所有数据库，可以使用以下命令
+
+	mysqldump -u root -p --all-databases > database_dump.txt
 
 
-##不同数据库区别关注
+导出SQL格式的数据到指定文件
+
+	mysqldump -u root -p database_name table_name > dump.txt	
+	
+需要将备份的数据库导入到MySQL服务器中，可以使用以下命令，使用以下命令你需要确认数据库已经创建：
+
+	mysql -u root -p database_name < dump.txt
+	
+	
+你也可以使用以下命令将导出的数据直接导入到远程的服务器上，但请确保两台服务器是相通的，是可以相互访问的：
+
+	// 使用了管道来将导出的数据导入到指定的远程主机上
+	mysqldump -u root -p database_name | mysql -h other-host.com database_name		
+	
+	
+
+
+## 不同数据库区别关注
 数据类型
 
 分页属性：
@@ -43,7 +78,7 @@
 	
 		
 
-##命令
+## 命令
 
 	create database mydata;
 	user mydata;
@@ -54,10 +89,12 @@
 	
 	insert into dept values (10, 'A', 'A');
 	
-##jdbc
+## jdbc
 
 
 
+## 参考
 
+* [菜鸟教程](http://www.runoob.com/)
 		
 	
