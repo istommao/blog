@@ -1,3 +1,13 @@
 {
-    "plugins" : ["anchors"]
+    "plugins" : ["disqus",
+                 "anchors",
+                 "share"],
+    "pluginsConfig": {
+        "disqus": {
+            "shortName": "zhuwei05"
+        },
+        "share": {
+            "google": {}
+        }
+    }
 }
