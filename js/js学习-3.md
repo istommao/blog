@@ -383,6 +383,150 @@ bind方法有一些使用注意点
 	上面代码表示，将`Function.prototype.call`方法绑定`Function.prototype.bind`以后，bind方法的使用形式从f.bind(o)，变成了bind(f, o)。
 	
 	
+# 封装
+
+## prototype对象
+
+### 构造函数的缺点
+
+JavaScript通过构造函数生成新对象，因此构造函数可以视为对象的模板。实例对象的属性和方法，可以定义在构造函数内部。
+
+构造函数内部定义的所有属性，所有实例对象都会生成这些属性。但是，这样做是对系统资源的浪费，因为同一个构造函数的对象实例之间，无法共享属性
+
+### prototype属性的作用
+
+在JavaScript语言中，每一个对象都有一个对应的原型对象，被称为`prototype`对象。定义在原型对象上的所有属性和方法，都能被派生对象继承。这就是JavaScript继承机制的基本设计。
+
+*构造函数是一个函数，同时也是一个对象*，也有自己的属性和方法，其中有一个`prototype`属性指向另一个对象，一般称为`prototype对象`。**该对象非常特别，只要定义在它上面的属性和方法，能被所有实例对象共享。**
+
+**也就是说，构造函数生成实例对象时，自动为实例对象分配了一个prototype属性。**
+
+	function Animal (name) {
+	 this.name = name;
+	}
+	
+	Animal.prototype.color = "white";
+	
+	var cat1 = new Animal('大毛');
+	var cat2 = new Animal('二毛');
+	
+	cat1.color // 'white'
+	cat2.color // 'white'
+
+
+* 更特别的是，只要修改`prototype`对象，变动就立刻会体现在实例对象，这是因为当实例对象本身没有某个属性或方法的时候，它会到构造函数的`prototype`对象去寻找该属性或方法。这就是`prototype`对象的特殊之处。
+* 如果实例对象自身就有某个属性或方法，它就不会再去`prototype`对象寻找这个属性或方法
+
+> 总而言之，prototype对象的作用，就是定义所有实例对象共享的属性和方法，所以它也被称为实例对象的原型，而实例对象可以视作从prototype对象衍生出来的
+
+### 原型链
+
+由于JavaScript的所有对象都有构造函数，而所有构造函数都有prototype属性（其实是所有函数都有prototype属性），所以所有对象都有自己的prototype原型对象。
+
+因此，一个对象的属性和方法，有可能是定义它自身上面，也有可能定义在它的原型对象上面。由于原型本身也是对象，又有自己的原型，所以形成了一条`原型链（prototype chain）`。
+
+**“原型链”的作用**在于，当读取对象的某个属性时，JavaScript引擎先寻找对象本身的属性，如果找不到，就到它的原型去找，如果还是找不到，就到原型的原型去找。以此类推，如果直到最顶层的Object.prototype还是找不到，则返回undefined
+
+### constructor属性
+
+prototype对象有一个`constructor`属性，默认指向prototype对象所在的构造函数。
+
+	function P() {}
+
+	P.prototype.constructor === P
+	// true
+	
+由于constructor属性定义在prototype对象上面，意味着可以被所有实例对象继承。
+
+	function P() {}
+	
+	var p = new P();
+	
+	p.constructor
+	// function P() {}
+	
+	p.constructor === P.prototype.constructor
+	// true
+	
+	p.hasOwnProperty('constructor')
+	// false	
+	
+constructor属性的作用是分辨prototype对象到底定义在哪个构造函数上面	
+	
+## Object.getPrototypeOf方法
+
+Object.getPrototypeOf方法返回一个对象的原型。
+
+	// 空对象的原型是Object.prototype
+	Object.getPrototypeOf({}) === Object.prototype
+	// true
+	
+	// 函数的原型是Function.prototype
+	function f() {}
+	Object.getPrototypeOf(f) === Function.prototype
+	// true
+	
+	// 假定F为构造函数，f为F的实例对象
+	// 那么，f的原型是F.prototype
+	var f = new F();
+	Object.getPrototypeOf(f) === F.prototype
+	// true
+	
+## Object.create方法
+
+Object.create方法用于生成新的对象，可以替代new命令。它接受一个对象作为参数，返回一个新对象，后者完全继承前者的属性，即前者成为后者的原型。	
+
+	var o1 = { p: 1 };
+	var o2 = Object.create(o1);
+	
+	o2.p // 1
+
+上面代码中，Object.create方法在o1的基础上生成了o2。此时，o1成了o2的原型，也就是说，o2继承了o1所有的属性的方法。
+
+Object.create方法基本等同于下面的代码，如果老式浏览器不支持Object.create方法，可以用下面代码自己部署。
+
+	if (typeof Object.create !== "function") {
+	  Object.create = function (o) {
+	    function F() {}
+	    F.prototype = o;
+	    return new F();
+	  };
+	}
+
+上面代码表示，Object.create方法实质是新建一个构造函数F，然后让F的prototype属性指向作为原型的对象o，最后返回一个F的实例，从而实现让实例继承o的属性。
+
+下面三种方式生成的新对象是等价的。
+
+	var o1 = Object.create({});
+	var o2 = Object.create(Object.prototype);
+	var o3 = new Object();
+
+如果想要生成一个不继承任何属性（比如toString和valueOf方法）的对象，可以将Object.create的参数设为null。
+
+	var o = Object.create(null);
+	
+	o.valueOf()
+	// TypeError: Object [object Object] has no method 'valueOf'
+	
+* 使用Object.create方法的时候，必须提供对象原型，否则会报错
+* Object.create方法生成的新对象，动态继承了原型。在原型上添加或修改任何方法，会立刻反映在新对象之上。
+* 除了对象的原型，Object.create方法还可以接受第二个参数，表示描述属性的attributes对象，跟用在Object.defineProperties方法的格式是一样的。它所描述的对象属性，会添加到新对象。
+* 由于Object.create方法不使用构造函数，所以不能用instanceof运算符判断，对象是哪一个构造函数的实例。这时，可以使用下面的isPrototypeOf方法，判读原型是哪一个对象
+
+## isPrototypeOf方法
+isPrototypeOf方法用来判断一个对象是否是另一个对象的原型。
+
+	var o1 = {};
+	var o2 = Object.create(o1);
+	var o3 = Object.create(o2);
+	
+	o2.isPrototypeOf(o3) // true
+	o1.isPrototypeOf(o3) // true
+
+上面代码表明，只要某个对象处在原型链上，isProtypeOf都返回true。
+
+		
+
 	
 
 ## 相关链接
