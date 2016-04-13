@@ -683,14 +683,441 @@ DocumentFragment节点对象没有自己的属性和方法，全部继承自Node
 另外，Node节点的所有方法，都接受DocumentFragment节点作为参数（比如Node.appendChild、Node.insertBefore）。这时，DocumentFragment的子节点（而不是DocumentFragment节点本身）将插入当前节点。
 
 
+# Event对象
+
+事件是一种异步编程的实现方式，本质上是程序各个组成部分之间传递的特定消息。DOM支持大量的事件
+
+## EventTarget接口
+
+DOM的事件操作（监听和触发），都定义在`EventTarget`接口。`Element`节点、`document`节点和`window`对象，都部署了这个接口。此外，`XMLHttpRequest`、`AudioNode`、`AudioContext`等浏览器内置对象，也部署了这个接口。
+
+该接口就是三个方法，`addEventListener`和`removeEventListener`用于绑定和移除监听函数，`dispatchEvent`用于触发事件。
+
+### addEventListener()
+
+用于在当前节点或对象上，定义一个特定事件的监听函数。
+
+	target.addEventListener(type, listener[, useCapture]);
+
+* type，事件名称，大小写不敏感。
+* listener，监听函数。指定事件发生时，会调用该监听函数。
+* useCapture，监听函数是否在捕获阶段（capture）触发（参见后文《事件的传播》部分）。该参数是一个布尔值，默认为false（表示监听函数只在冒泡阶段被触发）。老式浏览器规定该参数必写，较新版本的浏览器允许该参数可选。为了保持兼容，建议总是写上该参数。
+
+可以使用addEventListener方法，为当前对象的同一个事件，添加多个监听函数。这些函数按照添加顺序触发，即先添加先触发。
+
+如果希望向监听函数传递参数，可以用匿名函数包装一下监听函数
+
+### removeEventListener()
+
+`removeEventListener`方法用来移除`addEventListener`方法添加的事件监听函数
+
+`removeEventListener`方法的参数，与`addEventListener`方法完全一致。它对第一个参数“事件类型”，也是大小写不敏感。
+
+	div.addEventListener('click', listener, false);
+	div.removeEventListener('click', listener, false);
+
+### dispatchEvent()
+
+	target.dispatchEvent(event)
+	
+`dispatchEvent`方法的参数是一个`Event`对象的实例
+	
+	para.addEventListener('click', hello, false);
+	var event = new Event('click');
+	para.dispatchEvent(event);
+	
+`dispatchEvent`方法在当前节点上触发指定事件，从而触发监听函数的执行。该方法返回一个布尔值，只要有一个监听函数调用了`Event.preventDefault()`，则返回值为false，否则为true	
+## 监听函数
+
+监听函数（listener）是事件发生时，程序所要执行的函数。它是事件驱动编程模式的主要编程方式。
+
+DOM提供三种方法，可以用来为事件绑定监听函数
+
+### HTML标签的on-属性
+
+HTML语言允许在元素标签的属性中，直接定义某些事件的监听代码
+
+	<body onload="doSomething()">
+	
+使用这个方法指定的监听函数，只会在冒泡阶段触发。
+
+**注意**，使用这种方法时，on-属性的值是“监听代码”，而不是“监听函数”。也就是说，一旦指定事件发生，这些代码是原样传入JavaScript引擎执行。因此如果要执行函数，必须在函数名后面加上一对圆括号。
+
+另外，Element节点的setAttribue方法，其实设置的也是这种效果。
+
+	el.setAttribute('onclick', 'doSomething()');
+
+### Element节点的事件属性
+
+Element节点有事件属性，可以定义监听函数
+
+	window.onload = doSomething;
+	
+	div.onclick = function(event){
+	  console.log('触发事件');
+	};
+
+使用这个方法指定的监听函数，只会在冒泡阶段触发
+
+### addEventListener方法
+
+通过`Element`节点、`document`节点、`window`对象的`addEventListener`方法，也可以定义事件的监听函数。
+	
+	window.addEventListener('load', doSomething, false);
+	
+> 在上面三种方法中，第一种“HTML标签的on-属性”，违反了HTML与JavaScript代码相分离的原则；第二种“Element节点的事件属性”的缺点是，同一个事件只能定义一个监听函数，也就是说，如果定义两次onclick属性，后一次定义会覆盖前一次。因此，这两种方法都不推荐使用，除非是为了程序的兼容问题，因为所有浏览器都支持这两种方法。
+
+`addEventListener`是推荐的指定监听函数的方法。它有如下优点：
+
+* 可以针对同一个事件，添加多个监听函数。
+* 能够指定在哪个阶段（捕获阶段还是冒泡阶段）触发回监听函数。
+* 除了DOM节点，还可以部署在window、XMLHttpRequest等对象上面，等于统一了整个JavaScript的监听函数接口。	
+
+
+### this对象的指向
+
+实际编程中，监听函数内部的this对象，常常需要指向触发事件的那个Element节点。
+
+addEventListener方法指定的监听函数，内部的this对象总是指向触发事件的那个节点
+
+**总结一下**，以下写法的this对象都指向Element节点。
+
+	// JavaScript代码
+	element.onclick = print
+	element.addEventListener('click', print, false)
+	element.onclick = function () {console.log(this.id);}
+	
+	// HTML代码
+	<element onclick="console.log(this.id)">
+
+以下写法的this对象，都指向全局对象。
+
+	// JavaScript代码
+	element.onclick = function (){ doSomething() };
+	element.setAttribute('onclick', 'doSomething()');
+	
+	// HTML代码
+	<element onclick="doSomething()">
+
+## 事件的传播
+
+一个事件发生以后，它会在不同的DOM节点之间传播（propagation）。这种传播分成三个阶段：
+
+第一阶段：从window对象传导到目标节点，称为“捕获阶段”（capture phase）。
+
+第二阶段：在目标节点上触发，称为“目标阶段”（target phase）。
+
+第三阶段：从目标节点传导回window对象，称为“冒泡阶段”（bubbling phase）。
+
+### 事件的代理
+
+由于事件会在冒泡阶段向上传播到父节点，因此可以把子节点的监听函数定义在父节点上，由父节点的监听函数统一处理多个子元素的事件。这种方法叫做事件的代理（`delegation`）。
+
+这样做的好处是，只要定义一个监听函数，就能处理多个子节点的事件，而且以后再添加子节点，监听函数依然有效。
+
+如果希望事件到某个节点为止，不再传播，可以使用`事件对象`的`stopPropagation`方法。
+
+但是，`stopPropagation`方法不会阻止p节点上的其他click事件的监听函数。如果想要不再触发那些监听函数，可以使用`stopImmediatePropagation`方法。
+
+## Event对象
+
+事件发生以后，会生成一个事件对象，作为参数传给监听函数。浏览器原生提供一个`Event对象`，所有的事件都是这个对象的实例，或者说继承了`Event.prototype`对象。
+
+Event对象本身就是一个构造函数，可以用来生成新的实例。
+
+	event = new Event(typeArg, eventInit);
+
+Event构造函数接受两个参数。第一个参数是字符串，表示事件的名称；第二个参数是一个对象，表示事件对象的配置。
+
+
+### Event实例的属性和方法
+
+* `bubbles`属性返回一个布尔值，表示当前事件是否会冒泡。该属性为只读属性
+* `eventPhase`属性返回一个整数值，表示事件目前所处的节点
+* `cancelable`属性返回一个布尔值，表示事件是否可以取消。该属性为只读属性
+* `defaultPrevented`属性返回一个布尔值，表示该事件是否调用过preventDefault方法
+* `currentTarget`属性返回事件当前所在的节点，即正在执行的监听函数所绑定的那个节点。
+* `target`属性返回事件发生的节点，即事件最初发生的节点。如果监听函数不在该节点触发，那么它与currentTarget属性返回的值是不一样的。
+* `type`属性返回一个字符串，表示事件类型
+* `detail`属性返回一个数值，表示事件的某种信息。
+* `timeStamp`属性返回一个毫秒时间戳，表示事件发生的时间。
+* `isTrusted`属性返回一个布尔值，表示该事件是否可以信任
+* `preventDefault`方法取消浏览器对当前事件的默认行为
+
+	比如点击链接后，浏览器跳转到指定页面，或者按一下空格键，页面向下滚动一段距离。该方法生效的前提是，事件的cancelable属性为true，如果为false，则调用该方法没有任何效果。
+	
+	该方法不会阻止事件的进一步传播（stopPropagation方法可用于这个目的）。只要在事件的传播过程中（捕获阶段、目标阶段、冒泡阶段皆可），使用了preventDefault方法，该事件的默认方法就不会执行
+	
+* `stopPropagation`方法阻止事件在DOM中继续传播，防止再触发定义在别的节点上的监听函数，但是不包括在当前节点上新定义的事件监听函数。		
+* `stopImmediatePropagation`方法阻止同一个事件的其他监听函数被调用
+
+
+## 鼠标事件
+
+### 事件种类
+
+* `click`事件当用户在Element节点、document节点、window对象上，单击鼠标（或者按下回车键）时触发。“鼠标单击”定义为，用户在同一个位置完成一次mousedown动作和mouseup动作。它们的触发顺序是：mousedown首先触发，mouseup接着触发，click最后触发。
+* `dblclick`事件当用户在element、document、window对象上，双击鼠标时触发。该事件会在mousedown、mouseup、click之后触发
+* `mouseup`事件，`mousedown`事件
+* `mousemove`事件
+* `mouseover`事件，`mouseenter`事件，都是鼠标进入一个节点时触发。区别是，mouseover事件会冒泡，mouseenter事件不会。
+* `mouseout`事件，`mouseleave`事件，都是鼠标离开一个节点时触发。区别是，mouseout事件会冒泡，mouseleave事件不会。
+* `contextmenu`事件在一个节点上点击鼠标右键时触发，或者按下“上下文菜单”键时触发。
+
+
+### MouseEvent对象
+
+鼠标事件使用`MouseEvent`对象表示，它继承UIEvent对象和Event对象。浏览器提供一个MouseEvent构造函数，用于新建一个MouseEvent实例。
+
+	event = new MouseEvent(typeArg, mouseEventInit);
+
+MouseEvent构造函数的第一个参数是事件名称（可能的值包括click、mousedown、mouseup、mouseover、mousemove、mouseout），第二个参数是一个事件初始化对象。
+
+### altKey，ctrlKey，metaKey，shiftKey
+
+表示鼠标事件发生时，是否按下某个键
+
+* altKey属性：alt键
+* ctrlKey属性：key键
+* metaKey属性：Meta键（Mac键盘是一个四瓣的小花，Windows键盘是Windows键）
+* shiftKey属性：Shift键
+
+
+### button，buttons
+
+* button属性返回一个数值，表示按下了鼠标哪个键。
+* buttons属性返回一个3个比特位的值，表示同时按下了哪些键。它用来处理同时按下多个鼠标键的情况。
+
+
+### clientX，clientY，movementX，movementY，screenX，screenY
+
+这些属性与事件的位置相关
+
+
+### relatedTarget
+
+relatedTarget属性返回事件的次要相关节点。对于那些没有次要相关节点的事件，该属性返回null。
+
+### wheel事件
+
+wheel事件是与鼠标滚轮相关的事件，目前只有一个wheel事件。用户滚动鼠标的滚轮，就触发这个事件。
+
+该事件除了继承了MouseEvent、UIEvent、Event的属性，还有几个自己的属性。
+
+## 键盘事件
+
+键盘事件用来描述键盘行为，主要有`keydown`、`keypress`、`keyup`三个事件。
+
+* `keydown`：按下键盘时触发该事件。
+* `keypress`：只要按下的键并非Ctrl、Alt、Shift和Meta，就接着触发keypress事件。
+* `keyup`：松开键盘时触发该事件。
+
+如果用户一直按键不松开，就会连续触发键盘事件，触发的顺序如下。
+
+* keydown
+* keypress
+* keydown
+* keypress
+* （重复以上过程）
+* keyup
+
+键盘事件使用`KeyboardEvent`对象表示，该对象继承了UIEvent和MouseEvent对象。浏览器提供KeyboardEvent构造函数，用来新建键盘事件的实例。
+
+	event = new KeyboardEvent(typeArg, KeyboardEventInit);
+
+`KeyboardEvent`构造函数的第一个参数是一个字符串，表示事件类型，第二个参数是一个事件配置对象。
+
+
+### altKey，ctrlKey，metaKey，shiftKey
+
+### key，charCode
+
+`key`属性返回一个字符串，表示按下的键名。如果同时按下一个控制键和一个符号键，则返回符号键的键名。比如，按下Ctrl+a，则返回a。如果无法识别键名，则返回字符串Unidentified。
+
+`charCode`属性返回一个数值，表示keypress事件按键的Unicode值，keydown和keyup事件不提供这个属性。注意，该属性已经从标准移除，虽然浏览器还支持，但应该尽量不使用。
+
+## 进度事件
+
+进度事件用来描述一个事件进展的过程
+
+进度事件有以下几种。
+
+* abort事件：当进度事件被中止时触发。如果发生错误，导致进程中止，不会触发该事件。
+* error事件：由于错误导致资源无法加载时触发。
+* load事件：进度成功结束时触发。
+* loadstart事件：进度开始时触发。
+* loadend事件：进度停止时触发，发生顺序排在error事件\abort事件\load事件后面。
+* progress事件：当操作处于进度之中，由传输的数据块不断触发。
+* timeout事件：进度超过限时触发。
+
+## 拖拉事件
+
+拖拉指的是，用户在某个对象上按下鼠标键不放，拖动它到另一个位置，然后释放鼠标键，将该对象放在那里。
+
+拖拉的对象有好几种，包括Element节点、图片、链接、选中的文字等等。在HTML网页中，除了Element节点默认不可以拖拉，其他（图片、链接、选中的文字）都是可以直接拖拉的。为了让Element节点可拖拉，可以将该节点的draggable属性设为true。
+
+draggable属性可用于任何Element节点，但是图片（img元素）和链接（a元素）不加这个属性，就可以拖拉。对于它们，用到这个属性的时候，往往是将其设为false，防止拖拉。
+
+注意，一旦某个Element节点的draggable属性设为true，就无法再用鼠标选中该节点内部的文字或子节点了。
+
+## 事件种类
+
+当Element节点或选中的文本被拖拉时，就会持续触发拖拉事件，包括以下一些事件。
+
+* drag事件
+* dragstart
+* dragend
+* dragenter
+* dragover
+* dragleave
+* drop
+
+拖拉事件用一个`DragEvent`对象表示，该对象继承MouseEvent对象，因此也就继承了UIEvent和Event对象。DragEvent对象只有一个独有的属性DataTransfer，其他都是继承的属性。DataTransfer属性用来读写拖拉事件中传输的数据，详见下文《DataTransfer对象》的部分。
+
+### DataTransfer对象概述
+
+所有的拖拉事件都有一个dataTransfer属性，用来保存需要传递的数据。这个属性的值是一个DataTransfer对象。
+
+拖拉的数据保存两方面的数据：数据的种类（又称格式）和数据的值。数据的种类是一个MIME字符串，比如 text/plain或者image/jpeg，数据的值是一个字符串。一般来说，如果拖拉一段文本，则数据默认就是那段文本；如果拖拉一个链接，则数据默认就是链接的URL。
+
+当拖拉事件开始的时候，可以提供数据类型和数据值；在拖拉过程中，通过dragenter和dragover事件的监听函数，检查数据类型，以确定是否允许放下（drop）被拖拉的对象。比如，在只允许放下链接的区域，检查拖拉的数据类型是否为text/uri-list。
+
+发生drop事件时，监听函数取出拖拉的数据，对其进行处理。
+
+### DataTransfer对象的属性
+
+* dropEffect: 设置放下（drop）被拖拉节点时的效果
+* effectAllowed属性设置本次拖拉中允许的效果
+* files属性是一个FileList对象，包含一组本地文件，可以用来在拖拉操作中传送。
+* types属性是一个数组，保存每一次拖拉的数据格式
+
+### DataTransfer对象的方法
+
+* setData()：用来设置事件所带有的指定类型的数据。
+* getData()：接受一个字符串（表示数据类型）作为参数，返回事件所带的指定类型的数据（通常是用setData方法添加的数据）
+* clearData()：接受一个字符串（表示数据类型）作为参数，删除事件所带的指定类型的数据。
+* setDragImage()：拖动过程中（dragstart事件触发后），浏览器会显示一张图片跟随鼠标一起移动，表示被拖动的节点。
+
+
+## 触摸事件
+
+触摸API由三个对象组成。
+
+* Touch
+* TouchList
+* TouchEvent
+
+## 表单事件
+
+### Input事件，select事件，change事件
+
+这些事件与表单成员的值变化有关
+
+### reset事件，submit事件
+
+这两个事件发生在表单对象上，而不是发生在表单的成员上
+
+## 文档事件
+
+### beforeunload事件，unload事件，load事件，error事件，pageshow事件，pagehide事件
+
+与网页的加载与卸载相关
+
+* beforeunload事件当窗口将要关闭，或者document和网页资源将要卸载时触发。
+* unload事件在窗口关闭或者document对象将要卸载时触发，发生在window、body、frameset等对象上面。
+* load事件在页面加载成功时触发，error事件在页面加载失败时触发。
+
+	注意，页面从浏览器缓存加载，并不会触发load事件。
+
+	这两个事件实际上属于进度事件，不仅发生在document对象，还发生在各种外部资源上面。浏览网页就是一个加载各种资源的过程，图像（image）、样式表（style sheet）、脚本（script）、视频（video）、音频（audio）、Ajax请求（XMLHttpRequest）等等。这些资源和document对象、window对象、XMLHttpRequestUpload对象，都会触发load事件和error事件。
+	
+* pageshow事件在页面加载时触发，包括第一次加载和从缓存加载两种情况。	
+* pagehide事件与pageshow事件类似，当用户通过“前进/后退”按钮，离开当前页面时触发。它与unload事件的区别在于，如果在window对象上定义unload事件的监听函数之后，页面不会保存在缓存中，而使用pagehide事件，页面会保存在缓存中。
+
+### DOMContentLoaded事件，readystatechange事件
+
+与文档状态相关。
+
+* DOMContentLoaded事件
+
+	当HTML文档下载并解析完成以后，就会在document对象上触发DOMContentLoaded事件。这时，仅仅完成了HTML文档的解析（整张页面的DOM生成），所有外部资源（样式表、脚本、iframe等等）可能还没有下载结束。也就是说，这个事件比load事件，发生时间早得多。
+	
+* readystatechange事件
+
+	readystatechange事件发生在Document对象和XMLHttpRequest对象，当它们的readyState属性发生变化时触发。
+	
+### scroll事件，resize事件
+
+与窗口行为有关
+
+* scroll事件在文档或文档元素滚动时触发
+* resize事件在改变浏览器窗口大小时触发，发生在window、body、frameset对象上面
+
+### hashchange事件，popstate事件
+
+与文档的URL变化相关。
+
+* hashchange事件在URL的hash部分（即#号后面的部分，包括#号）发生变化时触发。
+* popstate事件在浏览器的history对象的当前记录发生显式切换时触发。
+
+### cut事件，copy事件，paste事件
+
+属于文本操作触发的事件
+
+* cut事件：在将选中的内容从文档中移除，加入剪贴板后触发。
+* copy事件：在选中的内容加入剪贴板后触发。
+* paste事件：在剪贴板内容被粘贴到文档后触发
+
+
+
+### 焦点事件
+
+发生在Element节点和document对象上面，与获得或失去焦点相关。它主要包括以下四个事件
+
+* focus事件：Element节点获得焦点后触发，该事件不会冒泡。
+* blur事件：Element节点失去焦点后触发，该事件不会冒泡。
+* focusin事件：Element节点将要获得焦点时触发，发生在focus事件之前。该事件会冒泡。Firefox不支持该事件。
+* focusout事件：Element节点将要失去焦点时触发，发生在blur事件之前。该事件会冒泡。Firefox不支持该事件。	
+## 自定义事件和事件模拟
+
+用户还可以自定义事件，然后手动触发
+
+	// 新建事件实例
+	var event = new Event('build');
+	
+	// 添加监听函数
+	elem.addEventListener('build', function (e) { ... }, false);
+	
+	// 触发事件
+	elem.dispatchEvent(event);
+
+ 
+### CustomEvent()
+
+Event构造函数只能指定事件名，不能在事件上绑定数据。如果需要在触发事件的同时，传入指定的数据，需要使用CustomEvent构造函数生成自定义的事件对象。
+
+	var event = new CustomEvent('build', { 'detail': 'hello' });
+	function eventHandler(e) {
+	  console.log(e.detail);
+	}
+
+### 事件的模拟
+
+有时，需要在脚本中模拟触发某种类型的事件，这时就必须使用这种事件的构造函数。 
+
+
 
 
 
 	
 
 
-	
-	
+
+
+
+
+
+
 
 
 	
