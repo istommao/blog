@@ -496,8 +496,191 @@ createEvent方法生成一个事件对象，该对象可以被element.dispatchEv
 与Document节点的事件相关。这些方法都继承自EventTarget接口
 
 
+# Element对象
+
+Element对象对应网页的HTML标签元素。每一个HTML标签元素，在DOM树上都会转化成一个Element节点对象（以下简称元素节点）。
+
+元素节点的nodeType属性都是1，但是不同HTML标签生成的元素节点是不一样的。
+
+因此，元素节点不是一种对象，而是一组对象。
+
+## 属性
+
+### attributes，id，tagName
+
+* attributes属性返回一个类似数组的对象，成员是当前元素节点的所有属性节点，每个数字索引对应一个属性节点（Attribute）对象。返回值中，所有成员都是动态的，即属性的变化会实时反映在结果集。
+* id属性返回指定元素的id标识。该属性可读写。
+* tagName属性返回指定元素的大写的标签名，与nodeName属性的值相等。
+
+### innerHTML，outerHTML
+
+* innerHTML属性返回该元素包含的HTML代码。该属性可读写，常用来设置某个节点的内容。
+
+	注意，如果文本节点中包含`&`、小于号（`<`）和大于号（`>`），innerHTML属性会将它们转为实体形式`&amp`、`&lt`、`&gt`。因此在innerHTML插入`<script>`标签，不会被执行。但是，innerHTML还是有安全风险的。因此为了安全考虑，如果插入的是文本，最好用textContent属性代替innerHTML。
+	
+* outerHTML属性返回一个字符串，内容为指定元素的所有HTML代码，包括它自身和包含的所有子元素
+
+### children，childElementCount，firstElementChild，lastElementChild
+
+以下属性与元素节点的子元素相关	
+
+* children属性返回一个类似数组的动态对象（实时反映变化），包括当前元素节点的所有子元素。如果当前元素没有子元素，则返回的对象包含零个成员。
+* childElementCount属性返回当前元素节点包含的子元素节点的个数。
+* firstElementChild属性返回第一个子元素，如果没有，则返回null。
+* lastElementChild属性返回最后一个子元素，如果没有，则返回null。
 
 
+### nextElementSibling，previousElementSibling
+
+以下属性与元素节点的同级元素相关
+
+* nextElementSibling属性返回指定元素的后一个同级元素，如果没有则返回null。
+* previousElementSibling属性返回指定元素的前一个同级元素，如果没有则返回null。
+
+### className，classList
+
+* className属性用来读取和设置当前元素的class属性。它的值是一个字符串，每个class之间用空格分割。
+* classList属性则返回一个类似数组的对象，当前元素节点的每个class就是这个对象的一个成员
+
+	classList对象有下列方法。
+	
+	* add()：增加一个class。
+	* remove()：移除一个class。
+	* contains()：检查当前元素是否包含某个class。
+	* toggle()：将某个class移入或移出当前元素。
+	* item()：返回指定索引位置的class。
+	* toString()：将class的列表转为字符串。
+
+### clientHeight，clientLeft，clientTop，clientWidth
+
+以下属性与元素节点的可见区域的坐标相关
+
+* clientHeight属性
+
+	返回元素节点的可见高度，包括padding、但不包括水平滚动条、边框和margin的高度，单位为像素。该属性可以计算得到，等于元素的CSS高度，加上CSS的padding高度，减去水平滚动条的高度（如果存在水平滚动条）。
+
+	如果一个元素是可以滚动的，则clientHeight只计算它的可见部分的高度。
+
+* clientLeft属性
+
+	等于元素节点左边框（border）的宽度，单位为像素，包括垂直滚动条的宽度，不包括左侧的margin和padding。但是，除非排版方向是从右到左，且发生元素宽度溢出，否则是不可能存在左侧滚动条。如果该元素的显示设为display: inline，clientLeft一律为0，不管是否存在左边框。
+
+* clientTop属性等于网页元素顶部边框的宽度，不包括顶部的margin和padding。
+* clientWidth属性等于网页元素的可见宽度，即包括padding、但不包括垂直滚动条（如果有的话）、边框和margin的宽度，单位为像素。
+
+### scrollHeight，scrollWidth，scrollLeft，scrollTop
+
+以下属性与元素节点占据的总区域的坐标相关
+
+* scrollHeight属性返回指定元素的总高度，包括由于溢出而无法展示在网页的不可见部分
+* scrollWidth属性返回元素的总宽度，包括由于溢出容器而无法显示在网页上的那部分宽度，不管是否存在水平滚动条。该属性是只读属性。
+* scrollLeft属性设置或返回水平滚动条向右侧滚动的像素数量。它的值等于元素的最左边与其可见的最左侧之间的距离。对于那些没有滚动条或不需要滚动的元素，该属性等于0。该属性是可读写属性，设置该属性的值，会导致浏览器将指定元素自动滚动到相应的位置。
+* scrollTop属性设置或返回垂直滚动条向下滚动的像素数量。它的值等于元素的顶部与其可见的最高位置之间的距离。对于那些没有滚动条或不需要滚动的元素，该属性等于0。该属性是可读写属性，设置该属性的值，会导致浏览器将指定元素自动滚动到相应位置。
+
+## 方法
+
+### hasAttribute()，getAttribute()，removeAttribute()，setAttribute()
+
+以下方法与元素节点的属性相关。
+
+### querySelector()，querySelectorAll()，getElementsByClassName()，getElementsByTagName()
+
+以下方法与获取当前元素节点的子元素相关。
+
+### closest()，matches()
+
+### addEventListener()，removeEventListener()，dispatchEvent()
+
+以下三个方法与Element节点的事件相关。这些方法都继承自EventTarget接口，
+详细介绍参见《Event对象》章节的《EventTarget》部分。
+
+### getBoundingClientRect()，getClientRects()
+
+以下方法返回元素节点的CSS盒状模型信息。
+
+### insertAdjacentHTML()，remove()
+
+以下方法操作元素节点的DOM树。
+
+### scrollIntoView()
+
+scrollIntoView方法滚动当前元素，进入浏览器的可见区域
+
+
+# Text节点和DocumentFragment节点
+
+## Text节点的概念
+
+Text节点代表Element节点和Attribute节点的文本内容。如果一个节点只包含一段文本，那么它就有一个Text子节点，代表该节点的文本内容。通常我们使用Element节点的firstChild、nextSibling等属性获取Text节点，或者使用Document节点的createTextNode方法创造一个Text节点
+
+	// 获取Text节点
+	var textNode = document.querySelector('p').firstChild;
+	
+	// 创造Text节点
+	var textNode = document.createTextNode('Hi');
+	document.querySelector('div').appendChild(textNode);
+
+浏览器原生提供一个Text构造函数。它返回一个Text节点。它的参数就是该Text节点的文本内容。
+
+	var text1 = new Text();
+	var text2 = new Text("This is a text node");
+
+注意，由于空格也是一个字符，所以哪怕只有一个空格，也会形成Text节点。
+
+Text节点除了继承Node节点的属性和方法，还继承了CharacterData接口。Node节点的属性和方法请参考《Node节点》章
+
+## Text节点的属性
+
+* data属性等同于nodeValue属性，用来设置或读取Text节点的内容。
+* wholeText属性将当前Text节点与毗邻的Text节点，作为一个整体返回。大多数情况下，wholeText属性的返回值，与data属性和textContent属性相同。但是，某些特殊情况会有差异
+* length属性返回当前Text节点的文本长度。
+* nextElementSibling属性返回紧跟在当前Text节点后面的那个同级Element节点。如果取不到这样的节点，则返回null
+* previousElementSibling属性返回当前Text节点前面最近的那个Element节点。如果取不到这样的节点，则返回null
+
+## Text节点的方法
+
+### appendData()，deleteData()，insertData()，replaceData()，subStringData()
+
+以下5个方法都是编辑Text节点文本内容的方法。
+
+### remove方法用于移除当前Text节点
+
+### splitText()，normalize()
+
+splitText方法将Text节点一分为二，变成两个毗邻的Text节点。它的参数就是分割位置（从零开始），分割到该位置的字符前结束。如果分割位置不存在，将报错。
+
+normalize方法可以将毗邻的两个Text节点合并。
+
+## DocumentFragment节点
+
+DocumentFragment节点代表一个文档的片段，本身就是一个完整的DOM树形结构。它没有父节点，不属于当前文档，操作DocumentFragment节点，要比直接操作DOM树快得多。
+
+它一般用于构建一个DOM结构，然后插入当前文档。document.createDocumentFragment方法，以及浏览器原生的DocumentFragment构造函数，可以创建一个空的DocumentFragment节点。然后再使用其他DOM方法，向其添加子节点。
+
+	var docFrag = document.createDocumentFragment();
+	// or
+	var docFrag = new DocumentFragment();
+	
+	var li = document.createElement("li");
+	li.textContent = "Hello World";
+	docFrag.appendChild(li);
+	
+	document.queryselector('ul').appendChild(docFrag);
+	
+	
+上面代码创建了一个DocumentFragment节点，然后将一个li节点添加在它里面，最后将DocumentFragment节点移动到原文档。
+
+一旦DocumentFragment节点被添加进原文档，它自身就变成了空节点（textContent属性为空字符串）。如果想要保存DocumentFragment节点的内容，可以使用cloneNode方法。
+
+
+DocumentFragment节点对象没有自己的属性和方法，全部继承自Node节点和ParentNode接口。也就是说，DocumentFragment节点比Node节点多出以下四个属性。
+
+* children：返回一个动态的HTMLCollection集合对象，包括当前DocumentFragment对象的所有子元素节点。
+* firstElementChild：返回当前DocumentFragment对象的第一个子元素节点，如果没有则返回null。
+* lastElementChild：返回当前DocumentFragment对象的最后一个子元素节点，如果没有则返回null。
+* childElementCount：返回当前DocumentFragment对象的所有子元素数量。
+
+另外，Node节点的所有方法，都接受DocumentFragment节点作为参数（比如Node.appendChild、Node.insertBefore）。这时，DocumentFragment的子节点（而不是DocumentFragment节点本身）将插入当前节点。
 
 
 
