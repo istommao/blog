@@ -343,10 +343,169 @@ table元素有以下属性：
 
 ## 概述
 
+`document`节点是文档的根节点，每张网页都有自己的`document`节点。`window.document`属性就指向这个节点。也就是说，只要浏览器开始载入HTML文档，这个节点对象就存在了，可以直接调用。
+
+`document`节点有不同的办法可以获取
+
+* 对于正常的网页，直接使用`document`或`window.document`。
+* 对于`iframe`载入的网页，使用`iframe`节点的`contentDocument`属性。
+* 对`Ajax`操作返回的文档，使用`XMLHttpRequest`对象的`responseXML`属性。
+* 对于某个节点包含的文档，使用该节点的`ownerDocument`属性。
+	
+## document节点的属性
+
+### 指向文档内部的某个节点
+
+doctype，documentElement，defaultView，body，head，activeElement
+
+* doctype
+
+	对于HTML文档来说，document对象一般有两个子节点。第一个子节点是document.doctype，它是一个对象，包含了当前文档类型（Document Type Declaration，简写DTD）信息。对于HTML5文档，该节点就代表<!DOCTYPE html>。如果网页没有声明DTD，该属性返回null。
+	
+	document.firstChild通常就返回这个节点。
+	
+* document.documentElement属性，表示当前文档的根节点（root）。它通常是document节点的第二个子节点，紧跟在document.doctype节点后面。
+* defaultView属性，在浏览器中返回document对象所在的window对象，否则返回null
+* 	body属性返回当前文档的body或frameset节点，如果不存在这样的节点，就返回null。这个属性是可写的，如果对其写入一个新的节点，会导致原有的所有子节点被移除。
+* 	head属性返回当前文档的head节点。如果当前文档有多个head，则返回第一个。
+* 	activeElement属性返回当前文档中获得焦点的那个元素。用户通常可以使用tab键移动焦点，使用空格键激活焦点，比如如果焦点在一个链接上，此时按一下空格键，就会跳转到该链接。
+
+### 返回文档信息
+
+documentURI，URL，domain，lastModified，location，referrer，title，characterSet
+
+* documentURI属性和URL属性都返回当前文档的网址。不同之处是documentURI属性是所有文档都具备的，URL属性则是HTML文档独有的
+* domain属性返回当前文档的域名。
+* lastModified属性返回当前文档最后修改的时间戳，格式为字符串
+* location属性返回一个只读对象，提供了当前文档的URL信息
+
+		// 假定当前网址为http://user:passwd@www.example.com:4097/path/a.html?x=111#part1
+		
+		document.location.href // "http://user:passwd@www.example.com:4097/path/a.html?x=111#part1"
+		document.location.protocol // "http:"
+		document.location.host // "www.example.com:4097"
+		document.location.hostname // "www.example.com"
+		document.location.port // "4097"
+		document.location.pathname // "/path/a.html"
+		document.location.search // "?x=111"
+		document.location.hash // "#part1"
+		document.location.user // "user"
+		document.location.password // "passed"
+		
+		// 跳转到另一个网址
+		document.location.assign('http://www.google.com')
+		// 优先从服务器重新加载
+		document.location.reload(true)
+		// 优先从本地缓存重新加载（默认值）
+		document.location.reload(false)
+		// 跳转到另一个网址，但当前文档不保留在history对象中，
+		// 即无法用后退按钮，回到当前文档
+		document.location.replace('http://www.google.com')
+		// 将location对象转为字符串，等价于document.location.href
+		document.location.toString()
+		
+	虽然location属性返回的对象是只读的，但是可以将URL赋值给这个属性，网页就会自动跳转到指定网址。
+	
+	document.location属性与window.location属性等价，历史上，IE曾经不允许对document.location赋值，为了保险起见，建议优先使用window.location。如果只是单纯地获取当前网址，建议使用document.URL。
+	
+* referrer属性返回一个字符串，表示当前文档的访问来源，如果是无法获取来源或是用户直接键入网址，而不是从其他网页点击，则返回一个空字符串
+* title属性返回当前文档的标题，该属性是可写的
+* characterSet属性返回渲染当前文档的字符集，比如UTF-8、ISO-8859-1
+
+### readyState，designMode
+
+以下属性与文档行为有关	
+
+* readyState属性返回当前文档的状态，共有三种可能的值，加载HTML代码阶段（尚未完成解析）是“loading”，加载外部资源阶段是“interactive”，全部加载完成是“complete”。
+
+		// 基本检查
+		if (document.readyState === 'complete') {
+		  // ...
+		}	
+
+* designMode属性控制当前document是否可编辑。通常会打开iframe的designMode属性，将其变为一个所见即所得的编辑器
+
+### implementation，compatMode
+
+以下属性返回文档的环境信息
+
+* implementation属性返回一个对象，用来甄别当前环境部署了哪些DOM相关接口。implementation属性的hasFeature方法，可以判断当前环境是否部署了特定版本的特定接口
+* compatMode属性返回浏览器处理文档的模式，可能的值为BackCompat（向后兼容模式）和 CSS1Compat（严格模式）
+
+### anchors，embeds，forms，images，links，scripts，styleSheets
+
+以下属性返回文档内部特定元素的集合（即HTMLCollection对象，详见下文）。这些集合都是动态的，原节点有任何变化，立刻会反映在集合中。
+
+* anchors属性返回网页中所有的a节点元素。注意，只有指定了name属性的a元素，才会包含在anchors属性之中
+* embeds属性返回网页中所有嵌入对象，即embed标签，返回的格式为类似数组的对象（nodeList）
+* forms属性返回页面中所有表单。
+* images属性返回页面所有图片元素（即img标签）
+* links属性返回当前文档所有的链接元素（即a标签，或者说具有href属性的元素）
+* scripts属性返回当前文档的所有脚本（即script标签）
+* styleSheets属性返回一个类似数组的对象，包含了当前网页的所有样式表。该属性提供了样式表操作的接口。然后，每张样式表对象的cssRules属性，返回该样式表的所有CSS规则。这又方便了操作具体的CSS规则。
+* document.cookie属性用来操作浏览器Cookie
+
+## document对象的方法
+
+* `document.open`方法用于新建一个文档，供write方法写入内容。它实际上等于清除当前文档，重新写入内容。不要将此方法与`window.open`()混淆，后者用来打开一个新窗口，与当前文档无关。
+
+* `document.close`方法用于关闭open方法所新建的文档。一旦关闭，write方法就无法写入内容了。如果再调用write方法，就等同于又调用open方法，新建一个文档，再写入内容。
+
+* `document.write`方法用于向当前文档写入内容。只要当前文档还没有用close方法关闭，它所写入的内容就会追加在已有内容的后面。总之，除了某些特殊情况，应该尽量避免使用`document.write`这个方法。
+
+* `document.writeln`方法与write方法完全一致，除了会在输出内容的尾部添加换行符
+
+* `document.hasFocus`方法返回一个布尔值，表示当前文档之中是否有元素被激活或获得焦点
+
+### 选中当前文档中的元素
+
+* `querySelector`方法返回匹配指定的CSS选择器的元素节点。如果有多个节点满足匹配条件，则返回第一个匹配的节点。如果没有发现匹配的节点，则返回null。
+* `getElementById`方法返回匹配指定ID属性的元素节点。如果没有发现匹配的节点，则返回null
+* `querySelectorAll`方法返回匹配指定的CSS选择器的所有节点，返回的是NodeList类型的对象。NodeList对象不是动态集合，所以元素节点的变化无法实时反映在返回结果中
+* `getElementsByClassName`方法返回一个类似数组的对象（HTMLCollection类型的对象），包括了所有class名字符合指定条件的元素（搜索范围包括本身），元素的变化实时反映在返回结果中。这个方法不仅可以在document对象上调用，也可以在任何元素节点上调用。
+* `getElementsByTagName`方法返回所有指定标签的元素（搜索范围包括本身）。返回值是一个HTMLCollection对象，也就是说，搜索结果是一个动态集合，任何元素的变化都会实时反映在返回的集合中。这个方法不仅可以在document对象上调用，也可以在任何元素节点上调用
+* `getElementsByName`方法用于选择拥有name属性的HTML元素，比如form、img、frame、embed和object，返回一个NodeList格式的对象，不会实时反映元素的变化。
+* `elementFromPoint`方法返回位于页面指定位置的元素
+
+
+### 生成元素节点
+
+* `createElement`方法用来生成HTML元素节点
+* `document.createTextNode`方法用来生成文本节点，参数为所要生成的文本节点的内容
+* `document.createAttribute`方法生成一个新的属性对象节点，并返回它
+* `createDocumentFragment`方法生成一个DocumentFragment对象
+
+### createEvent()
+
+createEvent方法生成一个事件对象，该对象可以被element.dispatchEvent方法使用，触发指定事件
+
+### 遍历元素节点
+
+* createNodeIterator方法返回一个DOM的子节点遍历器。
+
+	所谓“遍历器”，在这里指可以用nextNode方法和previousNode方法依次遍历根节点的所有子节点。
+	
+* createTreeWalker方法返回一个DOM的子树遍历器。它与createNodeIterator方法的区别在于，后者只遍历子节点，而它遍历整个子树
+
+### 获取外部文档的节点
+
+* `adoptNode`方法将某个节点，从其原来所在的文档移除，插入当前文档，并返回插入后的新节点
+* `importNode`方法从外部文档拷贝指定节点，插入当前文档	
+### addEventListener()，removeEventListener()，dispatchEvent()
+
+与Document节点的事件相关。这些方法都继承自EventTarget接口
+
+
+
+
+
+
 
 
 
 	
+
+
 	
 	
 
