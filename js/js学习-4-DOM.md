@@ -1107,6 +1107,154 @@ Event构造函数只能指定事件名，不能在事件上绑定数据。如果
 
 # CSS操作
 
+CSS与JavaScript是两个有着明确分工的领域，前者负责页面的视觉效果，后者负责与用户的行为互动。但是，它们毕竟同属网页开发的前端，因此不可避免有着交叉和互相配合。本节介绍如果通过JavaScript操作CSS。
+
+## HTML元素的style属性
+
+操作Element节点的CSS样式，最简单的方法之一就是使用节点对象的getAttribute方法、setAttribute方法和removeAttribute方法，读写或删除HTML元素的style属性。
+
+## Element节点的style属性
+
+Element节点本身还提供style属性，用来操作CSS样式。
+
+style属性指向一个对象，用来读写页面元素的行内CSS样式。
+
+### cssText属性
+
+style对象的cssText可以用来读写或删除整个style属性。
+
+注意，cssText对应的是HTML元素的style属性，所以不用改写CSS属性名
+
+### CSS模块的侦测
+
+### setPropertyValue()，getPropertyValue()，removeProperty()
+
+style对象的以下三个方法，用来读写行内CSS规则。
+
+* setPropertyValue(propertyName,value)：设置某个CSS属性。
+* getPropertyValue(propertyName)：读取某个CSS属性。
+* removeProperty(propertyName)：删除某个CSS属性。
+
+
+## CSS伪元素
+
+CSS伪元素是通过CSS向DOM添加的元素，主要方法是通过“`:before`”和“`:after`”选择器生成伪元素，然后用content属性指定伪元素的内容。
+
+	<div id="test">Test content</div>
+
+CSS添加伪元素的写法如下。
+
+	#test:before {
+	  content: 'Before ';
+	  color: #FF0;
+	}
+
+DOM节点的style对象无法读写伪元素的样式，这时就要用到window对象的`getComputedStyle`方法。JavaScript获取伪元素，可以使用下面的方法。
+
+	var test = document.querySelector('#test');
+	
+	var result = window.getComputedStyle(test, ':before').content;
+	var color = window.getComputedStyle(test, ':before').color;
+
+也可以使用`window.getComputedStyle`对象的`getPropertyValue`方法，获取伪元素的属性
+
+
+## StyleSheet对象
+
+### 获取样式表
+
+`StyleSheet`对象代表网页的一张样式表，它包括link节点加载的样式表和style节点内嵌的样式表。
+
+`document`对象的styleSheets属性，可以返回当前页面的所有StyleSheet对象（即所有样式表）。它是一个类似数组的对象。
+
+	var sheets = document.styleSheets;
+	var sheet = document.styleSheets[0];
+
+此外，`link`节点和`style`节点的`sheet`属性，也可以获取StyleSheet对象。
+
+### StyleSheet对象有以下属性
+
+* media属性表示这个样式表是用于屏幕（screen），还是用于打印（print），或两者都适用（all）。该属性只读，默认值是screen。
+* disabled属性用于打开或关闭一张样式表。
+* href属性是只读属性，返回StyleSheet对象连接的样式表地址。
+* title属性返回StyleSheet对象的title值。
+* type属性返回StyleSheet对象的type值，通常是text/css。
+* CSS的@import命令允许在样式表中加载其他样式表。parentStyleSheet属性返回包括了当前样式表的那张样式表。如果当前样式表是顶层样式表，则该属性返回null。
+* ownerNode属性返回StyleSheet对象所在的DOM节点，通常是`<link>`或`<style>`。
+* cssRules属性指向一个类似数组的对象，里面每一个成员就是当前样式表的一条CSS规则。使用该规则的cssText属性，可以得到CSS规则对应的字符串。
+* insertRule方法用于在当前样式表的cssRules对象插入CSS规则
+* deleteRule方法用于删除cssRules对象的CSS规则。
+
+
+### 添加样式表
+
+添加样式表有两种方式。一种是添加一张内置样式表，即在文档中添加一个`<style>`节点
+
+另一种是添加外部样式表，即在文档中添加一个link节点，然后将href属性指向外部样式表的URL。
+
+
+## CSS规则
+
+一条CSS规则包括两个部分：`CSS选择器`和`样式声明`。下面就是一条典型的CSS规则。
+
+	.myClass {
+	  background-color: yellow;
+	}
+	
+### CSSRule接口
+
+CSS规则部署了CSSRule接口，它包括了以下属性
+
+* cssText属性返回当前规则的文本
+* parentStyleSheet属性返回定义当前规则的样式表对象
+* parentRule返回包含当前规则的那条CSS规则。最典型的情况，就是当前规则包含在一个@media代码块之中。如果当前规则是顶层规则，则该属性返回null。
+* type属性返回有一个整数值，表示当前规则的类型
+
+### CSSStyleRule接口
+
+如果一条CSS规则是普通的样式规则，那么除了CSSRule接口，它还部署了CSSStyleRule接口。
+
+CSSRule接口有以下两个属性。
+
+* selectorText属性返回当前规则的选择器。
+* style属性返回一个对象，代表当前规则的样式声明，也就是选择器后面的大括号里面的部分。
+
+### CSSMediaRule接口
+
+如果一条CSS规则是@media代码块，那么它除了CSSRule接口，还部署了CSSMediaRule接口。
+
+该接口主要提供一个media属性，可以返回@media代码块的media规则。
+
+### CSSStyleDeclaration对象
+每一条CSS规则的样式声明部分（大括号内部的部分），都是一个CSSStyleDeclaration对象，主要包括三种情况。
+
+* HTML元素的行内样式（`<elem style=”…“>`）
+* CSSStyleRule接口的style属性
+* window.getComputedStyle()的返回结果
+
+
+CSSStyleDeclaration对象包括以下方法:
+
+* getPropertyPriority方法返回指定声明的优先级
+* getPropertyValue方法返回指定声明的值。
+* item方法返回指定位置的属性名。
+* removeProperty方法用于删除一条CSS属性，返回被删除的值。
+* setProperty方法用于设置指定的CSS属性，没有返回值。
+
+
+## window.getComputedStyle()
+
+`getComputedStyle`方法接受一个DOM节点对象作为参数，返回一个包含该节点最终样式信息的对象。所谓“最终样式信息”，指的是各种CSS规则叠加后的结果。
+
+
+## window.matchMedia()
+
+## CSS事件
+
+* CSS的过渡效果（transition）结束后，触发transitionEnd事件
+* animationstart事件，animationend事件，animationiteration事件
+
+
 
 # Mutation Observer
 
