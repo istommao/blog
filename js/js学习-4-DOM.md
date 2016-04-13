@@ -1105,19 +1105,81 @@ Event构造函数只能指定事件名，不能在事件上绑定数据。如果
 
 有时，需要在脚本中模拟触发某种类型的事件，这时就必须使用这种事件的构造函数。 
 
+# CSS操作
 
 
+# Mutation Observer
 
 
+## 概述
+
+Mutation Observer（变动观察器）是监视DOM变动的接口。DOM发生任何变动，Mutation Observer会得到通知。
+
+概念上，它很接近事件。可以理解为，当DOM发生变动，会触发Mutation Observer事件。但是，它与事件有一个本质不同：事件是同步触发，也就是说，当DOM发生变动，立刻会触发相应的事件；Mutation Observer则是异步触发，DOM发生变动以后，并不会马上触发，而是要等到当前所有DOM操作都结束后才触发。
+
+这样设计是为了应付DOM变动频繁的特点。
+
+Mutation Observer有以下特点：
+
+* 它等待所有脚本任务完成后，才会运行，即采用异步方式。
+* 它把DOM变动记录封装成一个数组进行处理，而不是一条条地个别处理DOM变动。
+* 它既可以观察发生在DOM的所有类型变动，也可以观察某一类变动。
+
+## MutationObserver构造函数
+
+使用MutationObserver构造函数，新建一个观察器实例，同时指定这个实例的回调函数。
+
+	var observer = new MutationObserver(callback);
+
+观察器的回调函数会在每次DOM发生变动后调用。它接受两个参数，第一个是变动数组（详见后文），第二个是观察器实例。
+
+
+## Mutation Observer实例的方法
+
+* observe方法指定所要观察的DOM节点，以及所要观察的特定变动
+
+	observe方法接受两个参数，第一个是所要观察的DOM元素是article，第二个是所要观察的变动类型（子节点变动和属性变动）。
 	
+* disconnect()方法用来停止观察。
+* takeRecords方法用来清除变动记录，即不再处理未处理的变动。该方法返回变动记录的数组。
+
+### MutationRecord对象
+
+DOM每次发生变化，就会生成一条变动记录。这个变动记录对应一个MutationRecord对象，该对象包含了与变动相关的所有信息。Mutation Observer处理的是一个个MutationRecord对象所组成的数组。
+
+MutationRecord对象包含了DOM的相关信息，有如下属性：
+
+* type：观察的变动类型（attribute、characterData或者childList）。
+* target：发生变动的DOM节点。
+* addedNodes：新增的DOM节点。
+* removedNodes：删除的DOM节点。
+* previousSibling：前一个同级节点，如果没有则返回null。
+* nextSibling：下一个同级节点，如果没有则返回null。
+* attributeName：发生变动的属性。如果设置了attributeFilter，则只返回预先指定的属性。
+* oldValue：变动前的值。这个属性只对attribute和characterData变动有效，如果发生childList变动，则返回null。	
 
 
+## 实例
 
+子元素的变动
 
+	var callback = function(records){
+	  records.map(function(record){
+	    console.log('Mutation type: ' + record.type);
+	    console.log('Mutation target: ' + record.target);
+	  });
+	};
+	
+	var mo = new MutationObserver(callback);
+	
+	var option = {
+	  'childList': true,
+	  'subtree': true
+	};
+	
+	mo.observe(document.body, option);
 
-
-
-
+上面代码的观察器，观察body的所有下级节点（childList表示观察子节点，subtree表示观察后代节点）的变动。回调函数会在控制台显示所有变动的类型和目标节点。
 
 
 	
