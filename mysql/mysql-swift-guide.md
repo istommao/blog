@@ -31,6 +31,64 @@
 	select host,user,password from mysql.user where user='abc';
 	select * from mysql.user
 	
+	
+### 更改密码
+
+* [MySQL 修改用户密码及重置root密码](http://blog.csdn.net/leshami/article/details/39805839)
+
+#### 重置root帐户密码（忘记root密码）
+
+(以mac为例, mysql 5.7为例：mysql数据库下已经没有password这个字段了，`password`字段改成了
+`authentication_string`)
+
+停止mysql
+
+	mysql.server stop
+	
+使用--skip-grant-tables选项跳过授权表验证
+
+	mysqld --skip-grant-tables --user=mysql & 
+	
+查询和更改：
+
+	select user,host,password from mysql.user where user='root'; 
+	update mysql.user set password=password('root') where user='root'; 
+	
+**p.s.**
+	
+* 如果提示不存在`password`，将其更改为：`authentication_string`
+
+* 如果是mysql5.7，应该使用命令：
+
+		alter mysql.user 'root'@'localhost' IDENTIFIED BY 'root'
+
+退出mysqld：
+
+	找到对应mysql的进程，将其kill掉
+	ps -ef | grep mysqld
+	kill xxx
+	
+重新mysql
+
+	mysql.server start
+	
+登录
+
+	mysql -uroot -p	
+	
+	
+
+
+	
+			
+		
+	
+
+
+	
+
+	
+	
 ### 导入导出
 
 在 `mysqldump` 命令中指定数据库名及数据表
