@@ -224,11 +224,117 @@ requestAnimationFrame的优势，在于充分利用显示器的刷新机制，�
 
 不过有一点需要注意，requestAnimationFrame是在主线程上完成。这意味着，如果主线程非常繁忙，requestAnimationFrame的动画效果会大打折扣。
 
+# WebSocket
+
+## 概述
+HTTP协议是一种无状态协议，服务器端本身不具有识别客户端的能力，必须借助外部机制，比如session和cookie，才能与特定客户端保持对话。这多多少少带来一些不便，尤其在服务器端与客户端需要持续交换数据的场合（比如网络聊天），更是如此。为了解决这个问题，HTML5提出了浏览器的`WebSocket API`
+
+WebSocket的主要作用是，允许服务器端与客户端进行全双工（full-duplex）的通信。
+
+WebSocket协议完全可以取代Ajax方法，用来向服务器端发送文本和二进制数据，而且还没有“同域限制”。
+
+WebSocket不使用HTTP协议，而是使用自己的协议。浏览器发出的WebSocket请求类似于下面的样子：
+
+	GET / HTTP/1.1
+	Connection: Upgrade
+	Upgrade: websocket
+	Host: example.com
+	Origin: null
+	Sec-WebSocket-Key: sN9cRrP/n9NdMgdcy2VJFQ==
+	Sec-WebSocket-Version: 13
+
+上面的头信息显示，有一个HTTP头是Upgrade。HTTP1.1协议规定，`Upgrade`头信息表示将通信协议从HTTP/1.1转向该项所指定的协议。“`Connection: Upgrade`”就表示浏览器通知服务器，如果可以，就升级到webSocket协议。`Origin`用于验证浏览器域名是否在服务器许可的范围内。`Sec-WebSocket-Key`则是用于握手协议的密钥，是base64编码的16字节随机字符串。
+
+服务器端的WebSocket回应则是
+
+	HTTP/1.1 101 Switching Protocols
+	Connection: Upgrade
+	Upgrade: websocket
+	Sec-WebSocket-Accept: fFBooB7FAkLlXgRSz0BT3v4hq5s=
+	Sec-WebSocket-Origin: null
+	Sec-WebSocket-Location: ws://example.com/
+
+服务器端同样用“Connection: Upgrade”通知浏览器，需要改变协议。Sec-WebSocket-Accept是服务器在浏览器提供的Sec-WebSocket-Key字符串后面，添加“`258EAFA5-E914-47DA-95CA-C5AB0DC85B11`” 字符串，然后再取sha-1的hash值。浏览器将对这个值进行验证，以证明确实是目标服务器回应了webSocket请求。Sec-WebSocket-Location表示进行通信的WebSocket网址。
+
+**完成握手以后，WebSocket协议就在TCP协议之上，开始传送数据**。
+
+WebSocket协议需要服务器支持，目前比较流行的实现是基于`node.js`的`socket.io`
+
+## 客户端
+浏览器端对WebSocket协议的处理，无非就是三件事：
+
+* 建立连接和断开连接
+* 发送数据和接收数据
+* 处理错误
+
+### 建立连接和断开连接
+
+	if(window.WebSocket != undefined) {
+		var connection = new WebSocket('ws://localhost:1740');
+	}
+
+建立连接以后的WebSocket实例对象（即上面代码中的connection），有一个readyState属性，表示目前的状态，可以取4个值：
+
+* 0： 正在连接
+* 1： 连接成功
+* 2： 正在关闭
+* 3： 连接关闭
+
+握手协议成功以后，readyState就从0变为1，并触发`open`事件，这时就可以向服务器发送信息了。我们可以指定open事件的回调函数。
+
+	connection.onopen = wsOpen;
+
+	function wsOpen (event) {
+		console.log('Connected to: ' + event.currentTarget.URL);
+	}
+
+关闭WebSocket连接，会触发close事件。
+
+	connection.onclose = wsClose;
+	
+	function wsClose () {
+		console.log("Closed");
+	}
+	
+	connection.close();
+
+### 发送数据和接收数据
+
+连接建立后，客户端通过`send`方法向服务器端发送数据
+
+	connection.send(message);
+
+除了发送字符串，也可以使用 Blob 或 ArrayBuffer 对象发送二进制数据
+
+客户端收到服务器发送的数据，会触发`message`事件。可以通过定义message事件的回调函数，来处理服务端返回的数据。
+
+	connection.onmessage = wsMessage;
+	
+	function wsMessage (event) {
+		console.log(event.data);
+	}
+
+### 处理错误
+
+如果出现错误，浏览器会触发WebSocket实例对象的`error`事件。
+
+	connection.onerror = wsError;
+	
+	function wsError(event) {
+		console.log("Error: " + event.data);
+	}
 
 
+## 服务器端
+
+服务器端需要单独部署处理WebSocket的代码。
 
 
+## Socket.io简介
 
+`Socket.io`是目前最流行的WebSocket实现，包括服务器和客户端两个部分。它不仅简化了接口，使得操作更容易，而且对于那些不支持WebSocket的浏览器，会自动降为Ajax连接，最大限度地保证了兼容性。它的目标是统一通信机制，使得所有浏览器和移动设备都可以进行实时通信。
+
+不管是服务器还是客户端，`socket.io`提供两个核心方法：`emit`方法用于发送消息，`on`方法用于监听对方发送的消息。
 
 
 
