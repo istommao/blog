@@ -84,6 +84,74 @@ SVG是“可缩放矢量图”（Scalable Vector Graphics）的缩写，是一�
 
 *learning when using*
 
+# 表单
+
+## 表单的验证
+
+### HTML 5表单验证
+
+所谓“表单验证”，指的是检查用户提供的数据是否符合要求，比如Email地址的格式。HTML 5原生支持表单验证，不需要JavaScript
+
+*learning when using*
+
+# 文件和二进制数据的操作
+
+ECMAScript 5引入了Blob对象，允许直接操作二进制数据。
+
+Blob对象是一个代表二进制数据的基本对象，在它的基础上，又衍生出一系列相关的API，用来操作文件。
+
+* File对象：负责处理那些以文件形式存在的二进制数据，也就是操作本地文件；
+* FileList对象：File对象的网页表单接口；
+* FileReader对象：负责将二进制数据读入内存内容；
+* URL对象：用于对二进制数据生成URL。
+
+## Blob对象
+
+Blob（Binary Large Object）对象代表了一段二进制数据，提供了一系列操作接口。其他操作二进制数据的API（比如File对象），都是建立在Blob对象基础上的，继承了它的属性和方法。
+
+生成Blob对象有两种方法：一种是使用Blob构造函数，另一种是对现有的Blob对象使用slice方法切出一部分。
+
+*learning when using*
+
+# Web Worker
+
+## 概述
+
+JavaScript语言采用的是单线程模型，也就是说，所有任务排成一个队列，一次只能做一件事。随着电脑计算能力的增强，尤其是多核CPU的出现，这一点带来很大的不便，无法充分发挥JavaScript的潜力。
+
+Web Worker的目的，就是为JavaScript创造多线程环境，允许主线程将一些任务分配给子线程。在主线程运行的同时，子线程在后台运行，两者互不干扰。等到子线程完成计算任务，再把结果返回给主线程。因此，每一个子线程就好像一个“工人”（worker），默默地完成自己的工作。这样做的好处是，一些高计算量或高延迟的工作，被worker线程负担了，所以主进程（通常是UI进程）就会很流畅，不会被阻塞或拖慢。
+
+Worker线程分成好几种。
+
+* 普通的Worker：只能与创造它们的主进程通信。
+* Shared Worker：能被所有同源的进程获取（比如来自不同的浏览器窗口、iframe窗口和其他Shared worker），它们必须通过一个端口通信。
+* ServiceWorker：实际上是一个在网络应用与浏览器或网络层之间的代理层。它可以拦截网络请求，使得离线访问成为可能。
+
+Web Worker有以下几个特点：
+
+* 同域限制。子线程加载的脚本文件，必须与主线程的脚本文件在同一个域。
+* DOM限制。子线程所在的全局对象，与主进程不一样，它无法读取网页的DOM对象，即document、window、parent这些对象，子线程都无法得到。（但是，navigator对象和location对象可以获得。）
+* 脚本限制。子线程无法读取网页的全局变量和函数，也不能执行alert和confirm方法，不过可以执行setInterval和setTimeout，以及使用XMLHttpRequest对象发出AJAX请求。
+* 文件限制。子线程无法读取本地文件，即子线程无法打开本机的文件系统（`file://`），它所加载的脚本，必须来自网络。
+
+## 主线程与子线程的数据通信
+
+## 同页面的Web Worker
+
+## 共享式的Web Worker
+
+## Service Worker
+
+
+*learning when using*
+
+
+# SSE：服务器发送事件
+
+
+
+
+
 
 
 
