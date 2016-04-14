@@ -885,6 +885,33 @@ CORS需要浏览器和服务器同时支持。
 `JSONP`只支持GET请求，`CORS`支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。
 
 
+# IndexedDB：浏览器端数据库
+
+## 概述
+
+IndexedDB就是浏览器端数据库，可以被网页脚本程序创建和操作。它允许储存大量数据，提供查找接口，还能建立索引。这些都是localStorage所不具备的。就数据库类型而言，IndexedDB不属于关系型数据库（不支持SQL查询语句），更接近NoSQL数据库。
+
+IndexedDB具有以下特点
+
+* 键值对储存
+* 异步
+* 支持事务
+* 同域限制
+* 储存空间大
+* 支持二进制储存
+
+## indexedDB.open方法
+
+*learning when using*
+
+## indexedDB实例对象的方法
+
+*learning when using*
+
+## IDBKeyRange对象
+
+*learning when using*
+
 
 
 
