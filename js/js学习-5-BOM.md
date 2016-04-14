@@ -138,8 +138,137 @@ JavaScript运行时，除了一根运行线程，系统还提供一个消息队�
 
 > 每当遇到I/O的时候，主线程就让Event Loop线程去通知相应的I/O程序，然后接着往后运行，所以不存在红色的等待时间。等到I/O程序完成操作，Event Loop线程再把结果返回主线程。主线程就调用事先设定的回调函数，完成整个任务。
 
+# 定时器
+
+## setTimeout()
+
+setTimeout函数用来指定某个函数或某段代码，在多少毫秒之后执行。它返回一个整数，表示定时器的编号，以后可以用来取消这个定时器
+
+	var timerId = setTimeout(func|code, delay)
+	
+除了前两个参数，setTimeout还允许添加更多的参数。它们将被传入推迟执行的函数（回调函数）。
+
+如果setTimeout有两个参数，不支持更多的参数。这时有三种解决方法。第一种是在一个匿名函数里面，让回调函数带参数运行，再把匿名函数输入setTimeout。第二种解决方法是使用bind方法，把多余的参数绑定在回调函数上面。第三种解决方法是自定义setTimeout，使用apply方法将参数输入回调函数。
 
 
+> setTimeout还有一个需要注意的地方：如果被setTimeout推迟执行的回调函数是某个对象的方法，那么该方法中的this关键字将指向全局环境，而不是定义时所在的那个对象。
+
+为了防止出现这个问题，一种解决方法是将回调函数放在函数中执行
+
+	setTimeout(function() {
+	 		callback();
+	}, 1000);
+
+另一种解决方法是，使用bind方法，将绑定sayHi绑定在user上面。
+
+	setTimeout(callck.bind(param), 1000);
+
+HTML 5标准规定，setTimeout的最短时间间隔是4毫秒。为了节电，对于那些不处于当前窗口的页面，浏览器会将时间间隔扩大到1000毫秒。另外，如果笔记本电脑处于电池供电状态，Chrome和IE 9以上的版本，会将时间间隔切换到系统定时器，大约是15.6毫秒。
+
+## setInterval()
+
+setInterval函数的用法与setTimeout完全一致，区别仅仅在于setInterval指定某个任务每隔一段时间就执行一次，也就是无限次的定时执行。
+
+setInterval指定的是“开始执行”之间的间隔，并不考虑每次任务执行本身所消耗的时间。
+
+为了确保两次执行之间有固定的间隔，可以不用setInterval，而是每次执行结束后，使用setTimeout指定下一次执行的具体时间。
+
+根据这种思路，可以自己部署一个函数，实现间隔时间确定的setInterval的效果。
+
+	function interval(func, wait){
+	  var interv = function(){
+	    func.call(null);
+	    setTimeout(interv, wait);
+	  };
+	
+	  setTimeout(interv, wait);
+	}
+	
+	interval(function(){
+	  console.log(2);
+	},1000);
+
+## clearTimeout()，clearInterval()
+
+setTimeout和setInterval函数，都返回一个表示计数器编号的整数值，将该整数传入clearTimeout和clearInterval函数，就可以取消对应的定时器。
+
+setTimeout和setInterval返回的整数值是连续的，也就是说，第二个setTimeout方法返回的整数值，将比第一个的整数值大1。利用这一点，可以写一个函数，取消当前所有的setTimeout。
+
+clearTimeout实际应用的例子。
+
+`debounce（防抖动）方法`，用来返回一个新函数。只有当两次触发之间的时间间隔大于事先设定的值，这个新函数才会运行实际的任务。
+
+利用setTimeout和clearTimeout，可以实现debounce方法。该方法用于防止某个函数在短时间内被密集调用，具体来说，debounce方法返回一个新版的该函数，这个新版函数调用后，只有在指定时间内没有新的调用，才会执行，否则就重新计时。
+
+	function debounce(fn, delay){
+	  var timer = null; // 声明计时器
+	  return function(){
+	    var context = this;
+	    var args = arguments;
+	    clearTimeout(timer);
+	    timer = setTimeout(function(){
+	      fn.apply(context, args);
+	    }, delay);
+	  };
+	}
+	
+	// 用法示例
+	var todoChanges = _.debounce(batchLog, 1000);
+	Object.observe(models.todo, todoChanges);
+
+现实中，最好不要设置太多个setTimeout和setInterval，它们耗费CPU。比较理想的做法是，将要推迟执行的代码都放在一个函数里，然后只对这个函数使用setTimeout或setInterval。
+
+## 运行机制
+
+setTimeout和setInterval的运行机制是，将指定的代码移出本次执行，等到下一轮Event Loop时，再检查是否到了指定时间。如果到了，就执行对应的代码；如果不到，就等到再下一轮Event Loop时重新判断。这意味着，setTimeout指定的代码，必须等到本次执行的所有代码都执行完，才会执行。
+
+每一轮Event Loop时，都会将“任务队列”中需要执行的任务，一次执行完。setTimeout和setInterval都是把任务添加到“任务队列”的尾部。因此，它们实际上要等到当前脚本的所有同步任务执行完，然后再等到本次Event Loop的“任务队列”的所有任务执行完，才会开始执行。由于前面的任务到底需要多少时间执行完，是不确定的，所以没有办法保证，setTimeout和setInterval指定的任务，一定会按照预定时间执行。
+
+## setTimeout(f,0)
+
+setTimeout的作用是将代码推迟到指定时间执行，如果指定时间为0，即setTimeout(f, 0)，那么会立刻执行吗？
+
+答案是`不会。`因为上一段说过，必须要等到当前脚本的同步任务和“任务队列”中已有的事件，全部处理完以后，才会执行setTimeout指定的任务。也就是说，*setTimeout的真正作用是，在“消息队列”的现有消息的后面再添加一个消息，规定在指定时间执行某段代码。*setTimeout添加的事件，会在下一次Event Loop执行。
+
+即使消息队列是空的，0毫秒实际上也是达不到的。根据HTML 5标准，setTimeOut推迟执行的时间，最少是4毫秒。如果小于这个值，会被自动增加到4。这是为了防止多个setTimeout(f, 0)语句连续执行，造成性能问题。
+
+另一方面，浏览器内部使用32位带符号的整数，来储存推迟执行的时间。这意味着setTimeout最多只能推迟执行2147483647毫秒（24.8天），超过这个时间会发生溢出，导致回调函数将在当前任务队列结束后立即执行，即等同于setTimeout(f, 0)的效果。
+
+
+### 应用
+
+setTimeout(f,0)有几个非常重要的用途。它的一大应用是，可以调整事件的发生顺序。
+
+由于setTimeout(f,0)实际上意味着，将任务放到浏览器最早可得的空闲时段执行，所以那些计算量大、耗时长的任务，常常会被放到几个小部分，分别放到setTimeout(f,0)里面执行。
+
+
+## 正常任务与微任务
+
+正常情况下，JavaScript的任务是同步执行的，即执行完前一个任务，然后执行后一个任务。只有遇到异步任务的情况下，才会执行顺序才会改变。
+
+这时，需要区分两种任务：正常任务（task）与微任务（microtask）。它们的区别在于，“正常任务”在下一轮Event Loop执行，“微任务”在本轮Event Loop的所有任务结束后执行。
+
+	console.log(1);
+	
+	setTimeout(function() {
+	  console.log(2);
+	}, 0);
+	
+	Promise.resolve().then(function() {
+	  console.log(3);
+	}).then(function() {
+	  console.log(4);
+	});
+	
+	console.log(5);
+	
+	// 1
+	// 5
+	// 3
+	// 4
+	// 2
+
+除了setTimeout，正常任务还包括各种事件（比如鼠标单击事件）的回调函数。除了Promise，微任务还包括mutation observer的回调函数。
 
 
 
