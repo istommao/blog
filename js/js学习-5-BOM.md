@@ -913,13 +913,49 @@ IndexedDB具有以下特点
 *learning when using*
 
 
+# Web Notifications API
+
+## 概述
+
+Notification API是浏览器的通知接口，用于在用户的桌面（而不是网页上）显示通知信息，桌面电脑和手机都适用
+
+## Notification对象的属性和方法
+
+### Notification.permission
+
+Notification.permission属性，用于读取用户给予的权限，它是一个只读属性，它有三种状态。
+
+* default：用户还没有做出任何许可，因此不会弹出通知。
+* granted：用户明确同意接收通知。
+* denied：用户明确拒绝接收通知。
 
 
+### Notification.requestPermission()
 
+Notification.requestPermission方法用于让用户做出选择，到底是否接收通知。它的参数是一个回调函数，该函数可以接收用户授权状态作为参数。
 
+## Notification实例对象
 
+### Notification构造函数
 
+Notification对象作为构造函数使用时，用来生成一条通知。
 
+	var notification = new Notification(title, options);
+
+Notification构造函数的title属性是必须的，用来指定通知的标题，格式为字符串。options属性是可选的，格式为一个对象，用来设定各种设置。
+
+### 实例对象的事件
+
+Notification实例会触发以下事件。
+
+* show：通知显示给用户时触发。
+* click：用户点击通知时触发。
+* close：用户关闭通知时触发。
+* error：通知出错时触发（大多数发生在通知无法正确显示时）。
+
+### close方法
+
+Notification实例的close方法用于关闭通知。
 
 
 
