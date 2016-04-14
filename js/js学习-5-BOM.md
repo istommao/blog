@@ -351,6 +351,58 @@ window.matchMedia方法用来检查CSS的mediaQuery语句。详见《DOM》一�
 
 alert()、prompt()、confirm()都是浏览器用来与用户互动的方法。它们会弹出不同的对话框，要求用户做出回应。这三个方法弹出的对话框，都是浏览器统一规定的式样，是无法定制的。
 
+# history对象
+
+## 概述
+
+浏览器窗口有一个history对象，用来保存浏览历史。
+
+history对象提供了一系列方法，允许在浏览历史之间移动。
+
+* back()：移动到上一个访问页面，等同于浏览器的后退键。
+* forward()：移动到下一个访问页面，等同于浏览器的前进键。
+* go()：接受一个整数作为参数，移动到该整数指定的页面，比如go(1)相当于forward()，go(-1)相当于back()。
+
+	history.go(0);相当于刷新当前页面。
+
+
+## history.pushState()，history.replaceState()
+
+HTML5为history对象添加了两个新方法，history.pushState() 和 history.replaceState()，用来在浏览历史中添加和修改记录。
+
+## history.state属性
+
+history.state属性保存当前页面的state对象。
+
+## popstate事件
+
+每当同一个文档的浏览历史（即history对象）出现变化时，就会触发popstate事件。需要注意的是，仅仅调用pushState方法或replaceState方法 ，并不会触发该事件，只有用户点击浏览器倒退按钮和前进按钮，或者使用JavaScript调用back、forward、go方法时才会触发。另外，该事件只针对同一个文档，如果浏览历史的切换，导致加载不同的文档，该事件也不会触发。
+
+## URLSearchParams API
+
+URLSearchParams API用于处理URL之中的查询字符串，即问号之后的部分。
+
+URLSearchParams有以下方法，用来操作某个参数。
+
+* has()：返回一个布尔值，表示是否具有某个参数
+* get（）：返回指定参数的第一个值
+* getAll()：返回一个数组，成员是指定参数的所有值
+* set()：设置指定参数
+* delete()：删除指定参数
+* append()：在查询字符串之中，追加一个键值对
+* toString()：返回整个查询字符串
+
+URLSearchParams还有三个方法，用来遍历所有参数。
+
+* key()：遍历所有参数名
+* values()：遍历所有参数值
+* entries()：遍历所有参数的键值对
+
+上面三个方法返回的都是Iterator对象。
+
+
+
+
 
 
 
