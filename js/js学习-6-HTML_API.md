@@ -52,8 +52,37 @@ iframe元素用于在网页之中，插入另一张网页。对于JavaScript来�
 
 # Canvas API
 
+## 概述
+
+Canvas API（画布）用于在网页实时生成图像，并且可以操作图像内容，基本上它是一个可以用JavaScript操作的位图（bitmap）。
+
+使用前，首先需要新建一个canvas网页元素。
+
+	<canvas id="myCanvas" width="400" height="200">
+	  您的浏览器不支持canvas！
+	</canvas>
+	
+每个canvas元素都有一个对应的context对象（上下文对象），Canvas API定义在这个context对象上面，所以需要获取这个对象，方法是使用getContext方法。
+
+## 绘图方法
+
+## 图像处理方法
+
+## 动画
+
+## 像素处理
 
 
+*learning when using*
+
+
+# SVG 图像
+
+SVG是“可缩放矢量图”（Scalable Vector Graphics）的缩写，是一种描述向量图形的XML格式的标记化语言。也就是说，SVG本质上是文本文件，格式采用XML，可以在浏览器中显示出矢量图像。由于结构是XML格式，使得它可以插入HTML文档，成为DOM的一部分，然后用JavaScript和CSS进行操作。
+
+相比传统的图像文件格式（比如JPG和PNG），SVG图像的优势就是文件体积小，并且放大多少倍都不会失真，因此非常合适用于网页。
+
+*learning when using*
 
 
 
