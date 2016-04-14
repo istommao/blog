@@ -227,6 +227,7 @@ requestAnimationFrame的优势，在于充分利用显示器的刷新机制，�
 # WebSocket
 
 ## 概述
+
 HTTP协议是一种无状态协议，服务器端本身不具有识别客户端的能力，必须借助外部机制，比如session和cookie，才能与特定客户端保持对话。这多多少少带来一些不便，尤其在服务器端与客户端需要持续交换数据的场合（比如网络聊天），更是如此。为了解决这个问题，HTML5提出了浏览器的`WebSocket API`
 
 WebSocket的主要作用是，允许服务器端与客户端进行全双工（full-duplex）的通信。
@@ -261,6 +262,7 @@ WebSocket不使用HTTP协议，而是使用自己的协议。浏览器发出的W
 WebSocket协议需要服务器支持，目前比较流行的实现是基于`node.js`的`socket.io`
 
 ## 客户端
+
 浏览器端对WebSocket协议的处理，无非就是三件事：
 
 * 建立连接和断开连接
@@ -335,6 +337,29 @@ WebSocket协议需要服务器支持，目前比较流行的实现是基于`node
 `Socket.io`是目前最流行的WebSocket实现，包括服务器和客户端两个部分。它不仅简化了接口，使得操作更容易，而且对于那些不支持WebSocket的浏览器，会自动降为Ajax连接，最大限度地保证了兼容性。它的目标是统一通信机制，使得所有浏览器和移动设备都可以进行实时通信。
 
 不管是服务器还是客户端，`socket.io`提供两个核心方法：`emit`方法用于发送消息，`on`方法用于监听对方发送的消息。
+
+
+# WebRTC
+
+*learning when using*
+
+## 概述
+
+WebRTC是“网络实时通信”（Web Real Time Communication）的缩写。它最初是为了解决浏览器上视频通话而提出的，即两个浏览器之间直接进行视频和音频的通信，不经过服务器。后来发展到除了音频和视频，还可以传输文字和其他数据。
+
+Google是WebRTC的主要支持者和开发者，它最初在Gmail上推出了视频聊天，后来在2011年推出了Hangouts，语序在浏览器中打电话。它推动了WebRTC标准的确立。
+
+WebRTC主要让浏览器具备三个作用。
+
+* 获取音频和视频
+* 进行音频和视频通信
+* 进行任意数据的通信
+
+WebRTC共分成三个API，分别对应上面三个作用。
+
+* MediaStream （又称getUserMedia）
+* RTCPeerConnection
+* RTCDataChannel
 
 
 
