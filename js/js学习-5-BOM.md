@@ -494,6 +494,75 @@ Cookie是服务器保存在览器的一小段文本信息。浏览器每次向�
 上面的这个Cookie将无法用JavaScript获取。进行AJAX操作时，XMLHttpRequest对象也无法包括这个Cookie。这主要是为了防止`XSS`攻击盗取Cookie。	 
 
 
+# Web Storage：浏览器端数据储存机制
+
+## 概述
+
+网页可以在浏览器端储存数据。它分成两类：`sessionStorage`和`localStorage`。
+
+`sessionStorage`保存的数据用于浏览器的一次会话，当会话结束（通常是该窗口关闭），数据被清空；
+
+`localStorage`保存的数据长期存在，下一次访问该网站的时候，网页可以直接读取以前保存的数据。除了保存期限的长短不同，这两个对象的属性和方法完全一样。
+
+通过检查`window对象`是否包含`sessionStorage`和`localStorage`属性，可以确定浏览器是否支持这两个对象。
+
+
+## 操作方法
+
+### 存入/读取数据
+
+sessionStorage和localStorage保存的数据，都以“键值对”的形式存在。也就是说，每一项数据都有一个键名和对应的值。所有的数据都是以文本格式保存。
+
+存入数据使用setItem方法。它接受两个参数，第一个是键名，第二个是保存的数据。
+
+	sessionStorage.setItem("key","value");
+
+	localStorage.setItem("key","value");
+
+读取数据使用getItem方法。它只有一个参数，就是键名。
+
+	var valueSession = sessionStorage.getItem("key");
+	var valueLocal = localStorage.getItem("key");
+
+### 清除数据
+removeItem方法用于清除某个键名对应的数据。
+
+	sessionStorage.removeItem('key');
+	localStorage.removeItem('key');
+
+clear方法用于清除所有保存的数据。
+
+	sessionStorage.clear();
+	localStorage.clear(); 
+
+### 遍历操作
+利用length属性和key方法，可以遍历所有的键。
+
+	for(var i = 0; i < localStorage.length; i++){
+	    console.log(localStorage.key(i));
+	}
+
+其中的key方法，根据位置（从0开始）获得键值。
+
+	localStorage.key(1);
+
+## storage事件
+
+当储存的数据发生变化时，会触发storage事件。我们可以指定这个事件的回调函数。
+			
+	window.addEventListener("storage",onStorageChange);
+
+回调函数接受一个event对象作为参数。这个event对象的key属性，保存发生变化的键名。
+
+	function onStorageChange(e) {
+	     console.log(e.key);    
+	}
+
+除了key属性，event对象的属性还有三个：
+
+* oldValue：更新前的值。如果该键为新增加，则这个属性为null。
+* newValue：更新后的值。如果该键被删除，则这个属性为null。
+* url：原始触发storage事件的那个网页的网址。
 
 
 
