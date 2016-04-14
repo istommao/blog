@@ -957,6 +957,85 @@ Notification实例会触发以下事件。
 
 Notification实例的close方法用于关闭通知。
 
+# Performance API
+
+Performance API用于精确度量、控制、增强浏览器的性能表现。这个API为测量网站性能，提供以前没有办法做到的精度。
+
+
+# 移动设备API
+
+为了更好地为移动设备服务，HTML 5推出了一系列针对移动设备的API。
+
+## Viewport
+
+Viewport指的是网页的显示区域，也就是不借助滚动条的情况下，用户可以看到的部分网页大小，中文译为“视口”。正常情况下，viewport和浏览器的显示窗口是一样大小的。但是，在移动设备上，两者可能不是一样大小。
+
+viewport缩放规则，需要在HTML网页的head部分指定。
+
+
+## Geolocation API
+
+Geolocation接口用于获取用户的地理位置。它使用的方法基于GPS或者其他机制（比如IP地址、Wifi热点、手机基站等）。
+
+### getCurrentPosition方法
+
+getCurrentPosition方法，用来获取用户的地理位置。使用它需要得到用户的授权，浏览器会跳出一个对话框，询问用户是否许可当前页面获取他的地理位置。必须考虑两种情况的回调函数：一种是同意授权，另一种是拒绝授权。如果用户拒绝授权，会抛出一个错误。
+
+	navigator.geolocation.getCurrentPosition(geoSuccess,geoError);
+
+### watchPosition方法和clearWatch方法
+
+watchPosition方法可以用来监听用户位置的持续改变，使用方法与getCurrentPosition方法一样。
+
+	var watchID = navigator.geolocation.watchPosition(geoSuccess,geoError, option);
+
+一旦用户位置发生变化，就会调用回调函数geoSuccess。这个回调函数的事件对象，也包含timestamp和coords属性。
+
+watchPosition和getCurrentPosition方法的不同之处在于，前者返回一个表示符，后者什么都不返回。watchPosition方法返回的标识符，用于供clearWatch方法取消监听。
+
+	navigator.geolocation.clearWatch(watchID);	
+## Vibration API
+
+Vibration接口用于在浏览器中发出命令，使得设备振动。显然，这个API主要针对手机，适用场合是向用户发出提示或警告，游戏中尤其会大量使用。由于振动操作很耗电，在低电量时最好取消该操作。
+
+vibrate方法可以使得设备振动，它的参数就是振动持续的毫秒数。
+
+	navigator.vibrate(1000);
+	
+vibrate方法还可以接受一个数组作为参数，表示振动的模式。偶数位置的数组成员表示振动的毫秒数，奇数位置的数组成员表示等待的毫秒数。
+
+vibrate是一个非阻塞式的操作，即手机振动的同时，JavaScript代码继续向下运行。要停止振动，只有将0毫秒或者一个空数组传入vibrate方法。
+
+	navigator.vibrate(0);
+	navigator.vibrate([]);
+
+如果要让振动一直持续，可以使用setInterval不断调用vibrate。	
+
+## Luminosity API
+
+Luminosity API用于屏幕亮度调节，当移动设备的亮度传感器感知外部亮度发生显著变化时，会触发`devicelight`事件。
+
+CSS下一个版本的`Media Query`可以单独设置亮度，一旦浏览器支持，就可以用来取代Luminosity API。
+
+	@media (light-level: dim) {
+	  /* 暗光环境 */
+	}
+	
+	@media (light-level: normal) {
+	  /* 正常光环境 */
+	}
+	
+	@media (light-level: washed) {
+	  /* 明亮环境 */
+	}
+
+## Orientation API
+
+Orientation API用于检测手机的摆放方向（竖放或横放）
+
+一旦设备的方向发生变化，会触发`deviceorientation`事件，可以对该事件指定回调函数。
+
+
 
 
 ## 相关链接
