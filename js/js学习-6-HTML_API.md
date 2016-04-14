@@ -174,7 +174,42 @@ SSE与WebSocket有相似功能，都是用来建立浏览器与服务器之间�
 
 ## 服务器代码
 
+*learning when using*
 
+# Page Visibility API
+
+*learning when using*
+
+PageVisibility API用于判断页面是否处于浏览器的当前窗口，即是否可见。
+
+使用这个API，可以帮助开发者根据用户行为调整程序。比如，如果页面处于当前窗口，可以让程序每隔15秒向服务器请求数据；如果不处于当前窗口，则让程序每隔几分钟请求一次数据。
+
+# Fullscreen API：全屏操作
+
+*learning when using*
+
+全屏API可以控制浏览器的全屏显示，让一个Element节点（以及子节点）占满用户的整个屏幕。目前各大浏览器的最新版本都支持这个API（包括IE11），但是使用的时候需要加上浏览器前缀。
+
+# Web Speech
+
+*learning when using*
+
+## 概述
+
+这个API用于浏览器接收语音输入。
+
+它最早是由Google提出的，目的是让用户直接进行语音搜索，即对着麦克风说出你所要搜索的词，搜索结果就自动出现。Google首先部署的是input元素的speech属性（加上浏览器前缀x-webkit）。
+
+	<input id="query" type="search" class="k-input k-textbox" x-webkit-speech speech />
+
+加上这个属性以后，输入框的右端会出现了一个麦克风标志，点击该标志，就会跳出语音输入窗口。
+
+由于这个操作过于简单，Google又在它的基础上提出了Web Speech API，使得JavaScript可以操作语音输入。
+
+目前，只有Chrome浏览器支持该API。
+
+
+# requestAnimationFrame
 
 
 
