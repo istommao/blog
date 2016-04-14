@@ -400,16 +400,100 @@ URLSearchParams还有三个方法，用来遍历所有参数。
 
 上面三个方法返回的都是Iterator对象。
 
+# Coookie
 
+## 概述
 
+Cookie是服务器保存在览器的一小段文本信息。浏览器每次向服务器发出请求，就会自动附上这段信息。
 
+`document.cookie`属性返回当前网页的Cookie
 
+* 该属性是可写的，但是一次只能写入一个Cookie
+* 写入并不是覆盖，而是添加
 
+浏览器向服务器发送Cookie的时候，是一行将所有Cookie全部发送。
 
+	GET /sample_page.html HTTP/1.1
+	Host: www.example.org
+	Cookie: cookie_name1=cookie_value1; cookie_name2=cookie_value2
+	Accept: */*
 
+上面的头信息中，`Cookie`字段是浏览器向服务器发送的Cookie。
 
+服务器告诉浏览器需要储存Cookie的时候，则是分行指定。
+
+	HTTP/1.0 200 OK
+	Content-type: text/html
+	Set-Cookie: cookie_name1=cookie_value1
+	Set-Cookie: cookie_name2=cookie_value2; expires=Sun, 16 Jul 3567 06:23:41 GMT
+
+上面的头信息中，`Set-Cookie`字段是服务器写入浏览器的Cookie，一行一个。
+
+## Cookie的属性
+
+除了Cookie本身的内容，还有一些可选的属性也是可以写入的，它们都必须以分号开头。
+
+	Set-Cookie: value[; expires=date][; domain=domain][; path=path][; secure]
 	
-	 
+* value属性
+
+	value属性是必需的，它是一个键值对，用于指定Cookie的值。	
+* expires属性
+
+	expires属性用于指定Cookie过期时间。它的格式采用Date.toUTCString()的格式	
+
+* domain属性
+
+	domain属性指定Cookie所在的域名，比如example.com或.example.com（这种写法将对所有子域名生效）、subdomain.example.com。
+
+* path属性
+
+	path属性用来指定路径，必须是绝对路径（比如/、/mydir），如果未指定，默认为请求该Cookie的网页路径。
+
+* secure
+
+	secure属性用来指定Cookie只能在加密协议HTTPS下发送到服务器。
+
+* max-age
+		
+	max-age属性用来指定Cookie有效期
+
+* HttpOnly
+
+	HttpOnly属性用于设置该Cookie不能被JavaScript读取
+
+以上属性可以同时设置一个或多个，也没有次序的要求。如果服务器想改变一个早先设置的Cookie，必须同时满足四个条件：**Cookie的key、domain、path和secure都匹配**。也就是说，如果原始的Cookie是用如下的Set-Cookie设置的。
+
+	Set-Cookie: key1=value1; domain=example.com; path=/blog
+
+改变上面这个cookie的值，就必须使用同样的Set-Cookie。
+
+	Set-Cookie: key1=value2; domain=example.com; path=/blog
+
+只要有一个属性不同，就会生成一个全新的Cookie，而不是替换掉原来那个Cookie。
+
+## Cookie的限制
+
+浏览器对Cookie数量的限制，规定不一样。
+
+由于Cookie可能存在数量限制，有时为了规避限制，可以将cookie设置成下面的形式。
+
+	name=a=b&c=d&e=f&g=h
+
+上面代码实际上是设置了一个Cookie，但是这个Cookie内部使用`&`符号，设置了多部分的内容。因此，读取这个Cookie的时候，就要自行解析，得到多个键值对。这样就规避了cookie的数量限制。
+
+## 同源政策
+
+浏览器的同源政策规定，两个网址只要域名相同和端口相同，就可以共享Cookie。	
+
+## HTTP-Only Cookie
+设置cookie的时候，如果服务器加上了HTTPOnly属性，则这个Cookie无法被JavaScript读取（即document.cookie不会返回这个Cookie的值），只用于向服务器发送。
+
+	Set-Cookie: key=value; HttpOnly
+
+上面的这个Cookie将无法用JavaScript获取。进行AJAX操作时，XMLHttpRequest对象也无法包括这个Cookie。这主要是为了防止`XSS`攻击盗取Cookie。	 
+
+
 
 
 
