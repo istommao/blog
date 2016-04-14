@@ -126,6 +126,7 @@
 		* [js学习(4)DOM](js/js学习-4-DOM.md)
 		* [js学习(5)BOM](js/js学习-5-BOM.md)
 		* [js学习(6)HTML API](js/js学习-6-HTML_API.md)
+		* [js学习(7)开发工具](js/js学习-7-devTools.md)
 	* [es6]()
 		* [es6学习(1)](js/es6学习-1.md)
 		* [es6学习(2)](js/es6学习-2.md)
