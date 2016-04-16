@@ -127,6 +127,7 @@
 		* [js学习(5)BOM](js/js学习-5-BOM.md)
 		* [js学习(6)HTML API](js/js学习-6-HTML_API.md)
 		* [js学习(7)开发工具](js/js学习-7-devTools.md)
+		* [js学习(8)高级语法](js/js学习-8-高级语法.md)
 	* [es6]()
 		* [es6学习(1)](js/es6学习-1.md)
 		* [es6学习(2)](js/es6学习-2.md)
