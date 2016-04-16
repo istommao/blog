@@ -230,6 +230,60 @@ Promise对象的优点在于，让回调函数变成了规范的链式写法，�
 而且，它还有一个前面三种方法都没有的好处：如果一个任务已经完成，再添加回调函数，该回调函数会立即执行。所以，你不用担心是否错过了某个事件或信号。这种方法的缺点就是，编写和理解都相对比较难。
 
 
+# JavaScript与有限状态机
+
+## 概述
+
+有限状态机（Finite-state machine）是一个非常有用的模型，可以模拟世界上大部分事物。
+
+简单说，它有三个特征：
+
+* 状态总数（state）是有限的。
+* 任一时刻，只处在一种状态之中。
+* 某种条件下，会从一种状态转变（transition）到另一种状态。
+
+它对JavaScript的意义在于，很多对象可以写成有限状态机。
+
+举例来说，网页上有一个菜单元素。鼠标点击，菜单显示；鼠标再次点击，菜单隐藏。如果使用有限状态机描述，就是这个菜单只有两种状态（显示和隐藏），鼠标会引发状态转变。
+
+代码可以写成下面这样：
+
+	var menu = {
+	　　    
+	　　// 当前状态
+	　　currentState: 'hide',
+	　　
+	　　// 绑定事件
+	　　initialize: function() {
+	　　　　var self = this;
+	　　　　self.on("click", self.transition);
+	　　},
+	　　
+	　　// 状态转换
+	　　transition: function(event){
+	　　　　switch(this.currentState) {
+	　　　　　　case "hide":
+	　　　　　　　　this.currentState = 'show';
+	　　　　　　　　doSomething();
+	　　　　　　　　break;
+	　　　　　　case "show":
+	　　　　　　　　this.currentState = 'hide';
+	　　　　　　　　doSomething();
+	　　　　　　　　break;
+	　　　　　　default:
+	　　　　　　　　console.log('Invalid State!');
+	　　　　　　　　break;
+	　　　　}
+	　　}
+	　　
+	};
+	
+可以看到，有限状态机的写法，逻辑清晰，表达力强，有利于封装事件。一个对象的状态越多、发生的事件越多，就越适合采用有限状态机的写法。
+
+另外，JavaScript语言是一种异步操作特别多的语言，常用的解决方法是指定回调函数，但这样会造成代码结构混乱、难以测试和除错等问题。有限状态机提供了更好的办法：把异步操作与对象的状态改变挂钩，当异步操作结束的时候，发生相应的状态改变，由此再触发其他操作。这要比回调函数、事件监听、发布/订阅等解决方案，在逻辑上更合理，更易于降低代码的复杂度。
+
+*learning when using*
+
 
 
 
