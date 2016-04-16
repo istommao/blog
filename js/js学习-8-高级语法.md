@@ -282,8 +282,90 @@ Promise对象的优点在于，让回调函数变成了规范的链式写法，�
 
 另外，JavaScript语言是一种异步操作特别多的语言，常用的解决方法是指定回调函数，但这样会造成代码结构混乱、难以测试和除错等问题。有限状态机提供了更好的办法：把异步操作与对象的状态改变挂钩，当异步操作结束的时候，发生相应的状态改变，由此再触发其他操作。这要比回调函数、事件监听、发布/订阅等解决方案，在逻辑上更合理，更易于降低代码的复杂度。
 
+## Javascript Finite State Machine函数库
+
 *learning when using*
 
+
+
+# MVC框架与Backbone.js
+
+## MVC框架
+
+随着JavaScript程序变得越来越复杂，往往需要一个团队协作开发，这时代码的模块化和组织规范就变得异常重要了。MVC模式就是代码组织的经典模式。
+
+框架的优点在于合理组织代码、便于团队合作和未来的维护，缺点在于有一定的学习成本，且限制你只能采取它的写法。
+
+## 零框架解决方案
+MVC框架（尤其是大型框架）有一个严重的缺点，就是会产生用户的重度依赖。一旦框架本身出现问题或者停止更新，用户的处境就会很困难，维护和更新成本极高。
+
+ES6的到来，使得JavaScript语言有了原生的模块解决方案。于是，开发者有了另一种选择，就是不使用MVC框架，只使用各种单一用途的模块库，组合完成一个项目。下面是可供选择的各种用途的模块列表。
+
+辅助功能库（Helper Libraries）
+
+* moment.js：日期和时间的标准化
+* underscore.js / Lo-Dash：一系列函数式编程的功能函数
+
+路由库（Routing）
+
+* router.js：Ember.js使用的路由库
+* route-recognizer：功能全面的路由库
+* page.js：类似Express路由的库
+* director：同时支持服务器和浏览器的路由库
+
+Promise库
+
+* RSVP.js：ES6兼容的Promise库
+* ES6-Promise：RSVP.js的子集，但是全面兼容ES6
+* q：最常用的Promise库之一，AngularJS用了它的精简版
+* native-promise-only：严格符合ES6的Promise标准，同时兼容老式浏览器
+
+客户端与服务器的通信库
+
+* fetch：实现window.fetch功能
+* qwest：支持XHR2和Promise的Ajax库
+* jQuery：jQuery 2.0支持按模块打包，因此可以创建一个纯Ajax功能库
+
+动画库（Animation）
+
+* cssanimevent：兼容老式浏览器的CSS3动画库
+* Velocity.js：性能优秀的动画库
+
+辅助开发库（Development Assistance）
+
+* LogJS：轻量级的logging功能库
+* UserTiming.js：支持老式浏览器的高精度时间戳库
+
+流程控制和架构（Flow Control/Architecture）
+
+* ondomready：类似jQuery的ready()方法，符合AMD规范
+* script.js：异步的脚本加载和依赖关系管理库
+* async：浏览器和node.js的异步管理工具库
+* Virtual DOM：react.js的一个替代方案，参见Virtual DOM and diffing algorithm
+
+数据绑定（Data-binding）
+
+* Object.observe()：Chrome已经支持该方法，可以轻易实现双向数据绑定
+
+模板库（Templating）
+
+* Mustache：大概是目前使用最广的不含逻辑的模板系统
+
+微框架（Micro-Framework）
+
+某些情况下，可以使用微型框架，作为项目开发的起点。
+
+* bottlejs：提供惰性加载、中间件钩子、装饰器等功能
+* Stapes.js：微型MVC框架
+* soma.js：提供一个松耦合、易测试的架构
+* knockout：最流行的微框架之一，主要关注UI
+
+## Backbone
+
+Backbone是最早的JavaScript MVC框架，也是最简化的一个框架。它的设计思想是，只提供最基本的功能，给用户提供最大的自由。这意味着，好的一面是它没有一整套规则，强制你接受，坏的一面是很多功能你必须自己实现。Backbone的体积相当小，最小化后只有30多KB。
+
+
+*learning when using*
 
 
 
