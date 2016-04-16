@@ -14,9 +14,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 > 学习angular，总结其知识点，动手完成项目：simple blog
 
 
-## 文档构建工具
-
-> toc? sphinx-doc?
 
 ## learn node: simple IM
 > 参考网上教程，使用node + socketio开发一个简易的WebIM
@@ -35,12 +32,6 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 
 ## react构建座席台面板
-
-
-## js学习
-
-> 学习js基础，记录文档
-> [JavaScript 标准参考教程（alpha）](http://javascript.ruanyifeng.com/)
 
 
 ## Promise
@@ -180,6 +171,26 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 
 `2016.04.07 zhuwei05`
+
+## 文档构建工具
+
+> toc? sphinx-doc? gitbook?
+> 
+> 选择gitbook
+> 
+> * [gitbook来构建文档](https://zhuwei05.gitbooks.io/learning-gitbook/content/)
+> * [blog](https://zhuwei05.gitbooks.io/blog/content/)
+
+`2016.04.09 zhuwei05`
+
+## js学习&gitbooks
+
+> 学习js基础，记录文档，文档尝试使用gitbook来管理
+> 
+> * [js学习-1-基本语法](https://github.com/zhuwei05/blog/blob/master/js/js%E5%AD%A6%E4%B9%A0-1-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95.md)
+> * [JavaScript 标准参考教程（alpha）](http://javascript.ruanyifeng.com/)
+
+`2016.04.16 zhuwei05`
 
 
 
