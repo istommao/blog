@@ -396,6 +396,38 @@ Backbone是最早的JavaScript MVC框架，也是最简化的一个框架。它�
 
 *learning when using*
 
+# 函数库简介
+
+## Underscore.js
+
+`Underscore.js`是一个很精干的库，压缩后只有4KB。它提供了`几十种函数式编程`的方法，弥补了标准库的不足，大大方便了JavaScript的编程。MVC框架Backbone.js就将这个库作为自己的工具库。除了可以在浏览器环境使用，Underscore.js还可以用于Node.js。
+
+Underscore.js定义了一个下划线（`_`）对象，函数库的所有方法都属于这个对象。这些方法大致上可以分成：集合（collection）、数组（array）、函数（function）、对象（object）和工具（utility）五大类。
+
+## Modernizr
+
+随着HTML5和CSS3加入越来越多的模块，检查各种浏览器是否支持这些模块，成了一大难题。`Modernizr`就是用来解决这个问题的一个JavaScript库。
+
+
+## Datejs
+
+`Datejs`是一个用来操作日期的库，官方网站为`datejs.com`
+
+## D3.js
+
+D3.js是一个用于网页作图、生成互动图形的JavaScript函数库。它提供一个d3对象，所有方法都通过这个对象调用。
+
+## PhantomJS
+
+有时，我们需要浏览器处理网页，但并不需要浏览，比如生成网页的截图、抓取网页数据等操作。PhantomJS的功能，就是提供一个浏览器环境的命令行接口，你可以把它看作一个“虚拟浏览器”，除了不能浏览，其他与正常浏览器一样。它的内核是WebKit引擎，不提供图形界面，只能在命令行下使用，我们可以用它完成一些特殊的用途。
+
+# RequireJS和AMD规范
+
+define和require这两个定义模块、调用模块的方法，合称为AMD模式。它的模块定义的方法非常清晰，不会污染全局环境，能够清楚地显示依赖关系。
+
+AMD模式可以用于浏览器环境，并且允许非同步加载模块，也可以根据需要动态加载模块。
+
+
 
 ## 相关链接
 
