@@ -75,9 +75,8 @@
 		e.g: git push origin --delete master
        
 	
-##实例
+## 实例
 
-git远程库实例
-<https://github.com/zhuwei05/blog/blob/master/git/git%E8%BF%9C%E7%A8%8B%E5%BA%93%E5%AE%9E%E4%BE%8B.md>	
+[git远程库实例](git远程库实例.md)
 	
 	

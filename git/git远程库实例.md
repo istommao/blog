@@ -1,16 +1,16 @@
-#git远程库实例
+# git远程库实例
 ====
 
-##实例1：搭建自己的git远程库
+## 实例1：搭建自己的git远程库
 
-###在远端服务器
+### 在远端服务器
 
-####创建git库
+#### 创建git库
 
 	cd /home/zhuwei5e/my_repo
 	git init (git init --bare)
 
-####编辑.gitignore文件
+#### 编辑.gitignore文件
 
 编辑这个可以忽略很多不需要添加到版本库中的文件，当然如果不想忽略任何文件，不需要进行这一步骤。
 
@@ -34,13 +34,13 @@ e.g.
 	hs_err_pid*
 
 
-####向仓库提交自己的代码
+#### 向仓库提交自己的代码
 	touch helloword.java
 	git add .
 	git commit -a -m "java program hello word"
 	git stauts
 
-####添加一个远程仓库,并将本地的master分支跟踪到远程分支
+#### 添加一个远程仓库,并将本地的master分支跟踪到远程分支
 
 	git remote add origin ssh://root@192.168.1.11/home/zhuwei5e/my_repo/.git
 	git push origin master
@@ -53,23 +53,23 @@ p.s. 上面的192.168.1.11地址是远端服务器的的IP 。
 	
 ===
 	
-###在自己的本地电脑上：
+### 在自己的本地电脑上：
 
-####clone开发机上的kazoo代码
+#### clone开发机上的kazoo代码
 
 git clone ssh://root@192.168.1.11/home/zhuwei5e/my_repo/.git
 git pull origin master
 
-####本地修改代码后可以push到远端仓库，也可以从远端仓库pull下来
+#### 本地修改代码后可以push到远端仓库，也可以从远端仓库pull下来
 
 	git push
 	git pull
 
 =====
 
-###可能会遇到的问题
+### 可能会遇到的问题
 
-####初始化远端库的时候，使用的命令：git --init
+#### 初始化远端库的时候，使用的命令：git --init
 
 在push的时候，可能会出现错误，这时：
 
@@ -83,7 +83,7 @@ git pull origin master
 	git reset --hard
 
 
-##实例2：使用上游仓库创建自己的远程仓库
+## 实例2：使用上游仓库创建自己的远程仓库
 
 使用2600hz的kazoo的镜像库
 ### 在本地，复制 2600hz/kazoo 镜像库
@@ -111,7 +111,7 @@ git pull origin master
 	git push --all origin
 	git push --tags origin
 	
-##实例3：多个远程库，多个开发者
+## 实例3：多个远程库，多个开发者
 
 本地mac用于coding，而且本地环境不能运行程序，需要在服务器上编译运行，同时代码在公司git仓库。通过在服务器建一个新远程库，然后将本地coding的代码push到服务端远程库，这样在服务器运行程序的pull服务器上的远程库，编译运行，调试通过之后，最后将本地通过的代码push到公司的git库上。
 
@@ -139,7 +139,14 @@ git pull origin master
 		git clone root@192.168.1.11/opt/repo/example.git
 		
 
-##实例4 本地仓库上传到远程仓库
+## 实例4 本地仓库上传到远程仓库
+
+	cd existing-project
+	git init
+	git add --all
+	git commit -m "Initial Commit"
+	git remote add origin git@{your_github_repo}.git
+	git push origin master
 
 * [git将本地仓库上传到远程仓库](http://blog.csdn.net/w13770269691/article/details/38704941)
 * [将在本地创建的Git仓库push到Git@OSC](http://my.oschina.net/flan/blog/162189)
