@@ -8,6 +8,8 @@
 * [软件架构](arch/README.md)
 	* [软件设计](arch/软件设计.md)
 	* [软件开发流程](arch/软件开发流程.md)
+* [阅读清单](booklist/README.md)
+	* [书单--2016](booklist/booklist-2016.md)
 * [Bootstrap](bootstrap/README.md)
 	* [bootstrap](bootstrap/bootstrap笔记.md)
 * [Docker](docker/README.md)
