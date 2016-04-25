@@ -75,6 +75,8 @@
 	* [动效设计原理](html_css/动效设计原理.md)
 * [http](http/README.md)
 	* [学习http](http/学习http.md)
+* [ideas](ideas/README.md)
+	* [管理ideas](ideas/ideas.md)
 * [iOS&Swift](iOS/README.md)
 	* [快速Swift](iOS/a_swift_tour.md)
 	* [ios-swift入门](iOS/ios-swift入门.md)
