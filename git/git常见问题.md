@@ -1,7 +1,7 @@
-#git常用操作和问题
+# git常用操作和问题
 ====
 
-##摘取某个或某几个提交
+## 摘取某个或某几个提交
 
 使用git cherry-pick或者通过git rebase
 
@@ -22,8 +22,20 @@
 
 [Git合并特定commits 到另一个分支](http://blog.csdn.net/ybdesire/article/details/42145597)
 
+## 合并指定分支中的文件
 
-##git commit合并
+e.g.: 仅将`master`分支的`myplugin.js`文件合并到`gh-pages`:
+	
+	# On branch master
+	git checkout gh-pages
+	git checkout master -- myplugin.js
+	git commit -m "Update myplugin.js from master"
+
+* [git-checkout specific files from another branch](http://nicolasgallagher.com/git-checkout-specific-files-from-another-branch/)
+* [git-checkout](https://git-scm.com/docs/git-checkout)
+	
+
+## git commit合并
 
 <http://sumsung753.blog.163.com/blog/static/146364501201312514427364/>
 
@@ -72,7 +84,7 @@
 
 =====
 
-##git revert和git reset
+## git revert和git reset
 
 git revert和git reset的区别：
 
@@ -111,7 +123,7 @@ git revert和git reset的区别：
 
 ====
 
-##git忽略提交(add or commit)的文件
+## git忽略提交(add or commit)的文件
 
 	首先， git rm --cached logs/xx.log
 	然后更新 .gitignore 忽略掉目标文件
@@ -127,7 +139,7 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 
 ====
 
-##fatal: Pathspec 'xxx' is in submodule 'module/CC'
+## fatal: Pathspec 'xxx' is in submodule 'module/CC'
 
 	git rm -rf --cached CC/
 	git add CC/
@@ -137,11 +149,11 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 
 ====	
 
-##git密码
+## git密码
 
 ====
 
-##git配置
+## git配置
 
 	git config --global user.name "your name"
 	git config --global user.email  mail@box.com
@@ -162,20 +174,20 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 		
 ====
 
-##git列出跟踪的文件
+## git列出跟踪的文件
 
 	git ls-files		
 	
 ===
 
-##git status中文显示unicode
+## git status中文显示unicode
 
 	git config --global core.quotepath false
 
 
-##使用bc解决冲突
+## 使用bc解决冲突
 
-###在git中使用Beyond Compare
+### 在git中使用Beyond Compare
 
 直接修改.gitconfig, 在文件后增加：
 
