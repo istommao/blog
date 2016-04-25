@@ -40,11 +40,12 @@ e.g.: 仅将`master`分支的`myplugin.js`文件合并到`gh-pages`:
 
 有仓库R1，R2。需要将R2仓库合并到R1中
 
-方法1：
+方法1：使用remote加fetch的方法（亲测可用）
 
 * 进入R1，新建一个分支B2用于fetch R2仓库
 
 		git checkout -b B2
+		
 * 添加仓库R2为分支B2的远程仓库
 
 		git remote add R2 {R2-remote-url}
@@ -64,9 +65,25 @@ e.g.: 仅将`master`分支的`myplugin.js`文件合并到`gh-pages`:
 
 		git branch -d B2	
 		
+方法2：使用pull直接进行合并（未测试）
 
-	
+* 进入R1，新建一个分支B2用于fetch R2仓库
 
+		git checkout -b B2
+
+* 直接pull远程仓库
+
+		git pull {R2-remote-url}
+
+* 切换到R1仓库的主分支，并合并R2的master
+
+		git checkout master
+		git merge R2/master
+
+* ok，大功告成，可以删掉临时分支B2
+
+		git branch -d B2			
+				
 
 参考：
 
