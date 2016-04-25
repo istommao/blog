@@ -33,6 +33,45 @@ e.g.: 仅将`master`分支的`myplugin.js`文件合并到`gh-pages`:
 
 * [git-checkout specific files from another branch](http://nicolasgallagher.com/git-checkout-specific-files-from-another-branch/)
 * [git-checkout](https://git-scm.com/docs/git-checkout)
+
+## 合并仓库
+
+原理：通过设置远程源进行分支合并。
+
+有仓库R1，R2。需要将R2仓库合并到R1中
+
+方法1：
+
+* 进入R1，新建一个分支B2用于fetch R2仓库
+
+		git checkout -b B2
+* 添加仓库R2为分支B2的远程仓库
+
+		git remote add R2 {R2-remote-url}
+		
+* 获取仓库R2的所有信息
+
+	合并前最好确保R2仓库为一条分支，或者这里指定获取R2的某条分支而不是全部，不然可能提交记录很难看，这里假定R2仓库只有猪分支master
+	
+		git fetch --all
+		
+* 切换到R1仓库的主分支，并合并R2的master
+
+		git checkout master
+		git merge R2/master
+		
+* ok，大功告成，可以删掉临时分支B2
+
+		git branch -d B2	
+		
+
+	
+
+
+参考：
+
+* [如何导入另一个 Git库到现有的Git库并保留提交记录](http://www.cnblogs.com/huangtailang/p/4730336.html)
+
 	
 
 ## git commit合并
