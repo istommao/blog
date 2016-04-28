@@ -67,6 +67,17 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ## spark源码阅读
 
+## 系列任务
+
+> xx天xx：
+> 
+> * [七周七种前端框架](http://blog.csdn.net/lihongxun945/article/category/5914761)
+> * [30DaysofSwift](https://github.com/allenwong/30DaysofSwift)
+> * [30 天学习 30 种新技术系列](https://segmentfault.com/a/1190000000349384)
+> * [七周七并发模型]
+> * [七周七语言]
+> * ...
+
 
 # DONE
 ----
