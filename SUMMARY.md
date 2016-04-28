@@ -78,6 +78,7 @@
 * [ideas](ideas/README.md)
 	* [管理ideas](ideas/ideas.md)
 	* [如何学习一项新知识](ideas/如何学习一项新知识.md)
+	* [座右铭s](ideas/座右铭s.md)
 * [iOS&Swift](iOS/README.md)
 	* [快速Swift](iOS/a_swift_tour.md)
 	* [ios-swift入门](iOS/ios-swift入门.md)
