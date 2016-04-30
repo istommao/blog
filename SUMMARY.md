@@ -211,7 +211,7 @@
 * [QA](QA/README.md)
 	* [QA](QA/jmeter分布式部署.md)
 * [react](react/README.md)
-	* [react基础](react/react.md)
+	* [认识react](react/认识react.md)
 	* [votecount小项目](react/votecount小项目.md)
 	* [react-native]()
 		* [react_native入门](react/react_native入门.md)
