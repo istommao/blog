@@ -50,6 +50,8 @@
 	* [webpack学习](feTools/webpack学习.md)
 	* [eslint的使用](feTools/jslint简介.md)
 	* [npm](feTools/npm_and_package学习.md)
+* [函数式编程](FP/README.md)
+	* [认识函数式编程基本概念](FP/认识函数式编程基本概念.md)
 * [git](git/README.md)
 	* [git分支模型](git/git分支模型.md)
 	* [commit规范](git/commit规范.md)
