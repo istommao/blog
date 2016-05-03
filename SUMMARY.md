@@ -246,6 +246,7 @@
 * [tech123](tech123/README.md)
 	* [node学习指南汇总](tech123/node学习指南汇总.md)
 	* [Swift学习指南汇总](tech123/Swift学习指南汇总.md)
+	* [js学习指南汇总](tech123/js学习指南汇总.md)
 * [ssh](ssh/README.md)
 	* [ssh](ssh/ssh.md)		
 * [thrift](thrift/README.md)
