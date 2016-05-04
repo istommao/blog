@@ -159,6 +159,7 @@
 	* [mysql-swift-guide](mysql/mysql-swift-guide.md)			
 	* [mysql学习](mysql/mysql学习.md)
 	* [sql三大范式](mysql/sql三大范式.md)
+	* [MySQL分库分表](mysql/MySQL分库分表.md)
 * [nginx](nginx/README.md)
 	* [mac安装nginx](nginx/mac安装nginx.md)
 * [Node.js](nodejs/README.md)
