@@ -216,6 +216,7 @@
 * [react](react/README.md)
 	* [认识react](react/认识react.md)
 	* [votecount小项目](react/votecount小项目.md)
+	* [react/react_native_的es5_es6写法对照表](react/react_react_native_的es5_es6写法对照表.md)
 	* [react-native]()
 		* [react_native入门](react/react_native入门.md)
 		* [weatherapp](react/weatherapp-rn.md)
