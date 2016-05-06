@@ -3,7 +3,7 @@
 ## Chrome扩展
 
 * SearchPreview: google搜索结果显示预览
-* AdBlock: 神器，拦截广告
+* AdBlock（2.56）: 神器，拦截广告
 * Avatars for Github: 在Github news feed页显示用户头像
 * Empty New Tab Page: 新tab显示空白页
 * Github Toc: 给Github的Readme和wiki增加目录`Table of Content`
@@ -14,7 +14,7 @@
 * Isometric Contributions: Github提交数已柱状图显示
 * JSONView: 显示JSON文档
 * Momentum: 新建tab显示一张类似屏保的图片
-* Octo Mate: 下载Github单个文件（Octotree提供该功能）
+* ~~Octo Mate: 下载Github单个文件（Octotree提供该功能）~~
 * Octotree: 页面左侧将Github仓库的目录已树形显示，同时提供单个文件下载功能
 * OneTab: 保存浏览器打开的Tab，下次打开可以恢复
 * Personal Blocklist: Google搜索的结果，对某些垃圾结果进行Block
@@ -24,4 +24,6 @@
 * Proxy SwitchySharp: 代理切换
 * One key Manger: 一键关闭、打开Chrome扩展
 * Note Anywhere:
-* Page Marker: 在网页中画
+* Page Marker: 在网页中增加画笔功能
+* Tampermonkey: 运行插件代码，[使用Tampermonkey屏蔽百度广告](http://blog.csdn.net/u011303443/article/details/51317504)
+* 
