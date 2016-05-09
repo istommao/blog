@@ -1,4 +1,4 @@
-#linux知识、命令和技巧
+# linux知识、命令和技巧
 
 ## 统计文件夹下的总行数
 
@@ -88,6 +88,15 @@
 > 类似工具tmux[使用tmux](http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html)
 
 ## tmux工具的使用	
+
+默认前缀：`ctrl + b`
+
+	tmux new -s session
+	tmux new -s session -d #在后台建立会话
+	tmux ls #列出会话
+	tmux attach -t session #进入某个会话
+	
+* [tmux的使用方法和个性化配置](http://mingxinglai.com/cn/2012/09/tmux/)	
 
 ## vim配置
 
