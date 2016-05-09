@@ -85,6 +85,17 @@
 
 	crtl +a ?
 	
-> 类似工具tmux[使用tmux](http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html)	
+> 类似工具tmux[使用tmux](http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html)
+
+## tmux工具的使用	
+
+## vim配置
+
+* [Vim配置](../software_usage/Vim.md)
+
+## ssh配置
+
+* [ssh配置](../ssh/ssh.md)
+
 	
 	

@@ -1,6 +1,6 @@
-#ssh
+# ssh
 
-##iTerm配色方法
+## iTerm配色方法
 
 1. 编写~/.bash_profile。看网上那个作者的配置是错的，坑死了。
 
