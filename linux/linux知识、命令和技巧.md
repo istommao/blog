@@ -95,6 +95,22 @@
 	tmux new -s session -d #在后台建立会话
 	tmux ls #列出会话
 	tmux attach -t session #进入某个会话
+
+在一个session中新建窗口并切换
+
+	新建： ctrl +b c
+	切换： ctrl +b n(下一个) ctrl +b p(前一个)
+	
+离开：
+
+	ctrl + b d 或者直接关闭终端，自动会以detached模式运行	
+	
+
+更多命令：
+
+	crtl +b ?
+	
+	
 	
 * [tmux的使用方法和个性化配置](http://mingxinglai.com/cn/2012/09/tmux/)	
 
