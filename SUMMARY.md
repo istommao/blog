@@ -8,6 +8,7 @@
 * [软件架构](arch/README.md)
 	* [软件设计](arch/软件设计.md)
 	* [软件开发流程](arch/软件开发流程.md)
+	* [如何在工作中提高架构能力](arch/架构师之路--如何在工作中提高架构能力.md)
 * [阅读清单](booklist/README.md)
 	* [书单--2016](booklist/booklist-2016.md)
 * [Bootstrap](bootstrap/README.md)
