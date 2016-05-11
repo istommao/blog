@@ -1,6 +1,6 @@
-#git远程库
+# git远程库
 
-##远程库相关操作操作
+## 远程库相关操作操作
 从原有repo生成裸repo
 
 	git clone --bare project_test projetest.git

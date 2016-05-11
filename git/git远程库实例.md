@@ -107,9 +107,39 @@ git pull origin master
 	git push --tags origin
  
 ### 上游代码同步: 在本地kazoo.git镜像库定期执行以下操作进行同步并推送到git stash
-	git fetch --prune upstream
+	git remote update upstream
+	~~git fetch --prune upstream~~
 	git push --all origin
 	git push --tags origin
+	
+* [原	git fork 项目的代码与上游同步](http://my.oschina.net/jack088/blog/472448)
+
+
+## git fork 项目的代码与上游同步
+
+摘录上述链接操作步骤：
+
+1. 添加上游代码库
+
+		git remote add upstream "git 地址"
+		
+2. 将本地的修改提交 commit
+3. 在每次 Pull Request 前做如下操作，即可实现和上游版本库的同步
+
+	1. git remote update upstream
+	2. git checkout {某个开发分支}
+	3. git rebase upstream/{branch name}
+	
+		在rebase中有冲突，先解决冲突
+		
+4. Push 代码到 Github
+
+		git push 		
+
+			
+	
+
+
 	
 ## 实例3：多个远程库，多个开发者
 

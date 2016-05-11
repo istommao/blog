@@ -95,6 +95,7 @@
 	tmux new -s session -d #在后台建立会话
 	tmux ls #列出会话
 	tmux attach -t session #进入某个会话
+	tmux a -t session
 
 在一个session中新建窗口并切换
 
