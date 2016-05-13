@@ -55,8 +55,11 @@ viva la vida, viva la liberta. 生命万岁！自由万岁！
 
 ## python-django
 
-## learn swift: simple calculator
+## iOS开发
+> 1. learn swift: simple calculator
 > 参考standford的ios教程，使用swift语言开发一个计算器app
+> 2. 学习各种iOS基础控件使用，并完成对应工程
+> 3. 模范实现[30DaysofSwift](https://github.com/zhuwei05/30DaysofSwift)
 
 ## kafka消息队列
 > 学习kafka消息队列，总结其使用场景，动手编写例子，总结kafka使用要点。对比各种消息队列的异同
