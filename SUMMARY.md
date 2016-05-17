@@ -171,6 +171,7 @@
 		* [nodejs_http_request](nodejs/nodejs_http_request.md)
 		* [管理node版本](nodejs/管理node版本.md)
 		* [nodejs应用场景](nodejs/nodejs应用场景.md)
+		* [nodejs测试总结](nodejs/test_of_nodejs.md)
 	* [express]()
 		* [express](nodejs/express.md)
 	* [koa]()
