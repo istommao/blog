@@ -134,6 +134,34 @@ AVA 提供了一下修饰方法来指定测试的执行方式：
 * after_script
 
 
+## 基准测试
+
+基准测试使用严谨的测试方法、测试工具或测试系统评估目标模块的性能，常用于观测软硬件环境发生变化后的性能表现，其结果具有可复现性。在 Node.js 环境中最常用的基准测试工具是 [Benchmark.js](https://benchmarkjs.com/docs)，安装方式：
+
+	npm install --save-dev benchmark
+
+基本示例：
+
+	const Benchmark = require('benchmark');
+	const suite = new Benchmark.Suite;
+	
+	suite.add('RegExp#test', function() {
+	    /o/.test('Hello World!');
+	})
+	.add('String#indexOf', function() {
+	    'Hello World!'.indexOf('o') > -1;
+	})
+	.on('cycle', function(event) {
+	    console.log(String(event.target));
+	})
+	.on('complete', function() {
+	    console.log('Fastest is ' + this.filter('fastest').map('name'));
+	})
+	// run async
+	.run({ 'async': true });
+
+
+
 
 ## 参考
 
