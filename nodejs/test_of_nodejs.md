@@ -160,6 +160,28 @@ AVA 提供了一下修饰方法来指定测试的执行方式：
 	// run async
 	.run({ 'async': true });
 
+## 代码覆盖率
+
+代码覆盖率工具根据测试用例覆盖的代码行数和分支数来判断模块的完整性。AVA 推荐使用 `nyc` 测试代码覆盖率，安装 nyc：
+
+	npm install nyc --save-dev
+
+修改 `.gitignore` 忽略相关文件：
+
+	node_modules
+	coverage
+	.nyc_output
+	
+修改 `package.json` 中的 `test` 字段：
+
+	{
+	    "scripts": {
+	        "test": "nyc ava"
+	    }
+	}
+
+执行 `npm test`，得到代码覆盖率结果。
+
 
 
 
