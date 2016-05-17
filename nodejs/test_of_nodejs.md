@@ -10,6 +10,9 @@ tags:
 
 # test of nodejs
 
+该文[Node.js 测试总结](http://pinggod.com/2016/Test/)对几种测试做了介绍，简单实用。摘录之。
+
+
 ## 单元测试
 
 单元测试，又称模块测试，针对程序中的最小执行单元进行正确性测试。常见的开发模式包括 TDD 和 BDD 两类。
@@ -98,6 +101,37 @@ AVA 提供了一下修饰方法来指定测试的执行方式：
 * `t.notThrows(function | promise, [message])`，断言 `function` 不会异常或 `promise` resolve
 * `t.regex(contents, regex, [message])`，断言 `contents` 匹配 `regex`
 * `t.ifError(error, [message])`，断言 `error` 是假值
+
+## 集成测试
+
+相对于专注微观模块的单元测试，集成测试是从宏观整体的角度发现问题，所以也称为组装测试和联合测试。[Travis CI](https://travis-ci.org/) 是一款优秀的持续集成工具，可以监听 Github 项目的更新，便于开源软件的集成测试。使用 Travis CI 需要在项目的根目录下创建 `.travis.yml` 配置文件（以 Node.js 为例）：
+
+	language: node_js
+	
+	node_js:
+	    - "6"
+	    - "5"
+	
+	before_script:
+	
+	script:
+	    - npm test
+	    - node benchmark/index.js
+	
+	after_script:
+
+默认情况下，`Travis CI` 会自动安装依赖并执行 `npm test` 命令，通过 `script` 字段可以自定义需要执行的命令，其完整的生命周期包括：
+
+* Install apt addons
+* before_install
+* install
+* before_script
+* script
+* after_success or after_failure
+* OPTIONAL before_deploy
+* OPTIONAL deploy
+* OPTIONAL after_deploy
+* after_script
 
 
 
