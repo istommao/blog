@@ -117,7 +117,7 @@
 
 ## vim配置
 
-* [Vim配置](../software_usage/Vim.md)
+* [Vim配置](../software_usage/vim.md)
 
 ## ssh配置
 
