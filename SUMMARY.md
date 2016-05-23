@@ -158,6 +158,7 @@
 	* [awk命令](linux/linux命令之awk.md)
 	* [Linux下的iptables](linux/linux下的iptables.md)
 	* [Linux的idle进程](linux/linux的idle进程.md)
+	* [linux探秘之用户态与内核态](linux/linux探秘之用户态与内核态.md)
 * [lua](lua/README.md)
 	* [lua学习笔记](lua/lua学习笔记.md)
 * [mongoDB](mongoDB/README.md)
