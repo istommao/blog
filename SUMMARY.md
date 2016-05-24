@@ -191,6 +191,8 @@
 		* [2014_commencement_speech_at_university_of_southern_california_by_elon_musk](OpenCoureses/2014_commencement_speech_at_university_of_southern_california_by_elon_musk.md)		
 	* [TED]()
 		* [如何成为一个更好的交谈者](OpenCoureses/如何成为一个更好的交谈者.md)
+* [ops](ops/README.md)
+	* [vagrant学习](ops/vagrant学习.md)
 * [php](php/README.md)
 	* [php初学](php/php初学.md)
 * [python](python/README.md)
