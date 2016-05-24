@@ -209,6 +209,7 @@
 		* [python运行系统命令](python/python运行系统命令.md)
 		* [python小工具--获取目录下文件的变化](python/python小工具--获取目录下文件的变化.md)
 		* [python的main函数新写法](python/python的main函数新写法.md)
+		* [python技巧](python/python技巧.md)
 	* [flask]()
 		* [flask学习](python/flask学习.md)
 		* [flask学习2-博客小项目flasky](python/flask学习2-博客小项目flasky.md)
