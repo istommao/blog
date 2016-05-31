@@ -10,7 +10,7 @@
 <http://www.cnblogs.com/wangkangluo1/archive/2012/05/26/2518855.html>
 
 
-##查看硬盘使用情况
+## 查看硬盘使用情况
 	df -lh
 	
 	查看文件夹占用大小
@@ -23,6 +23,37 @@
 	
 	查看文件大小
 	ls -lAh /var/log
+	
+## crontab
+
+crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程
+
+基本格式 : 
+
+	*　　*　　*　　*　　*　　command 
+	分　时　日　月　周　命令 
+	f1 f2 f3 f4 f5 program 
+	
+* `*`表示每。比如: 当 f1 为 `*` 时表示每分钟都要执行 program
+* `/`	表示每间隔。比如：当 f1 为 `*/n` 时表示每 `n` 分钟个时间间隔执行一次
+* `-`表示区间。比如：当 f1 为 `a-b` 时表示从第 a 分钟到第 b 分钟这段时间内要执行
+* `,`表示某个(些)特定值。比如：当 f1 为 `a, b, c,...` 时表示第 a, b, c,... 分钟要执行。
+
+实例：
+
+在 12 月内, 每天的早上 6 点到 12 点中，每隔3个小时执行一次 /usr/bin/backup : 
+
+	0 6-12/3 * 12 * /usr/bin/backup 
+
+
+使用方式 : 
+
+	crontab file [-u user]-用指定的文件替代目前的crontab。 
+	crontab-[-u user]-用标准输入替代目前的crontab. 
+	crontab-1[user]-列出用户目前的crontab. 
+	crontab-e[user]-编辑用户目前的crontab. 
+	crontab-d[user]-删除用户目前的crontab. 
+	crontab-c dir- 指定crontab的目录。 		
 	
 ## 历史命令
 
