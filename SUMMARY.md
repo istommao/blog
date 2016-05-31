@@ -94,6 +94,8 @@
 	* [swift_guide](iOS/swift_guide.md)
 	* [swift开发笔记](iOS/swift开发笔记.md)
 * [java](java/README.md)
+	* [java要点]()
+		* [类和继承](java/java要点_类与继承.md)
 	* [java基础]()
 		* [java_io](java/java_io.md)
 		* [java_简介](java/java_简介.md)
