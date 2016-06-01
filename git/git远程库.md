@@ -40,6 +40,8 @@
 	如果在本地分支与远程分支之间，建立一种追踪关系(tracking)，可以直接省略后面两个参数，直接git push/pull
 	e.g. 
 		git branch --set-upstream master origin/next
+		git branch --set-upstream-to=origin/<branch> develop  
+	// 或者git push --set-upstream origin develop 
 		
 	可替代：
 		git push -u origin master
