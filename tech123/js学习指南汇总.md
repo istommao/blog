@@ -10,6 +10,10 @@ tags:
 
 **Changelog：**
 
+`2016-06-03`
+
+* [Front-End-Develop-Guide](https://github.com/mulgore/Front-End-Develop-Guide)
+
 `2016-05-02`
 
 * 初始 [『引』最全前端资源汇集](http://www.jeffjade.com/2016/03/30/104-front-end-tutorial/)
