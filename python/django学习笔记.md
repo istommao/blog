@@ -1,4 +1,4 @@
-#Django学习笔记
+# Django学习笔记
 ===
 ## Django 全貌
 * urls.py
@@ -29,11 +29,15 @@
 
 	Django 的设置，配置文件，比如 DEBUG 的开关，静态文件的位置等。
 	
+django的MVT模型：
+	
+![django-mvt](https://raw.githubusercontent.com/zhuwei05/blog-resources/master/django-mvt.png) 图片来自[关于MTV模式](http://blog.csdn.net/dbanote/article/details/11338953)	
+	
 ## Django基本命令
 
 1. 新建一个 django-project
 
-		django-admin.py startproject project-name
+		django-admin.py startproject project-name .
 	一个 project 一般为一个项目
 
 2. 新建 app

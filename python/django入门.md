@@ -7,6 +7,9 @@
 4. 修改appname/view.py函数，添加视图函数
 5. 启动服务器python manager.py runserver
 
+django的MVT模型：
+
+![django-mvt](https://raw.githubusercontent.com/zhuwei05/blog-resources/master/django-mvt.png) 图片来自[关于MTV模式](http://blog.csdn.net/dbanote/article/details/11338953)
 
 ##模板文件
 
