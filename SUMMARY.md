@@ -1,6 +1,9 @@
 # Summary
 
-* [Ajax技术](ajax/ajax学习笔记.md)
+* [Ajax技术](ajax/README.md)
+	* [Ajax学习](ajax/ajax学习笔记.md)
+* [算法](algo/README.md)
+	* [拜占庭将军问题](algo/拜占庭将军问题深入探讨.md)
 * [android](android/README.md)
 	* [android入门](android/android入门.md)
 * [Angular](angular/README.md)
