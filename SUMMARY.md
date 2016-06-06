@@ -298,6 +298,7 @@
 	* [如何学习一项新知识](utils/如何学习一项新知识.md)
 	* [学习新东西的唯一方法](utils/学习新东西的唯一方法.md)
 	* [提高学习改进记忆的科学方法](utils/提高学习改进记忆的科学方法.md)
+	* [在stack_overflow提问的检查表](utils/在stack_overflow提问的检查表.md)
 * [web协议](web-protocol/README.md)
 	* [socket.io学习](web-protocol/socket.io学习.md)
 * [xml](xml/README.md)
