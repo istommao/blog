@@ -1,18 +1,18 @@
-#bootstrap笔记
+# bootstrap笔记
 
-##简介
+## 简介
 
 Bootstrap 是一个用于快速开发 Web 应用程序和网站的前端框架。Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的。
 
 使用bootstrap，必须具备 HTML 、 CSS 和 JavaScript 的基础知识。
 
-##安装
+## 安装
 
-您可以从 <http://getbootstrap.com/> 上下载 Bootstrap 的最新版本.
+您可以从 [bootstrap](http://getbootstrap.com/) 上下载 Bootstrap 的最新版本.
 
 P.S: 国内，还有很多其他网站都有cdn缓存。
 
-###预编译版
+### 预编译版
 
 
 	bootstrap/
@@ -36,7 +36,7 @@ P.S: 国内，还有很多其他网站都有cdn缓存。
 Bootstrap 的基本文件结构：预编译文件可以直接使用到任何 web 项目中。我们提供了编译好的 CSS 和 JS (bootstrap.\*) 文件，还有经过压缩的 CSS 和 JS (bootstrap.min.\*) 文件。同时还提供了 CSS 源码映射表 (bootstrap.*.map) ，可以在某些浏览器的开发工具中使用。同时还包含了来自 Glyphicons 的图标字体，在附带的 Bootstrap 主题中使用到了这些图标。
 
 
-###Bootstrap 源代码
+### Bootstrap 源代码
 如果您下载了 Bootstrap 源代码，那么文件结构将如下所示:
 
 	bootstrap/
@@ -52,7 +52,7 @@ Bootstrap 的基本文件结构：预编译文件可以直接使用到任何 web
 
 less/、js/ 和 fonts/ 目录分别包含了 CSS、JS 和字体图标的源码。dist/ 目录包含了上面所说的预编译 Bootstrap 包内的所有文件。docs/ 包含了所有文档的源码文件，examples/ 目录是 Bootstrap 官方提供的实例工程。除了这些，其他文件还包含 Bootstrap 安装包的定义文件、许可证文件和编译脚本等。
 
-##Bootstrap模板
+## Bootstrap模板
 
 一个使用了 Bootstrap 的基本的 HTML 模板如下所示：
 
@@ -83,7 +83,7 @@ less/、js/ 和 fonts/ 目录分别包含了 CSS、JS 和字体图标的源码�
 	
 在这里，您可以看到包含了**jquery.js、bootstrap.min.js 和 bootstrap.min.css **文件，用于让一个常规的 HTML 文件变为使用了 Bootstrap 的模板。	
 
-###Bootstrap的hello world
+### Bootstrap的hello world
 
 Bootstrap输出"Hello, world!"：
 
@@ -102,22 +102,22 @@ Bootstrap输出"Hello, world!"：
 	</body>
 	</html>
 
-##less快速入门
+## less快速入门
 
 Less 是一门 CSS 预处理语言，它扩充了 CSS 语言，增加了诸如变量、混合（mixin）、函数等功能，让 CSS 更易维护、方便制作主题、扩充。
 
 Less 可以运行在 Node、浏览器和 Rhino 平台上。
 
-###安装
+### 安装
 
 	npm install -g less
 	
-###命令行用法
+### 命令行用法
 
 	lessc styles.less
 	
 	
-###代码使用
+### 代码使用
 
 	var less = require('less');
 	
@@ -131,18 +131,18 @@ Less 可以运行在 Node、浏览器和 Rhino 平台上。
 	  width: 2;
 	}		
 	
-###客户端用法
+### 客户端用法
 
-#Bootstrap CSS
+# Bootstrap CSS
 ---
-##网格系统
+## 网格系统
 
 Bootstrap 提供了一套响应式、移动设备优先的流式网格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。
 
 Bootstrap 官方文档中有关网格系统的描述：
 > Bootstrap 包含了一个响应式的、移动设备优先的、不固定的网格系统，可以随着设备或视口大小的增加而适当地扩展到 12 列。它包含了用于简单的布局选项的预定义类，也包含了用于生成更多语义布局的功能强大的混合类。
 
-###使用
+### 使用
 
 * 行必须放置在 .container class 内，以便获得适当的对齐（alignment）和内边距（padding）。
 * 使用行来创建列的水平组。
@@ -162,7 +162,7 @@ Bootstrap 官方文档中有关网格系统的描述：
 	</div>
 	<div class="container">.... 
 
-###偏移列
+### 偏移列
 
 > 使用偏移，请使用 .col-md-offset-* 类。这些类会把一个列的左外边距（margin）增加 * 列，其中 * 范围是从 1 到 11。
 
@@ -171,20 +171,20 @@ Bootstrap 官方文档中有关网格系统的描述：
 	         style="background-color: #dedef8;box-shadow: 
 	         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
 
-###嵌套列
+### 嵌套列
 > 为了在内容中嵌套默认的网格，请添加一个新的 .row，并在一个已有的 .col-md-* 列内添加一组 .col-md-* 列。被嵌套的行应包含一组列，这组列个数不能超过12（其实，没有要求你必须占满12列）。
 
 
-###列排序
+### 列排序
 > Bootstrap 网格系统另一个完美的特性，就是您可以很容易地以一种顺序编写列，然后以另一种顺序显示列。
 > 您可以很轻易地改变带有 .col-md-push-* 和 .col-md-pull-* 类的内置网格列的顺序，其中 * 范围是从 1 到 11。
 
 
-##排版
+## 排版
 Bootstrap 使用 Helvetica Neue、 Helvetica、 Arial 和 sans-serif 作为其默认的字体栈。
 使用 Bootstrap 的排版特性，您可以创建标题、段落、列表及其他内联元素。
 
-###标题
+### 标题
 Bootstrap 中定义了所有的 HTML 标题（h1 到 h6）的样式。
 
 	<h1>我是标题1 h1</h1>
@@ -194,7 +194,7 @@ Bootstrap 中定义了所有的 HTML 标题（h1 到 h6）的样式。
 	<h5>我是标题5 h5</h5>
 	<h6>我是标题6 h6</h6>
 	
-###内联子标题
+### 内联子标题
 如果需要向任何标题添加一个内联子标题，只需要简单地在元素两旁添加 \<small\>，或者添加 .small class，这样子您就能得到一个字号更小的颜色更浅的文本
 
 	<h1>我是标题1 h1. <small>我是副标题1 h1</small></h1> 
@@ -205,12 +205,12 @@ Bootstrap 中定义了所有的 HTML 标题（h1 到 h6）的样式。
 	<h6>我是标题6 h6. <small>我是副标题6 h6</small></h6>
 
 
-###引导主体副本
+### 引导主体副本
 为了给段落添加强调文本，则可以添加 class="lead"，这将得到更大更粗、行高更高的文本
 
 	<p class="lead">这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。这是一个演示引导主体副本用法的实例。</p>
 
-###强调
+### 强调
 > HTML 的默认强调标签 \<small\>（设置文本为父文本大小的 85%）、\<strong\>（设置文本为更粗的文本）、\<em\>（设置文本为斜体）。Bootstrap 提供了一些用于强调文本的类
 
 	<small>本行内容是在标签内</small><br>
@@ -226,14 +226,14 @@ Bootstrap 中定义了所有的 HTML 标题（h1 到 h6）的样式。
 	<p class="text-warning">本行内容带有一个 warning class</p>
 	<p class="text-danger">本行内容带有一个 danger class</p>
 
-###缩写
+### 缩写
 > HTML 元素提供了用于缩写的标记，比如 WWW 或 HTTP。Bootstrap 定义 \<abbr\> 元素的样式为显示在文本底部的一条虚线边框，当鼠标悬停在上面时会显示完整的文本（只要您为 \<abbr\> title 属性添加了文本）。为了得到一个更小字体的文本，请添加 .initialism 到 \<abbr\>。
 
 
-###引用（Blockquote）
+### 引用（Blockquote）
 > 您可以在任意的 HTML 文本旁使用默认的 \<blockquote\>。其他选项包括，添加一个 \<small\> 标签来标识引用的来源，使用 class .pull-right 向右对齐引用
 
-###列表
+### 列表
 Bootstrap 支持有序列表、无序列表和定义列表。
 
 * 有序列表：有序列表是指以数字或其他有序字符开头的列表。
@@ -283,7 +283,7 @@ Bootstrap 支持有序列表、无序列表和定义列表。
 		  <dd>Item 2</dd>
 		</dl>
 
-##代码
+## 代码
 Bootstrap 允许您以两种方式显示代码：
 
 * 第一种是 \<code\> 标签。如果您想要内联显示代码，那么您应该使用 \<code\> 标签。
@@ -291,7 +291,7 @@ Bootstrap 允许您以两种方式显示代码：
 
 请确保当您使用 \<pre\> 和 \<code\> 标签时，开始和结束标签使用了 unicode 变体： \&lt; 和 \&gt;。
 
-##表格
+## 表格
 
 Bootstrap 提供了一个清晰的创建表格的布局。
 
@@ -387,7 +387,7 @@ Bootstrap 提供了一个清晰的创建表格的布局。
 	</table>
 
 
-##表单布局
+## 表单布局
 
 Bootstrap 提供了下列类型的表单布局：
 
@@ -395,7 +395,7 @@ Bootstrap 提供了下列类型的表单布局：
 * 内联表单
 * 水平表单	
 
-###垂直或基本表单
+### 垂直或基本表单
 基本的表单结构是 Bootstrap 自带的，个别的表单控件自动接收一些全局样式。下面列出了创建基本表单的步骤：
 
 * 向父 \<form\> 元素添加 role="form"。
@@ -424,7 +424,7 @@ Bootstrap 提供了下列类型的表单布局：
 
 
 
-###内联表单
+### 内联表单
 如果需要创建一个表单，它的所有元素是内联的，向左对齐的，标签是并排的，请向\<form\> 标签添加 class .form-inline。
 
 
@@ -449,7 +449,7 @@ Bootstrap 提供了下列类型的表单布局：
 * 默认情况下，Bootstrap 中的 input、select 和 textarea 有 100% 宽度。在使用内联表单时，您需要在表单控件上设置一个宽度。
 * 使用 class .sr-only，您可以隐藏内联表单的标签。
 
-###水平表单
+### 水平表单
 * 水平表单与其他表单不仅标记的数量上不同，而且表单的呈现形式也不同。如需创建一个水平布局的表单，请按下面的几个步骤进行：
 * 向父\<form\> 元素添加 class .form-horizontal。
 * 把标签和控件放在一个带有 class .form-group 的 \<div\> 中。
@@ -488,21 +488,21 @@ Bootstrap 提供了下列类型的表单布局：
 		</form>
 	
 
-###支持的表单控件
+### 支持的表单控件
 Bootstrap 支持最常见的表单控件，主要是 *input、textarea、checkbox、radio 和 select。*
 
-####输入框（Input）
+#### 输入框（Input）
 最常见的表单文本字段是输入框 input。用户可以在其中输入大多数必要的表单数据。Bootstrap 提供了对所有原生的 HTML5 的 input 类型的支持，包括：*text、password、datetime、datetime-local、date、month、time、week、number、email、url、search、tel 和 color*。适当的 type 声明是必需的，这样才能让 input 获得完整的样式。
 
 
 	<input type="text" class="form-control" placeholder="文本输入">
 	
-####文本框（Textarea）
+#### 文本框（Textarea）
 当您需要进行多行输入的时，则可以使用文本框 textarea。必要时可以改变 rows 属性（较少的行 = 较小的盒子，较多的行 = 较大的盒子）。
 
 	<textarea class="form-control" rows="3"></textarea>	
 	
-####复选框（（Checkbox）和单选框（Radio）
+#### 复选框（（Checkbox）和单选框（Radio）
 复选框和单选按钮用于让用户从一系列预设置的选项中进行选择。
 当创建表单时，如果您想让用户从列表中选择若干个选项时，请使用 checkbox。如果您限制用户只能选择一个选项，请使用 radio。
 对一系列复选框和单选框使用 *.checkbox-inline 或 .radio-inline class*，控制它们显示在同一行上。
@@ -527,7 +527,7 @@ Bootstrap 支持最常见的表单控件，主要是 *input、textarea、checkbo
 	   </label>
 	</div>
 	
-####选择框（Select）
+#### 选择框（Select）
 当您想让用户从多个选项中进行选择，但是默认情况下只能选择一个选项时，则使用选择框。
 使用 \<select\> 展示列表选项，通常是那些用户很熟悉的选择列表，比如州或者数字。
 使用 *multiple="multiple" *允许用户选择多个选项。
@@ -554,12 +554,12 @@ Bootstrap 支持最常见的表单控件，主要是 *input、textarea、checkbo
 	   </div>
 	</form>
 	
-####静态控件
+#### 静态控件
 当您需要在一个水平表单内的表单标签后放置纯文本时，请在 \<p\> 上使用 *class .form-control-static*。	
 
-####表单控件状态
+#### 表单控件状态
 除了 :focus 状态（即，用户点击 input 或使用 tab 键聚焦到 input 上），Bootstrap 还为禁用的输入框定义了样式，并提供了表单验证的 class。
-#####输入框焦点
+##### 输入框焦点
 当输入框 input 接收到 *:focus* 时，输入框的轮廓会被移除，同时应用 *box-shadow*。
 ##### 禁用的输入框 input
 如果您想要禁用一个输入框 input，只需要简单地添加 *disabled 属性*，这不仅会禁用输入框，还会改变输入框的样式以及当鼠标的指针悬停在元素上时鼠标指针的样式。
@@ -662,7 +662,7 @@ Bootstrap 包含了错误、警告和成功消息的验证样式。只需要对�
 	<button type="button" class="btn btn-link">链接按钮</button>
 
 
-###按钮大小
+### 按钮大小
 
 	<p>
 	   <button type="button" class="btn btn-primary btn-lg">

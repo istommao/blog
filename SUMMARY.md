@@ -15,7 +15,7 @@
 * [阅读清单](booklist/README.md)
 	* [书单--2016](booklist/booklist-2016.md)
 * [Bootstrap](bootstrap/README.md)
-	* [bootstrap](bootstrap/bootstrap笔记.md)
+	* [bootstrap](https://github.com/zhuwei05/blog/blob/master/bootstrap/bootstrap%E7%AC%94%E8%AE%B0.md)
 * [分布式和并发](distributed/README.md)
 	* [paxos](distributed/paxos学习.md)
 	* [并发编程模型](distributed/并发编程模型.md)
