@@ -141,6 +141,7 @@
 		* [javascript](js/javascript.md)
 		* [javascript学习笔记](js/javascript学习笔记.md)
 		* [javascript对象和继承小结](js/javascript对象和继承小结.md)
+		* [原型链](js/原型链.md)
 		* [js进阶之（一）](js/js进阶之（一）.md)
 		* [js之promise](js/js之promise.md)
 	* [js标准]()
