@@ -31,6 +31,21 @@ Vagrant不仅可以用来作为个人的虚拟开发环境工具，而且特别�
 
 ## vagrant安装
 
+提纲，也是vagrant开发环境构建的步骤：
+
+* 安装virtualbox
+* 安装vagrant
+* 选择操作系统，下载对应的Box。[vagrantbox.es](http://www.vagrantbox.es/)
+* 添加box: `vagrant box add <box-name> <远端的box地址或者本地的box文件名>`
+* 添加本地开发目录，该目录可以对应git仓库，便于代码管理
+* 在本地开发目录进行初始化：`vagrant init [box-name]`
+* 可能需要修改`Vagrantfile`
+* 启动虚拟机：`vagrant up`
+* 连接虚拟机：`vagrant ssh`
+* 安装开发环境需要的各种库和依赖
+* 开发环境可以正常使用后，关闭虚拟机`vagrant halt`，打包生成`.box`： `vagrant package`
+* 将`.box`发给其他开发者
+
 ### 安装virtualbox
 
 到 [virtualbox官网](https://www.virtualbox.org/wiki/Downloads/) 下载对应平台的VirtualBox最新版本并安装。
@@ -67,7 +82,7 @@ box中的镜像文件被放到了：**/Users/\`{whoami}\`/.vagrant.d/boxes/**，
 	
 #### 初始化 
 
-首先建立开发环境目录(已Mac为例)，读者可以根据自己的系统不同建立一个目录就可以：
+首先建立开发环境目录(已Mac为例)，读者可以根据自己的系统不同建立一个目录(该目录可以对应要使用的git参考)就可以：
 
 	cd ~
 	mkdir vagrant-dev
@@ -78,6 +93,12 @@ box中的镜像文件被放到了：**/Users/\`{whoami}\`/.vagrant.d/boxes/**，
 如果你添加的box名称不是base，那么需要在初始化的时候指定名称
 
 会在当前目录生成一个`Vagrantfile`的文件，里面有很多配置信息，可以修改配置文件进行个性化的定制。
+
+p.s.: 对于开发环境来说，一般只需要配置`网络`即可。也就是说，只需要修改`Vagrantfile`中的`config.vm.network`为`hostonly`模式，比如：
+
+	config.vm.network "private_network", ip: "11.11.11.110"
+	
+配置的详细解释可参考后面的小结。	
 
 #### 启动虚拟机
 
@@ -92,7 +113,9 @@ box中的镜像文件被放到了：**/Users/\`{whoami}\`/.vagrant.d/boxes/**，
 	
 `/vagrant`	这个目录自动映射到宿主机的开发环境目录，本文是`~/vagrant-dev`，这样就方便我们以后在开发机中进行开发，在虚拟机中进行运行效果测试了。
 	
-剩下的步骤就是在虚拟机里配置你要运行的各种环境和参数了。
+
+
+**通过以上步骤，我们就完成了使用vagrant配置开发环境，剩下的步骤就是在虚拟机里相应开发环境的依赖库和包，配置要运行的各种环境和参数了。最后通过下一节介绍的打包技术`vagrant package`生成`.box`文件，其他人拿到这个`.box`文件使用命令`vagrant add`就可以得到和你一致的开发环境了，实现多人开发环境一致。同时可以结合git进行代码管理**
 
 #### 打包分发
 
