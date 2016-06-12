@@ -8,7 +8,7 @@
 切换远程分支
 	
 	git checkout -b 本地分支名 远端分支
-	git checkout -b br_name origin/br_name
+	git checkout -b local_br_name origin/remote_br_name
 	
 	注解：远程分支表示为：(远程仓库名)/(分支名)
 	
@@ -36,6 +36,9 @@
 	推送本地分支到远程仓库
 	git push [remote-name] [branch-name]
 	e.g git push origin master
+	推送本地分支local_branch_name到远程仓库分支remote_branch_name:
+	git push <remote-name> <local_branch_name>:<remote_branch_name>
+	e.g git push origin local_dev:master
 	
 	如果在本地分支与远程分支之间，建立一种追踪关系(tracking)，可以直接省略后面两个参数，直接git push/pull
 	e.g. 

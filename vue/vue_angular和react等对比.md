@@ -81,4 +81,4 @@ Riot 2.0 提供类似的基于组件的开发模式（Riot 称之为“标签”
 
 ## 参考
 
-* [vue中文-框架对比](http://cn.vuejs.org/guide/comparison.html)
+* [vue中文-框架对比](http://vuejs.org.cn/guide/comparison.html)
