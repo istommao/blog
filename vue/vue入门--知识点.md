@@ -275,9 +275,136 @@ Vue.js 提供了一个方法 `$watch`，它用于观察 Vue 实例上的数据�
 	}
 	// ...
 	
+## Class 与 Style 绑定
+
+[Class 与 Style 绑定](http://vuejs.org.cn/guide/class-and-style.html)	
+
+**数据绑定**一个常见需求是操作元素的 `class 列表`和它的`内联样式`。因为它们都是 `attribute`，我们可以用 `v-bind` 处理它们：只需要计算出表达式最终的字符串。不过，字符串拼接麻烦又易错。因此，在 `v-bind` 用于 `class` 和 `style` 时，`Vue.js` 专门增强了它。表达式的结果类型除了字符串之外，还可以是`对象或数组`。
+
+### 绑定 HTML Class
+
+> 尽管可以用 Mustache 标签绑定 class，比如 `class="{{ className }}"`，但是我们不推荐这种写法和 `v-bind:class` 混用。两者只能选其一！
 	
 
+#### 对象语法
+
+我们可以传给 `v-bind:class` 一个对象，以动态地切换 `class`。注意 `v-bind:class` 指令可以与普通的 `class` 特性共存：
+
+	<div class="static" v-bind:class="{ 'class-a': isA, 'class-b': isB }"></div>
 	
+	data: {
+	  isA: true,
+	  isB: false
+	}	
+	
+渲染为：
+
+	<div class="static class-a"></div>
+	
+也可以直接绑定数据里的一个对象（**推荐这种方法，更直观**）：
+
+	<div v-bind:class="classObject"></div>
+	
+	data: {
+	  classObject: {
+	    'class-a': true,
+	    'class-b': false
+	  }
+	}
+
+我们也可以在这里绑定一个返回[对象的计算属性](http://vuejs.org.cn/guide/computed.html)。这是一个常用且强大的模式。	
+
+#### 数组语法
+
+我们可以把一个数组传给 `v-bind:class`，以应用一个 `class` 列表：
+
+	<div v-bind:class="[classA, classB]">
+	
+	data: {
+	  classA: 'class-a',
+	  classB: 'class-b'
+	}
+	
+### 绑定内联样式
+
+#### 对象语法
+
+`v-bind:style` 的对象语法十分直观——看着非常像 `CSS`，其实它是一个 `JavaScript` 对象。`CSS` 属性名可以用`驼峰式（camelCase）`或`短横分隔命名（kebab-case）`：
+
+	<div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+	data: {
+	  activeColor: 'red',
+	  fontSize: 30
+	}
+
+直接绑定到一个样式对象通常更好，让模板更清晰**（推荐）**：
+
+	<div v-bind:style="styleObject"></div>
+	data: {
+	  styleObject: {
+	    color: 'red',
+	    fontSize: '13px'
+	  }
+	}
+	
+同样的，对象语法常常结合返回对象的计算属性使用。	
+#### 数组语法
+
+`v-bind:style` 的数组语法可以将多个样式对象应用到一个元素上：
+
+	<div v-bind:style="[styleObjectA, styleObjectB]">
+
+#### 自动添加前缀
+
+当 `v-bind:style` 使用需要厂商前缀的 `CSS` 属性时，如 `transform`，`Vue.js` 会自动侦测并添加相应的前缀。
+
+## 条件渲染
+
+[条件渲染](http://vuejs.org.cn/guide/conditional.html)
+
+### v-if
+
+	<h1 v-if="ok">Yes</h1>
+	<h1 v-else>No</h1>
+
+### template v-if
+
+因为 `v-if` 是一个指令，需要将它添加到一个元素上。但是如果我们想切换多个元素呢？此时我们可以把一个 `<template>` 元素当做包装元素，并在上面使用 `v-if`，最终的渲染结果不会包含它。
+
+	<template v-if="ok">
+	  <h1>Title</h1>
+	  <p>Paragraph 1</p>
+	  <p>Paragraph 2</p>
+	</template>
+
+### v-show
+
+另一个根据条件展示元素的选项是 `v-show` 指令。用法大体上一样：
+
+	<h1 v-show="ok">Hello!</h1>
+	
+不同的是有 `v-show` 的元素会始终渲染并保持在 `DOM` 中。`v-show` 是简单的切换元素的 `CSS` 属性 `display`。
+
+注意 `v-show` 不支持 `<template>` 语法。
+
+### v-else
+
+可以用 `v-else` 指令给 `v-if` 或 `v-show` 添加一个 “else 块”。`v-else` 元素必须立即跟在 `v-if` 或 `v-show` 元素的后面——否则它不能被识别。
+
+### v-if vs. v-show
+
+在切换 `v-if` 块时，Vue.js 有一个局部编译/卸载过程，因为 v-if 之中的模板也可能包括数据绑定或子组件。`v-if` 是真实的条件渲染，因为它会确保条件块在切换当中合适地销毁与重建条件块内的事件监听器和子组件。
+
+`v-if` 也是惰性的：如果在初始渲染时条件为假，则什么也不做——在条件第一次变为真时才开始局部编译（编译会被缓存起来）。
+
+相比之下，`v-show` 简单得多——元素始终被编译并保留，只是简单地基于 CSS 切换。
+
+一般来说，`v-if` 有更高的切换消耗而 `v-show` 有更高的初始渲染消耗。因此，如果需要频繁切换 `v-show` 较好，如果在运行时条件不大可能改变 `v-if` 较好。
+
+
+
+
+
 
 
 ## 参考	
