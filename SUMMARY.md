@@ -206,6 +206,7 @@
 	* [TED]()
 		* [如何成为一个更好的交谈者](OpenCoureses/如何成为一个更好的交谈者.md)
 * [ops](ops/README.md)
+	* [centos6.6安装virtualbox5.0](ops/centos6.6安装virtualbox5.0.md)
 	* [vagrant学习](ops/vagrant学习.md)
 * [php](php/README.md)
 	* [php初学](php/php初学.md)
