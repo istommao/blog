@@ -561,8 +561,104 @@ Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新�
 
 计算属性有更好的控制力，也更灵活，因为它是全功能 JavaScript。但是通常[过滤器](http://vuejs.org.cn/api/#filterBy)更方便。
 
+## 方法和事件处理
+
+[方法和事件处理](http://vuejs.org.cn/guide/events.html)
+
+### 方法处理器
+
+用 `v-on` 指令监听 `DOM` 事件：
+
+<div id="example">
+  <button v-on:click="greet">Greet</button>
+</div>
+
+	var vm = new Vue({
+	  el: '#example',
+	  data: {
+	    name: 'Vue.js'
+	  },
+	  // 在 `methods` 对象中定义方法
+	  methods: {
+	    greet: function (event) {
+	      // 方法内 `this` 指向 vm
+	      alert('Hello ' + this.name + '!')
+	      // `event` 是原生 DOM 事件
+	      alert(event.target.tagName)
+	    }
+	  }
+	})
+	
+	// 也可以在 JavaScript 代码中调用方法
+	vm.greet() // -> 'Hello Vue.js!'
+	
+### 内联语句处理器	
+
+除了直接绑定到一个方法，也可以用内联 JavaScript 语句：
+
+	<div id="example-2">
+	  <button v-on:click="say('hi')">Say Hi</button>
+	  <button v-on:click="say('what')">Say What</button>
+	</div>
+	
+	new Vue({
+	  el: '#example-2',
+	  methods: {
+	    say: function (msg) {
+	      alert(msg)
+	    }
+	  }
+	})
+	
+类似于内联表达式，事件处理器限制为`一个语句`。
+
+有时也需要在内联语句处理器中访问原生 DOM 事件。可以用特殊变量 `$event` 把它传入方法	
+
+### 事件修饰符
+
+在事件处理器中经常需要调用 `event.preventDefault()` 或 `event.stopPropagation()`。尽管我们在方法内可以轻松做到，不过让方法是纯粹的数据逻辑而不处理 DOM 事件细节会更好。
+
+为了解决这个问题，Vue.js 为 `v-on` 提供两个 事件修饰符：`.prevent` 与 `.stop`。你是否还记得修饰符是点号打头的指令后缀？
+
+	<!-- 阻止单击事件冒泡 -->
+	<a v-on:click.stop="doThis"></a>
+	
+	<!-- 提交事件不再重载页面 -->
+	<form v-on:submit.prevent="onSubmit"></form>
+	
+	<!-- 修饰符可以串联 -->
+	<a v-on:click.stop.prevent="doThat">
+	
+	<!-- 只有修饰符 -->
+	<form v-on:submit.prevent></form>
+
+1.0.16 添加了两个额外的修饰符：
+
+	<!-- 添加事件侦听器时使用 capture 模式 -->
+	<div v-on:click.capture="doThis">...</div>
+	
+	<!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+	<div v-on:click.self="doThat">...</div>
+
+### 按键修饰符
+
+在监听键盘事件时，我们经常需要检测 keyCode。Vue.js 允许为 v-on 添加按键修饰符：
+
+	<!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+	<input v-on:keyup.13="submit">
+	
+记住所有的 keyCode 比较困难，Vue.js 为最常用的按键提供[别名](http://vuejs.org.cn/guide/events.html#按键修饰符)
+
+### 为什么在HTML中监听事件
+
+你可能注意到这种事件监听的方式违背了传统理念 “separation of concern”。不必担心，因为所有的 Vue.js 事件处理方法和表达式都严格绑定在当前视图的 ViewModel 上，它不会导致任何维护困难。实际上，使用 v-on 有几个好处：
+
+* 扫一眼 HTML 模板便能轻松定位在 JavaScript 代码里对应的方法。
+* 因为你无须在 JavaScript 里手动绑定事件，你的 ViewModel 代码可以是非常纯粹的逻辑，和 DOM 完全解耦，更易于测试。
+* 当一个 ViewModel 被销毁时，所有的事件处理器都会自动被删除。你无须担心如何自己清理它们。
 
 
+	
 
 ## 参考	
 
