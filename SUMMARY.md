@@ -302,6 +302,7 @@
 	* [学习新东西的唯一方法](utils/学习新东西的唯一方法.md)
 	* [提高学习改进记忆的科学方法](utils/提高学习改进记忆的科学方法.md)
 	* [在stack_overflow提问的检查表](utils/在stack_overflow提问的检查表.md)
+	* [学会这7招_7天学会任意一门语言](utils/学会这7招_7天学会任意一门语言.md)
 * [vue](vue/README.md)
 	* [vue, angular和react等对比](vue/vue_angular和react等对比.md)
 	* [vue入门--知识点](vue/vue入门--知识点.md)
