@@ -657,8 +657,126 @@ Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新�
 * 因为你无须在 JavaScript 里手动绑定事件，你的 ViewModel 代码可以是非常纯粹的逻辑，和 DOM 完全解耦，更易于测试。
 * 当一个 ViewModel 被销毁时，所有的事件处理器都会自动被删除。你无须担心如何自己清理它们。
 
-
+## 表单控件绑定
 	
+[表单控件绑定](http://vuejs.org.cn/guide/forms.html)
+
+用 `v-model` 指令在表单控件元素上`创建双向数据绑定`。根据控件类型它自`动选取正确的方法更新元素`。尽管有点神奇，`v-model `不过是`语法糖`，在`用户输入事件中`*更新数据*，以及特别处理一些极端例子。	
+
+### text
+
+	<span>Message is: {{ message }}</span>
+	<br>
+	<input type="text" v-model="message" placeholder="edit me">
+
+### checkbox
+
+	<input type="checkbox" id="checkbox" v-model="checked">
+	<label for="checkbox">{{ checked }}</label>
+
+多个勾选框，绑定到同一个数组：
+
+	<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+	<label for="jack">Jack</label>
+	<input type="checkbox" id="john" value="John" v-model="checkedNames">
+	<label for="john">John</label>
+	<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+	<label for="mike">Mike</label>
+	<br>
+	<span>Checked names: {{ checkedNames | json }}</span>
+	
+	new Vue({
+	  el: '...',
+	  data: {
+	    checkedNames: []
+	  }
+	})
+	
+### radio
+
+类似`checkbox`
+
+### select
+
+类似`checkbox`。
+
+对于动态选项，用 `v-for` 渲染：
+
+	<select v-model="selected">
+	  <option v-for="option in options" v-bind:value="option.value">
+	    {{ option.text }}
+	  </option>
+	</select>
+	<span>Selected: {{ selected }}</span>
+	new Vue({
+	  el: '...',
+	  data: {
+	    selected: 'A',
+	    options: [
+	      { text: 'One', value: 'A' },
+	      { text: 'Two', value: 'B' },
+	      { text: 'Three', value: 'C' }
+	    ]
+	  }
+	})
+	
+### 绑定value
+
+对于单选按钮，勾选框及选择框选项，`v-model` 绑定的 `value` 通常是静态字符串（对于勾选框是逻辑值）：
+
+	<!-- 当选中时，`picked` 为字符串 "a" -->
+	<input type="radio" v-model="picked" value="a">
+	
+	<!-- `toggle` 为 true 或 false -->
+	<input type="checkbox" v-model="toggle">
+	
+	<!-- 当选中时，`selected` 为字符串 "abc" -->
+	<select v-model="selected">
+	  <option value="abc">ABC</option>
+	</select>
+
+
+但是有时我们想绑定 `value` 到 `Vue` 实例的一个`动态属性`上，这时可以用 `v-bind` 实现，并且这个属性的值可以不是字符串：
+
+	<input
+	  type="checkbox"
+	  v-model="toggle"
+	  v-bind:true-value="a"
+	  v-bind:false-value="b">
+	  
+	<input type="radio" v-model="pick" v-bind:value="a">
+	
+	<select v-model="selected">
+	  <!-- 对象字面量 -->
+	  <option v-bind:value="{ number: 123 }">123</option>
+	</select>  	
+
+### 参数特性
+
+#### lazy
+
+在默认情况下，`v-model` 在`input` 事件中同步输入框值与数据，可以添加一个特性 `lazy`，从而改到在 `change` 事件中同步。
+
+	<!-- 在 "change" 而不是 "input" 事件中更新 -->
+	<input v-model="msg" lazy>
+
+#### 数字
+
+如果想自动将用户的输入转为 `Number` 类型（如果原值的转换结果为 NaN 则返回原值），可以添加一个特性 `number`
+
+#### debounce
+
+`debounce` 设置一个最小的延时，在每次敲击之后延时同步输入框的值与数据。如果每次更新都要进行高耗操作（例如在输入提示中 Ajax 请求），它较为有用。
+
+	<input v-model="msg" debounce="500">
+	
+注意 `debounce` 参数不会延迟 `input` 事件：它延迟“写入”底层数据。因此在使用 `debounce` 时应当用 `vm.$watch()` 响应数据的变化。若想延迟 DOM 事件，应当使用 [debounce 过滤器](http://vuejs.org.cn/api/#debounce)。	
+
+
+## 过渡
+
+[过渡](http://vuejs.org.cn/guide/transitions.html)
+
 
 ## 参考	
 
