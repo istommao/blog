@@ -212,6 +212,7 @@
 	* [php初学](php/php初学.md)
 * [python](python/README.md)
 	* [python基础]()
+		* [python知识点和易错点](python/python知识点和易错点.md)
 		* [设计模式之抽象工厂--python篇](python/设计模式之抽象工厂--python篇.md)
 		* [pycurl学习](python/pycurl学习.md)
 		* [python的类的属性](python/python的类的属性.md)
