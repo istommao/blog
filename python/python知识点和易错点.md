@@ -722,45 +722,245 @@ PIL：Python Imaging Library，已经是Python平台事实上的图像处理标�
 
 由于PIL仅支持到Python 2.7，加上年久失修，于是一群志愿者在PIL的基础上创建了兼容的版本，名字叫Pillow，支持最新Python 3.x
 
-### PyPI
+## PyPI
 
 [PyPI](https://pypi.python.org/)
 
-### virtualenv
+## virtualenv
 
 
- 
-	
-	
-	
+## 网络编程
+
+### TCP/IP
+
+### TCP编程
+
+### UDP编程
+
+## 电子邮件
+
+## 数据库
+
+### SQLite
+
+### MySQL
+
+### SQLAlchemy
 
 
+## Web开发
 
+### HTTP
 
+* HTTP GET请求的格式：
 
+		GET /path HTTP/1.1
+		Header1: Value1
+		Header2: Value2
+		Header3: Value3
 
+* HTTP POST请求的格式：
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				
-	
+		POST /path HTTP/1.1
+		Header1: Value1
+		Header2: Value2
+		Header3: Value3
 		
+		body data goes here...
+		
+* HTTP响应的格式：
+
+		200 OK
+		Header1: Value1
+		Header2: Value2
+		Header3: Value3
+		
+		body data goes here...	
+	
+	Body的数据类型由`Content-Type`头来确定。
+	
+	当存在`Content-Encoding`时，Body数据是被压缩的，最常见的压缩方式是gzip，所以，看到`Content-Encoding: gzip`时，需要将Body数据先解压缩，才能得到真正的数据。压缩的目的在于减少Body的大小，加快网络传输。
+	
+### WSGI接口
+
+* 了解了HTTP协议和HTML文档，我们其实就明白了一个Web应用的本质就是：
+
+	* 	浏览器发送一个HTTP请求；
+	* 	服务器收到请求，生成一个HTML文档；
+	* 	服务器把HTML文档作为HTTP响应的Body发送给浏览器；
+	* 	浏览器收到HTTP响应，从HTTP Body取出HTML文档并显示。	
+* 用Python专注于生成HTML文档。因为我们不希望接触到TCP连接、HTTP原始请求和响应格式，所以，需要一个统一的接口，让我们专心用Python编写Web业务。这个接口就是`WSGI：Web Server Gateway Interface。`	
+
+* WSGI接口定义非常简单，它只要求Web开发者实现一个函数，就可以响应HTTP请求： 
+
+		def application(environ, start_response):
+		    start_response('200 OK', [('Content-Type', 'text/html')])
+		    return [b'<h1>Hello, web!</h1>']
+
+	* environ：一个包含所有HTTP请求信息的dict对象；
+	* start_response：一个发送HTTP响应的函数。
+
+
+* `application()`函数必须由`WSGI服务器`来调用。
+* 无论多么复杂的Web应用程序，入口都是一个`WSGI`处理函数。HTTP请求的所有输入信息都可以通过`environ`获得，HTTP响应的输出都可以通过`start_response()`加上函数返回值作为`Body`。
+* 复杂的Web应用程序，光靠一个`WSGI`函数来处理还是太底层了，我们需要在`WSGI`之上再抽象出`Web`框架，进一步简化Web开发
+
+### Web框架
+
+* 其实一个`Web App`，就是写一个`WSGI`的处理函数，针对每个HTTP请求进行响应
+* 因为`WSGI`提供的接口虽然比HTTP接口高级了不少，但和Web App的处理逻辑比，还是比较低级，我们需要在`WSGI`接口之上能进一步抽象，让我们专注于用一个函数处理一个URL，至于URL到函数的映射，就交给`Web框架`来做
+
+常见Python Web框架：
+
+* [Django](https://www.djangoproject.com/)：全能型Web框架；
+* [Flask](http://flask.pocoo.org/)：
+* [web.py](http://webpy.org/)：一个小巧的Web框架；
+* [Bottle](http://bottlepy.org/)：和Flask类似的Web框架；
+* [Tornado：Facebook](http://www.tornadoweb.org/)的开源异步Web框架。
+
+
+### 使用模板
+
+* Python代码里拼字符串是不现实的，所以，模板技术出现了
+* 使用模板，我们需要预先准备一个HTML文档，这个HTML文档不是普通的HTML，而是`嵌入`了一些`变量和指令`，然后，根据我们`传入的数据`，替换后，得到最终的HTML，发送给用户
+* 常见模板：
+
+	* [Jinja2](http://jinja.pocoo.org/)：`{{ name }}` 和 `{% ... %}`
+	* [Mako](http://www.makotemplates.org/)：用`<% ... %>`和`${xxx}`的一个模板；
+	* [Cheetah](http://www.cheetahtemplate.org/)：也是用`<% ... %>`和`${xxx}`的一个模板；
+	* [Django](https://www.djangoproject.com/)：Django是一站式框架，内置一个用`{% ... %}`和`{{ xxx }}`的模板。
+
+
+## 异步IO
+
+* 多线程和多进程的模型虽然解决了并发问题，但是系统不能无上限地增加线程。由于系统切换线程的开销也很大，所以，一旦线程数量过多，CPU的时间就花在线程切换上了，真正运行代码的时间就少了，结果导致性能严重下降。
+* 要解决的问题是CPU高速执行能力和IO设备的龟速严重不匹配，多线程和多进程只是解决这一问题的一种方法
+* 另一种解决IO问题的方法是异步IO。
+
+	当代码需要执行一个耗时的IO操作时，它只发出IO指令，并不等待IO结果，然后就去执行其他代码了。一段时间后，当IO返回结果时，再通知CPU进行处理。
+	
+* 异步IO模型需要一个消息循环，在消息循环中，主线程不断地重复“读取消息-处理消息”这一过程
+* 消息模型是如何解决同步IO必须等待IO操作这一问题的呢？
+
+	当遇到IO操作时，代码只负责发出IO请求，不等待IO结果，然后直接结束本轮消息处理，进入下一轮消息处理过程。当IO操作完成后，将收到一条“IO完成”的消息，处理该消息时就可以直接获取IO操作结果
+
+* 异步IO模型下，一个线程就可以同时处理多个IO请求，并且没有切换线程的操作。对于大多数IO密集型的应用程序，使用异步IO将大大提升系统的多任务处理能力。
+
+### 协程
+
+* 协程，又称微线程，纤程。英文名Coroutine
+* 子程序调用总是一个入口，一次返回，调用顺序是明确的。而协程的调用和子程序不同。
+* 协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行
+* 注意，在一个子程序中中断，去执行其他子程序，不是函数调用，有点类似CPU的中断
+* 协程的特点在于是一个线程执行：
+
+	最大的优势就是协程极高的执行效率。因为子程序切换不是线程切换，而是由程序自身控制，因此，没有线程切换的开销，和多线程比，线程数量越多，协程的性能优势就越明显。
+	
+	第二大优势就是不需要多线程的锁机制，因为只有一个线程，也不存在同时写变量冲突，在协程中控制共享资源不加锁，只需要判断状态就好了，所以执行效率比多线程高很多。
+	
+* 协程是一个线程执行，那怎么利用多核CPU呢？最简单的方法是`多进程+协程`，既充分利用多核，又充分发挥协程的高效率，可获得极高的性能。	
+* Python对协程的支持是通过`generator`实现的
+
+
+### asyncio
+
+* `asyncio`是Python 3.4版本引入的标准库，直接内置了对异步IO的支持
+* `asyncio`的编程模型就是一个消息循环。我们从`asyncio`模块中直接获取一个`EventLoop`的引用，然后把需要执行的`协程`扔到`EventLoop`中执行，就实现了异步IO。
+
+		import asyncio
+		
+		@asyncio.coroutine
+		def hello():
+		    print("Hello world!")
+		    # 异步调用asyncio.sleep(1):
+		    r = yield from asyncio.sleep(1)
+		    print("Hello again!")
+		
+		# 获取EventLoop:
+		loop = asyncio.get_event_loop()
+		# 执行coroutine
+		loop.run_until_complete(hello())
+		loop.close()
+
+	`@asyncio.coroutine`把一个`generator`标记为`coroutine`类型，然后，我们就把这个`coroutine`扔到`EventLoop`中执行
+	
+	用Task封装两个coroutine：
+	
+		import threading
+		import asyncio
+		
+		@asyncio.coroutine
+		def hello():
+		    print('Hello world! (%s)' % threading.currentThread())
+		    yield from asyncio.sleep(1)
+		    print('Hello again! (%s)' % threading.currentThread())
+		
+		loop = asyncio.get_event_loop()
+		tasks = [hello(), hello()]
+		loop.run_until_complete(asyncio.wait(tasks))
+		loop.close()		
+
+* 把`asyncio.sleep()`换成真正的IO操作，则多个`coroutine`就可以由一个线程并发执行	
+* 异步操作需要在`coroutine`中通过`yield from`完成
+* 多个`coroutine`可以封装成一组Task然后并发执行
+
+### async/await
+
+* 用`asyncio`提供的`@asyncio.coroutine`可以把一个`generator`标记为`coroutine`类型，然后在`coroutine`内部用`yield from`调用另一个`coroutine`实现异步操作
+* 为了简化并更好地标识异步IO，从Python 3.5开始引入了新的语法`async`和`await`，可以让`coroutine`的代码更简洁易读
+* 请注意，`async`和`await`是针对coroutine的新语法，要使用新的语法，只需要做两步简单的替换：
+
+	* 把`@asyncio.coroutine`替换为`async`；
+	* 把`yield from`替换为`await`
+	
+
+	asyncio:
+
+		@asyncio.coroutine
+		def hello():
+		    print("Hello world!")
+		    r = yield from asyncio.sleep(1)
+		    print("Hello again!")		
+	async/wait:
+	
+		async def hello():
+		    print("Hello world!")
+		    r = await asyncio.sleep(1)
+		    print("Hello again!")	
+
+### aiohttp
+
+* `asyncio`实现了TCP、UDP、SSL等协议，`aiohttp`则是基于asyncio实现的HTTP框架。
+
+		import asyncio
+		
+		from aiohttp import web
+		
+		async def index(request):
+		    await asyncio.sleep(0.5)
+		    return web.Response(body=b'<h1>Index</h1>')
+		
+		async def hello(request):
+		    await asyncio.sleep(0.5)
+		    text = '<h1>hello, %s!</h1>' % request.match_info['name']
+		    return web.Response(body=text.encode('utf-8'))
+		
+		async def init(loop):
+		    app = web.Application(loop=loop)
+		    app.router.add_route('GET', '/', index)
+		    app.router.add_route('GET', '/hello/{name}', hello)
+		    srv = await loop.create_server(app.make_handler(), '127.0.0.1', 8000)
+		    print('Server started at http://127.0.0.1:8000...')
+		    return srv
+		
+		loop = asyncio.get_event_loop()
+		loop.run_until_complete(init(loop))
+		loop.run_forever()
+
+
+	注意`aiohttp`的初始化函数`init()`也是一个`coroutine`，`loop.create_server()`则利用`asyncio`创建TCP服务。
+
+
 
 ## 参考
 
