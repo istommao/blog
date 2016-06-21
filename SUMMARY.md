@@ -88,6 +88,7 @@
 	* [动效设计原理](html_css/动效设计原理.md)
 * [http](http/README.md)
 	* [学习http](http/学习http.md)
+	* [学习csrf](http/csrf简介.md)
 * [ideas](ideas/README.md)
 	* [管理ideas](ideas/ideas.md)
 	* [任务清单](ideas/missions.md)
