@@ -125,6 +125,28 @@ tags:
 * `**kw`是关键字参数，kw接收的是一个dict
 * 使用`*args`和`**kw`是Python的习惯写法，当然也可以用其他参数名，但最好使用习惯用法
 
+## is == 和 isinstance type
+
+Python中对象包含的三个基本要素，分别是：`id(身份标识)`、`python type()(数据类型)`和`value(值)`
+
+* `==`比较操作符：用来比较两个对象是否相等，`value`做为判断因素；
+* `is`同一性运算符：比较判断两个对象是否相同，`id`做为判断因素。
+
+* `type()`来判断类型, 不会认为子类是一种父类类型一般不建议使用，而用`isinstance`
+
+		type('foo') == str  // True
+		type('foo') is str // True
+		type(2.3) in (int,float)  // True
+
+* `isinstance()`:会认为子类是一种父类类型
+
+		isinstance('foo', str)
+		
+* 旧式类跟新式类的type()结果是不一样的。旧式类都是`<type 'instance'>`
+
+[扩展阅读](https://segmentfault.com/q/1010000000127305)
+
+
 ## 切片
 
 * Python没有针对字符串的截取函数，只需要切片一个操作就可以完成，非常简单
