@@ -333,6 +333,16 @@ Python中对象包含的三个基本要素，分别是：`id(身份标识)`、`p
 
 * Python的`decorator`可以用函数实现，也可以用类实现。
 * `decorator`可以增强函数的功能，定义起来虽然有点复杂，但使用起来非常灵活和方便。
+* 多个`decorator`的顺序：从下向上。
+
+	Decorators wrap the function they are decorating。[stackflow问答](http://stackoverflow.com/questions/27342149/decorator-execution-order)
+	
+		@d1
+		@d2
+		func()
+		==> 
+		d2装饰func的结果，d1装饰d2的结果：d1(d2(func()))
+
 
 [decorator介绍](http://www.cnblogs.com/rhcad/archive/2011/12/21/2295507.html)
 
