@@ -1163,6 +1163,57 @@ Vue.js 的插件应当有一个公开方法 `install`。这个方法的第一个
 
 	// 调用 `MyPlugin.install(Vue)`
 	Vue.use(MyPlugin)
+	
+
+## 构建大型应用
+
+[构建大型应用](http://vuejs.org.cn/guide/application.html)
+
+使用脚手架工具 [vue-cli](https://github.com/vuejs/vue-cli) 可以快速地构建项目：单文件 Vue 组件，热加载，保存时检查代码，单元测试等。	
+
+**Vue.js 的设计思想是专注与灵活——它只是一个界面库**，不强制使用哪个架构。它能很好地与已有项目整合，不过对于经验欠缺的开发者，从头开始构建大型应用可能是一个挑战。
+
+`Vue.js` 生态系统提供了一系列的工具与库，用于构建大型单页应用。这些部分会感觉开始更像一个『框架』，但是它们`本质上只是一套推荐的技术栈`而已 - 你依然可以对各个部分进行选择和替换。
+
+### 模块化
+
+对于大型项目，为了更好地管理代码使用模块构建系统非常必要。推荐代码使用 CommonJS 或 ES6 模块，然后使用 `Webpack` 或 `Browserify` 打包。
+
+### 单文件组件
+
+在典型的 `Vue.js` 项目中，我们会把界面拆分为多个小组件，每个组件在同一地方封装它的 `CSS 样式`，`模板` 和 `JavaScript` 定义，这么做比较好。
+
+### 路由
+
+推荐使用官方库 [vue-router](https://github.com/vuejs/vue-router)。详细请查看它的[文档](http://vuejs.github.io/vue-router/)
+
+如果你只需要非常简单的路由逻辑，可以这么做，监听 `hashchange` 事件并使用动态组件。利用这种机制也可以非常容易地配合其它路由库，如 [Page.js](https://github.com/visionmedia/page.js) 或 [Director](https://github.com/flatiron/director)
+
+### 与服务器通信
+
+Vue 实例的原始数据 `$data` 能直接用 `JSON.stringify()` 序列化。社区贡献了一个插件 [vue-resource](https://github.com/vuejs/vue-resource)，提供一种容易的方式与 RESTful APIs 配合。也可以使用任何自己喜欢的 Ajax 库，如 `$.ajax` 或 `SuperAgent`。Vue.js 也能很好地与无后端服务配合，如 Firebase 和 Parse。
+
+	
+### 状态管理
+
+如果我们约定，组件不可以直接修改 `store` 的状态，而应当派发事件，通知 `store` 执行 `action`，那么我们基本上实现了 [Flux](https://facebook.github.io/flux/) 架构。此约定的好处是，我们能记录 store 所有的状态变化，并且在此之上实现高级的调试帮助函数，如修改日志，快照，历史回滚等。
+
+Flux 架构常用于 React 应用中，但它的核心理念也可以适用于 Vue.js 应用。比如 [Vuex](https://github.com/vuejs/vuex/) 就是一个借鉴于 Flux，但是专门为 Vue.js 所设计的状态管理方案。React 生态圈中最流行的 Flux 实现 [Redux](https://github.com/rackt/redux/) 也可以通过[简单的绑定](https://github.com/egoist/revue)和 Vue 一起使用。
+
+### 单元测试
+
+任何支持模块构建系统的单元测试工具都可以。推荐使用 [Karma](http://karma-runner.github.io/0.12/index.html)。它有许多插件，支持 Webpack 和 Browserify。
+
+
+### 生产发布
+
+为了更小的文件体积，Vue.js 的压缩版本删除所有的警告，但是在使用 Browserify 或 Webpack 等工具构建 Vue.js 应用时，压缩需要一些配置。
+
+## 对比其他框架
+
+[对比其他框架](http://vuejs.org.cn/guide/comparison.html)
+
+	
 
 ## 参考	
 
