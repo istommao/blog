@@ -777,6 +777,252 @@ Vue.js 包装了被观察数组的变异方法，故它们能触发视图更新�
 
 [过渡](http://vuejs.org.cn/guide/transitions.html)
 
+> 通过 Vue.js 的过渡系统，可以在元素从 DOM 中插入或移除时自动应用过渡效果。Vue.js 会在适当的时机为你触发 CSS 过渡或动画，你也可以提供相应的 JavaScript 钩子函数在过渡过程中执行自定义的 DOM 操作
+
+## 组件
+
+[组件](http://vuejs.org.cn/guide/components.html)
+
+### 使用组件
+
+#### 注册
+
+`Vue.extend()` 创建一个组件构造器：
+
+	var MyComponent = Vue.extend({
+	  // 选项...
+	})
+
+要把这个构造器用作组件，需要用 Vue.component(tag, constructor) 注册：
+
+	// 全局注册组件，tag 为 my-component
+	Vue.component('my-component', MyComponent)
+
+组件在注册之后，便可以在父实例的模块中以自定义元素 `<my-component>` 的形式使用
+
+#### 局部注册
+
+不需要全局注册每个组件。可以让组件只能用在其它组件内，用实例选项 `components` 注册：
+
+	var Child = Vue.extend({ /* ... */ })
+	
+	var Parent = Vue.extend({
+	  template: '...',
+	  components: {
+	    // <my-component> 只能用在父组件模板内
+	    'my-component': Child
+	  }
+	})
+
+这种封装也适用于其它资源，如`指令`、`过滤器`和`过渡`。
+
+
+#### 注册语法糖
+
+为了让事件更简单，可以直接传入选项对象而不是构造器给 `Vue.component()` 和 `component` 选项。Vue.js 在背后自动调用 `Vue.extend()`
+
+	// 在一个步骤中扩展与注册
+	Vue.component('my-component', {
+	  template: '<div>A custom component!</div>'
+	})
+	
+	// 局部注册也可以这么做
+	var Parent = Vue.extend({
+	  components: {
+	    'my-component': {
+	      template: '<div>A custom component!</div>'
+	    }
+	  }
+	})
+
+#### 组件选项问题
+
+传入 `Vue` 构造器的多数选项也可以用在 `Vue.extend()` 中，不过有两个特例： `data` 和 `el`。要使用`函数`返回一个对象，不然会是的所有实例共享`data` 或 `el`
+
+	var MyComponent = Vue.extend({
+	  data: function () {
+	    return { a: 1 }
+	  }
+	})
+
+#### 模板解析
+
+`Vue` 的模板是 `DOM` 模板，使用浏览器原生的解析器而不是自己实现一个。相比字符串模板，DOM 模板有一些好处，但是也有问题，它必须是有效的 HTML 片段。一些 HTML 元素对什么元素可以放在它里面有限制。常见的限制：
+
+### props
+
+组件实例的作用域是孤立的。这意味着不能并且不应该在子组件的模板内直接引用父组件的数据。可以使用 `props` 把数据传给子组件。
+
+“prop” 是组件数据的一个字段，期望从父组件传下来。子组件需要显式地用 props [选项](http://vuejs.org.cn/api/#props) 声明 props：
+
+	Vue.component('child', {
+	  // 声明 props
+	  props: ['msg'],
+	  // prop 可以用在模板内
+	  // 可以用 `this.msg` 设置
+	  template: '<span>{{ msg }}</span>'
+	})
+
+然后向它传入一个普通字符串：
+
+	<child msg="hello!"></child>
+
+
+#### cacmelCase vs. kebab-case
+
+HTML 特性不区分大小写。名字形式为 camelCase 的 prop 用作特性时，需要转为 kebab-case（短横线隔开）：
+
+
+	Vue.component('child', {
+	  // camelCase in JavaScript
+	  props: ['myMessage'],
+	  template: '<span>{{ myMessage }}</span>'
+	})
+	<!-- kebab-case in HTML -->
+	<child my-message="hello!"></child>
+
+#### 动态props
+
+类似于用 `v-bind` 绑定 HTML 特性到一个表达式，也可以用 v-bind 绑定动态 Props 到父组件的数据。每当父组件的数据变化时，也会传导给子组件：
+
+	<child v-bind:my-message="parentMsg"></child>
+	<!-- 缩写 -->
+	<child :my-message="parentMsg"></child>
+	
+#### 字面量语法 vs. 动态语法
+
+如果想传递一个实际的 JavaScript 数字，需要使用动态语法，从而让它的值被当作 JavaScript 表达式计算：
+
+	<!-- 传递实际的数字  -->
+	<comp :some-prop="1"></comp>
+
+#### props绑定类型
+
+prop 默认是单向绑定：当父组件的属性变化时，将传导给子组件，但是反过来不会。这是为了`防止子组件`无意修改了父组件的状态——这会让应用的数据流难以理解。不过，也可以使用 `.sync` 或 `.once` 绑定修饰符显式地强制双向或单次绑定
+
+
+#### props验证
+
+组件可以为 props 指定验证要求。当组件给其他人使用时这很有用，因为这些验证要求构成了组件的 API，确保其他人正确地使用组件。此时 props 的值是一个对象，包含验证要求
+
+### 父子组件通信
+
+#### 父链
+
+子组件可以用 `this.$parent` 访问它的父组件。根实例的后代可以用 `this.$root` 访问它。父组件有一个数组 `this.$children`，包含它所有的子元素。
+	
+#### 自定义事件
+
+
+Vue 实例实现了一个自定义事件接口，用于在组件树中通信。这个事件系统独立于原生 DOM 事件，用法也不同。
+
+每个 Vue 实例都是一个事件触发器：
+
+* 使用 `$on()` 监听事件；
+* 使用 `$emit()` 在它上面触发事件；
+* 使用 `$dispatch()` 派发事件，事件沿着父链冒泡；
+* 使用 `$broadcast()` 广播事件，事件向下传导给所有的后代。
+
+不同于DOM事件，这些事件会在第一次触发回调后停止冒泡。
+
+
+#### 使用`v-on`绑定自定义事件
+
+	<child v-on:child-msg="handleIt"></child>
+	
+#### 子组件索引
+
+尽管有 `props` 和 `events`，但是有时仍然需要在 JavaScript 中直接访问子组件。为此可以使用 `v-ref` 为子组件指定一个`索引 ID`：
+
+	<div id="parent">
+	  <user-profile v-ref:profile></user-profile>
+	</div>
+
+	var parent = new Vue({ el: '#parent' })
+	// 访问子组件
+	var child = parent.$refs.profile
+
+`v-ref` 和 `v-for` 一起用时，ref 是一个数组或对象，包含相应的子组件。
+
+### 使用slots分发内容
+
+为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个处理称为内容分发（或 “transclusion”，如果你熟悉 Angular）。Vue.js 实现了一个内容分发 API，参照了当前 [Web 组件规范草稿](https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Slots-Proposal.md)，使用特殊的 `<slot>` 元素作为原始内容的插槽。
+
+#### 编译作用域
+
+> 父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译
+
+#### 单个slot
+
+父组件的内容将被抛弃，除非子组件模板包含 `<slot>`。如果子组件模板只有一个没有特性的 slot，父组件的整个内容将插到 slot 所在的地方并替换它。
+
+`<slot>` 标签的内容视为`回退内容`。回退内容在子组件的作用域内编译，当宿主元素为空并且没有内容供插入时显示这个回退内容。
+
+
+#### 具名slot
+
+
+`<slot>` 元素可以用一个特殊特性 `name` 配置如何分发内容。多个 slot 可以有不同的名字。`具名 slot `将匹配内容片段中有对应 slot 特性的元素。
+
+仍然可以有一个匿名 slot，它是默认 slot，作为找不到匹配的内容片段的回退插槽。如果没有默认的 slot，这些找不到匹配的内容片段将被抛弃。
+
+
+### 动态组件
+
+
+多个组件可以使用同一个挂载点，然后动态地在它们之间切换。使用保留的 `<component>` 元素，动态地绑定到它的 `is` 特性：
+
+	new Vue({
+	  el: 'body',
+	  data: {
+	    currentView: 'home'
+	  },
+	  components: {
+	    home: { /* ... */ },
+	    posts: { /* ... */ },
+	    archive: { /* ... */ }
+	  }
+	})
+	
+	<component :is="currentView">
+	  <!-- 组件在 vm.currentview 变化时改变 -->
+	</component>
+
+
+#### keep-alive
+
+如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。为此可以添加一个 `keep-alive` 指令参数
+
+
+#### activate 钩子
+
+在切换组件时，切入组件在切入前可能需要进行一些异步操作。为了控制组件切换时长，给切入组件添加 `activate` 钩子
+
+#### transition-mode
+
+`transition-mode` 特性用于指定两个动态组件之间如何过渡。
+
+在默认情况下，进入与离开平滑地过渡。这个特性可以指定另外两种模式：
+
+* `in-out`：新组件先过渡进入，等它的过渡完成之后当前组件过渡出去。
+* `out-in`：当前组件先过渡出去，等它的过渡完成之后新组件过渡进入。
+
+
+### 杂项
+
+[杂项](http://vuejs.org.cn/guide/components.html#杂项)
+
+
+## 深入响应式原理
+
+[响应式原理](http://vuejs.org.cn/guide/reactivity.html)
+
+Vue.js 最显著的一个功能是响应系统 —— 模型只是普通对象，修改它则更新视图。这让状态管理非常简单且直观，不过理解它的原理也很重要，可以避免一些常见问题。下面我们开始深挖 Vue.js 响应系统的底层细节。
+
+
+
+
+
 
 ## 参考	
 
