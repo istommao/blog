@@ -276,6 +276,7 @@
 	* [Pycharm](software_usage/Pycharm.md)
 	* [Chrome](software_usage/Chrome.md)
 	* [Vim配置](software_usage/vim.md)
+	* [sublime](software_usage/sublime使用.md)
 * [Spark](Spark/README.md)
 	* [spark入门](Spark/spark入门.md)
 	* [spark学习](Spark/spark学习.md)
