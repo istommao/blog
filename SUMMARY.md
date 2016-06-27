@@ -89,6 +89,7 @@
 * [http](http/README.md)
 	* [学习http](http/学习http.md)
 	* [学习csrf](http/csrf简介.md)
+	* [认证方法简介](http/认证方法简介.md)
 * [ideas](ideas/README.md)
 	* [管理ideas](ideas/ideas.md)
 	* [任务清单](ideas/missions.md)
