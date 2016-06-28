@@ -187,6 +187,7 @@
 	* [mysql锁和事务](mysql/mysql锁和事务.md)
 	* [MySQL分库分表](mysql/MySQL分库分表.md)
 	* [mysql学习](mysql/mysql学习.md)
+	* [mysql安装](mysql/mysql安装.md)
 * [nginx](nginx/README.md)
 	* [mac安装nginx](nginx/mac安装nginx.md)
 * [Node.js](nodejs/README.md)
