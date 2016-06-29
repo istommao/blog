@@ -6,10 +6,10 @@ tags:
 
 # flex学习
 
-* [Flex 布局教程：语法篇](http://blog.csdn.net/u011627980/article/details/51769503)
-* [Flex 布局教程：实例篇](http://blog.csdn.net/u011627980/article/details/51769493)
+* [Flex布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+* [Flex布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
 
 ## 参考
 
-* [Flex 布局教程：语法篇](http://blog.csdn.net/u011627980/article/details/51769503)
-* [Flex 布局教程：实例篇](http://blog.csdn.net/u011627980/article/details/51769493)
+* [Flex布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+* [Flex布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
