@@ -74,6 +74,7 @@
 * [hadoop](hadoop/README.md)
 	* [hadoop分布式部署](hadoop/hadoop分布式部署.md)
 * [html-css](html_css/README.md)
+	* [html知识点](html_css/html知识点.md)
 	* [html入门](html_css/html.md)
 	* [html代码规范](html_css/html代码规范.md)
 	* [html-css-js脑图](html_css/html-css-js脑图.md)

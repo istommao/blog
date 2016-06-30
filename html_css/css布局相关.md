@@ -7,6 +7,8 @@ tags:
 
 # css布局相关
 
+css布局的相关知识，精华部分可在对应的 **快速指南** 小节中找到。
+
 ## 传统方式
 
 相关知识点：
@@ -16,18 +18,18 @@ tags:
 * positon属性
 * float属性
 
-
+详解[css布局基础](css布局基础.md)
 
 
 ## flex方式
 
 * 详解[flex布局](./flex学习.md)
 
-### 快速指南
+## 快速指南 -- flex
 
 Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。
 
-#### 基础
+### 基础
 
 	<div class="box">
   		<span class="item"></span>
@@ -65,7 +67,7 @@ Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提�
 	* `main size`
 	* `cross size`	
 
-#### 容器属性
+### 容器属性
 
 以下6个属性设置在容器上：
 
@@ -94,7 +96,7 @@ Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提�
 	`.box { align-content: flex-start | flex-end | center | space-between | space-around | stretch; }`
 
 
-#### 项目的属性
+### 项目的属性
 
 以下6个属性设置在项目上。
 
