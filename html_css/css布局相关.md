@@ -18,12 +18,22 @@ css布局的相关知识，精华部分可在对应的 **快速指南** 小节�
 * positon属性
 * float属性
 
-详解[css布局基础](css布局基础.md)
-
+详见[css传统布局方式](css传统布局方式.md)
 
 ## flex方式
 
-* 详解[flex布局](./flex学习.md)
+* 详见[flex布局学习](./flex学习.md)
+
+
+## 快速指南 -- 传统布局方式
+
+* 掌握盒子模型：margin, border, padding
+* 行盒子, baseline
+* 文档流 和 display, position, float, left, right, top, bottom
+* 尺寸: width, height, line-height 和 对齐方式：text-align, vertical-align
+
+传统布局方式属性多，注意点很多，这能一个个掌握。详见[css传统布局方式](css传统布局方式.md)
+
 
 ## 快速指南 -- flex
 
