@@ -99,6 +99,7 @@
 	* [任务清单](ideas/missions.md)
 	* [座右铭s](ideas/座右铭s.md)
 * [面试](interview/README.md)
+	* [技术面试准备](interview/技术面试准备.md)
 	* [13道js面试题](interview/13道js题目.md)
 	* [python面试](https://github.com/zhuwei05/interview_python)
 * [iOS&Swift](iOS/README.md)
