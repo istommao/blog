@@ -67,9 +67,20 @@ flux和redux对比图：
 
 ### 再看看react-redux的接口`Provider`和`connect`
 
-* `<Provider store>`：通过`Provider`将应用的`store`和`根组件`或`Router`（详见react-router）进行包装，是的它们可以通过`connect`连接在一起
+`Redux`跟`React`没有直接的关系，本身可以支持`React`、`Angular`、`Ember`等等框架。
+
+通过`react-redux`这个库，可以方便的将react和redux结合起来：react负责页面展现，redux负责维护/更新数据状态。
+
+`react-redux`中提供了两个重要功能模块`Provider`和`connect`，这两个模块保证了`react`和`redux`之间的通信，下面就分别看看这两个模块: 
+
+* `<Provider store>`：通过`Provider`将应用的`store`和`根组件`或`Router`（详见react-router）进行包装，使得它们可以通过`connect`连接在一起
+
+	从[Provider源码](https://github.com/reactjs/react-redux/blob/master/src/components/Provider.js)可以看到，Provide本质上是一个react组件，它主要用到了react通过[context](https://facebook.github.io/react/docs/context.html)属性，可以将属性(props)直接给子孙component，无须通过props层层传递，从而减少组件的依赖关系
+
 * `connect`方法将`Store`（需要的state中的数据和actions中的方法）绑定到组件的`props`上
 
+	* connect方法的主要作用就是让`Component`与`Store`进行关联， Store的数据变化可以及时通知Views重新渲染
+	* 任何一个通过`connect()`函数处理过的组件都可以得到一个`dispatch`方法作为组件的`props`，以及得到全局`state`中的所有内容
 	* connect方法: 第一个参数，必须是function，作用是绑定state的指定值到props上面(一般命名为mapStateToProps); 第二个参数，可以是function，也可以是对象，作用是绑定action创建函数到props上。
 	* 还可以不写第二个参数，后面通过在组件中直接使用`dispatch()`来触发action创建函数
 
@@ -98,6 +109,7 @@ flux和redux对比图：
 ## 参考
 
 * [Redux 介绍](https://segmentfault.com/a/1190000003503338)
+* [通过三张图了解Redux中的重要概念](http://www.cnblogs.com/wilber2013/p/5403350.html)
 * [react+redux教程（一）](http://www.cnblogs.com/lewis617/p/5145073.html)
 * [Redux](http://redux.js.org/)
 * [Redux-CN](http://cn.redux.js.org/)
