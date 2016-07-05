@@ -320,6 +320,7 @@
 * [vue](vue/README.md)
 	* [vue, angular和react等对比](vue/vue_angular和react等对比.md)
 	* [vue入门--知识点](vue/vue入门--知识点.md)
+	* [vue生态](vue/vue生态.md)
 * [web协议](web-protocol/README.md)
 	* [socket.io学习](web-protocol/socket.io学习.md)
 * [xml](xml/README.md)
