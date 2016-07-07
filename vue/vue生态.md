@@ -6,6 +6,7 @@ tags:
 - vue resource
 
 # vue生态
+--------
 
 ## vue入门
 
@@ -33,7 +34,7 @@ tags:
 ## 其他
 
 * [vue strap](https://github.com/yuche/vue-strap)
-
+* [awesome-vue](https://github.com/vuejs/awesome-vue)
 
 
 ## 实例
