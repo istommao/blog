@@ -12,6 +12,7 @@ tags:
 
 * [vue入门--知识点](vue入门--知识点.md)
 * 详见 [vue官方文档](https://vuejs.org.cn/)
+* 详见 [vue github](https://github.com/vuejs)
 
 ## vuex
 
