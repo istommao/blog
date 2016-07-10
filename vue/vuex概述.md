@@ -257,6 +257,62 @@ tags:
 	* 如果这个值的位置改变了（比如从 store.count 变成了 store.counter.value），你只需要改一个 getter 方法，而不是一堆组件
 
 
+## 大型应用技巧
+
+详见：[应用结构](http://vuex.vuejs.org/zh-cn/structure.html)
+
+### 应用结构
+
+Vuex 并不限制你的代码结构，但是制定了一套需要遵守的规则：
+
+* 应用 state 存在于单个对象中；
+* 只有 mutation handlers 可以改变 state；
+* Mutations 必须是同步的，它们做的应该仅仅是改变 state；
+* 所有类似数据获取的异步操作细节都应封装在 actions 里面。
+* 组件通过 getters 从 store 中获取 state，并通过调用 actions 来改变 state。
+
+`Vuex actions` 和 `mutations` 优雅的地方在于 **它们都只是一些函数**。只需要遵循以上的准则，怎么组织代码就取决于你自己了。不过，遵循一些规则能够让你更快地熟悉其他使用 vuex 的项目。
+
+#### 中型到大型项目结构
+
+	├── index.html
+	├── main.js
+	├── api
+	│   └── ... # abstractions for making API requests
+	├── components
+	│   ├── App.vue
+	│   └── ...
+	└── vuex
+	    ├── actions.js        # exports all actions
+	    ├── store.js          # where we assemble modules and export the store
+	    ├── mutation-types.js # constants
+	    └── modules
+	        ├── cart.js       # state and mutations for cart
+	        └── products.js   # state and mutations for products
+
+* 拆分 store
+
+	* 将 `store` 拆分为不同的 `modules`
+	* 每个 `modules` 维护自己那部分的`state` 和 `mutations`
+	* 在 全局 `store` 中把多个模块集合在一起来创建 `Vuex 实例`
+
+* 拆分 actions (详见下小节)
+
+	* action 应该按不同目的进行 `分组 / 模块化` 管理
+	* 一个 action 模块可以引入其他 action 模块
+
+* 提取共用的 Computed Getters
+
+### 管理Actions
+
+* 通常在大型 App 中，action 应该按不同目的进行 `分组 / 模块化` 管理，例如，userActions 模块用于处理用户注册、登录、注销，而 shoppingCartActions 处理购物任务。
+* 当想要在不同组件中仅引入必需的 action 时，模块化使之更为方便。
+* 你还可以在 action 模块中引入其他 action 模块来实现复用。
+* 当从一个模块中调用另一个模块的 action 时，或者调用同一模块中的另一个 action 时，切记，action 的第一个参数是 store 实例，因此应该将调用者 action 的第一个参数传递给被调用 action。
+* 如果你使用 ES6 的解构形式来编写 action，确保调用者 action 的第一个参数包含两个 action 中用到的所有属性和方法。举例说明，调用者 action 仅使用 dispatch 方法，而被调用 action 使用了 state 属性和 watch 方法，那么，dispatch、state 和 watch 应该都出现在传递给调用者 action 的第一个形式参数中。
+
+详见：[管理Actions](http://vuex.vuejs.org/zh-cn/actions.html)
+
 
 
 ## 参考
