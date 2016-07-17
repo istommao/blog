@@ -33,11 +33,12 @@ tags:
 ## vue 插件
 
 * [vue plugins](http://vuejs.org/guide/plugins.html)
+* [libraries--plugins](https://github.com/vuejs/awesome-vue#libraries--plugins)： awesome vue 的 lib 和 plugins
 
 ## 其他
 
-* [vue strap](https://github.com/yuche/vue-strap)
-* [awesome-vue](https://github.com/vuejs/awesome-vue)
+* [vue strap](https://github.com/yuche/vue-strap): vue 的 bootstrap
+* [awesome-vue](https://github.com/vuejs/awesome-vue): vue 素材合计：手册、例子、插件......
 
 
 ## 实例

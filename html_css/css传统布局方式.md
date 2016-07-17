@@ -12,7 +12,9 @@ tags:
 * float属性
 * contenx: text-align, vertical-align, line-height
 
+## BFC
 
+* [CSS布局基础——BFC](http://www.cnblogs.com/yzg1/p/5670684.html)
 
 ## 盒子模型文档流
 
@@ -169,6 +171,18 @@ CSS有三种基本的定位机制：普通流，浮动和绝对定位
 			top:0px;
 			z-index:-1;
 		}
+		
+#### CSS定位属性
+
+* top
+* bottom
+* clip
+* curson
+* left
+* right
+* overflow
+* postion
+* z-index 		
 		
 #### 	详解position属性值表现
 
