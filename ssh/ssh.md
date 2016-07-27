@@ -80,3 +80,35 @@
 总结
 
 >某个机器生成自己的RSA或者DSA的数字签名，将公钥给目标机器，然后目标机器接收后设定相关权限（公钥和authorized_keys权限），这个目标机就能被生成数字签名的机器无密码访问了	
+
+### 多个ssh key
+
+假设我有两个github账号，一个：zhuwei5e, 一个 zhuweitest。需要分别使用不同的ssh key, 一个为默认的`id_rsa`, 一个`id_zhuweitest`。可以这么做：
+
+* 新建文件：`~/.ssh/config`
+
+		Host zhuweitest.github.com
+		Hostname github.com
+		IdentityFile /root/.ssh/id_zhuweitest
+		User zhuweitest
+
+	* 其中 `User` 是你的github账号。
+	* `Host` 是主机名字，不能重名。
+	* `Hostname` 是主机所在域名或IP，可重复
+	* `IdentityFile` 是密钥文件路径
+
+	
+* 将需要使用`id_zhuweitest`的仓库，修改其远程仓库地址(`github.com => zhuweitest.github.com`), 比如：原来正常的执行：`git remote -v`， 看到的是：
+
+		origin git@github.com:zhuwei05/blog.git
+
+	将其改为（对应仓库中的`.git/config`中可以修改）：
+
+		origin ssh://git@zhuweitest.github.com:zhuweitest/blog.git
+		
+* 这样就可以在不同仓库实现使用不同的秘钥文件
+
+参考：
+
+* [多个 SSH KEY 的管理](https://www.zybuluo.com/yangfch3/note/172120)
+* [git生成ssh key及本地解决多个ssh key的问题](http://riny.net/2014/git-ssh-key/)
