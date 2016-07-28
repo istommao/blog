@@ -8,7 +8,10 @@ tags:
 
 ## 基础指令
 
-参考：[mysql swift guide](mysql-swift-guide.md)
+参考：
+
+* [mysql swift guide](mysql-swift-guide.md)
+* [常见操作](mysql-common-cmd.md)
 
 ## 范式
 
@@ -25,4 +28,6 @@ tags:
 ## 锁和事务
 
 参考: [mysql锁和事务](mysql锁和事务.md)
+
+
 
