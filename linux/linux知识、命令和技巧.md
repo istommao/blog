@@ -53,7 +53,43 @@ crond是linux下用来周期性的执行某种任务或等待处理某些事件�
 	crontab-1[user]-列出用户目前的crontab. 
 	crontab-e[user]-编辑用户目前的crontab. 
 	crontab-d[user]-删除用户目前的crontab. 
-	crontab-c dir- 指定crontab的目录。 		
+	crontab-c dir- 指定crontab的目录。 
+	
+### crontab 问题
+
+* 输出
+
+	重定向 `stdout` 和 `stderr`:
+		
+		>> $HOME/log/file 2>&1
+		
+* 环境变量
+
+	crontab会以用户的身份执行配置的命令，但是不会加载用户的环境变量，crontab会设置几个默认的环境变量，例如`SHELL`、`PATH`和`HOME`等，一定要注意PATH可不是用户自定义的PATH。
+
+	我们往往会在`.bash_profile`文件中定义一些全局的环境变量，但是crontab执行时并不会加载这个文件，所以你在shell中正常执行的程序，放到crontab里就不行了，很可能就是因为找不到环境变量了。要解决这个问题只能是自己加载环境变量了，可以在shell脚本中添加`source $HOME/.bash_profile`，或者直接添加到`crontab`中。
+	
+		0 12 * * * source $HOME/.bash_profile && $HOME/path/to/script > $HOME/log/file 2>&1
+		
+* 路径
+
+	在写脚本时往往会使用相对路径，但是在crontab执行脚本时，由于工作目录不同，就会出现找不到文件或者目录不存在的问题。
+
+	解决方法是脚本中使用绝对路径或者在执行程序前切换工作目录，例如直接在crontab命令中切换工作目录
+	
+		0 12 * * * source $HOME/.bash_profile && cd $HOME/path/to/workdir && ./script > /HOME/log/file 2>&1	
+		
+* 编码
+
+	Python程序中输出了一些中文（编码是utf-8），在shell中直接执行没有问题，但是crontab执行时出现了`UnicodeEncodeError`的错误
+	
+	解决方法：
+	
+	* 方法一：在程序中输出的字符串都加上`encode('utf-8')`
+	* 方法二：在crontab中加上`PYTHONIOENCODING=utf-8`，将Python的stdout/stderr/stdin编码设置为utf-8
+	
+		
+		
 	
 ## 历史命令
 
