@@ -12,6 +12,7 @@ tags:
 
 * [mysql swift guide](mysql-swift-guide.md)
 * [常见操作](mysql-common-cmd.md)
+* [SQL关联查询](mysql-join.md)
 
 ## 范式
 
