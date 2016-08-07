@@ -143,5 +143,5 @@ Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提�
 ### 小结
 
 * 设置`display: flex`
-* flex布局就是：容器内项目的：排列（`flex-flow`）和 对齐（`justify-content、align-items、align-content`），项目的： 排序（`order`） 和 缩放（`flex`）
+* flex布局就是：容器属性：设置容器内项目的排列（`flex-flow`）和 对齐（`justify-content、align-items、align-content`），项目的属性：设置项目大小和显示的位置： 排序（`order`） 和 缩放（`flex`）
 
