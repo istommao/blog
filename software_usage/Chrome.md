@@ -16,6 +16,7 @@
 * Momentum: 新建tab显示一张类似屏保的图片
 * ~~Octo Mate: 下载Github单个文件（Octotree提供该功能）~~
 * Octotree: 页面左侧将Github仓库的目录已树形显示，同时提供单个文件下载功能
+* download-any-for-github: Octotree值提供单个文件的下载，要下载整个文件夹可以使用: [download-any-for-github](https://github.com/onlylemi/download-any-for-github)
 * OneTab: 保存浏览器打开的Tab，下次打开可以恢复
 * Personal Blocklist: Google搜索的结果，对某些垃圾结果进行Block
 * Postman: 前端API调试工具
@@ -27,3 +28,4 @@
 * Page Marker: 在网页中增加画笔功能
 * Tampermonkey: 运行插件代码，[使用Tampermonkey屏蔽百度广告](http://blog.csdn.net/u011303443/article/details/51317504)
 * 
+
