@@ -19,6 +19,7 @@
 	du -sh /var
 	du -sh /var/*
 	du -h --max-depth=1 /var
+	du -h -d 1 (功能同上)
 	du -h /var
 	
 	查看文件大小
@@ -49,11 +50,11 @@ crond是linux下用来周期性的执行某种任务或等待处理某些事件�
 使用方式 : 
 
 	crontab file [-u user]-用指定的文件替代目前的crontab。 
-	crontab-[-u user]-用标准输入替代目前的crontab. 
-	crontab-1[user]-列出用户目前的crontab. 
-	crontab-e[user]-编辑用户目前的crontab. 
-	crontab-d[user]-删除用户目前的crontab. 
-	crontab-c dir- 指定crontab的目录。 
+	crontab [-u user]-用标准输入替代目前的crontab. 
+	crontab -1[user]-列出用户目前的crontab. 
+	crontab -e[user]-编辑用户目前的crontab. 
+	crontab -d[user]-删除用户目前的crontab. 
+	crontab -c dir- 指定crontab的目录。 
 	
 ### crontab 问题
 
