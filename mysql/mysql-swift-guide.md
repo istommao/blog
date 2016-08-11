@@ -115,7 +115,11 @@
 
 	// 使用了管道来将导出的数据导入到指定的远程主机上
 	mysqldump -u root -p database_name | mysql -h other-host.com database_name		
-	
+
+实例：
+
+	导出数据库
+	mysqldump -h host  --default-character-set=utf8 --hex-blob --opt --routines --triggers --events --master-data  --single-transaction -P3306 -u username -p password  -B dbname > dbname.sql
 	
 
 
