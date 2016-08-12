@@ -39,6 +39,10 @@ tags:
 
 * [javascript对象和继承小结](javascript对象和继承小结.md)
 
+## this 
+
+* [this用法](this用法.md)
+
 
 ## 数组
 
