@@ -144,7 +144,16 @@ Package.json 属性说明：
 * main - main 字段是一个模块ID，它是一个指向你程序的主要项目。就是说，如果你包的名字叫 express，然后用户安装它，然后require("express")。
 * keywords - 关键字
 
+## 发布
 
+* 安装nodeJS
+* 注册一个github账户用于托管代码
+* 注册一个npm账户
+* 开发你的module，更新至github
+* 发布module至npm
+
+> 参考：[
+发布自己的module](https://segmentfault.com/a/1190000006250554)
 
 ## 参考
 
