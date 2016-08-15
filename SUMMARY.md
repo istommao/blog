@@ -14,6 +14,7 @@
 	* [如何在工作中提高架构能力](arch/架构师之路--如何在工作中提高架构能力.md)
 	* [uml图学习](arch/uml图学习.md)
 	* [oop和设计模式原则简介](arch/oop和设计模式原则简介.md)
+	* [10种当代软件开发中over-engineering的错误套路](arch/10种当代软件开发中over-engineering的错误套路.md)
 * [阅读清单](booklist/README.md)
 	* [书单--2016](booklist/booklist-2016.md)
 * [Bootstrap](bootstrap/README.md)
