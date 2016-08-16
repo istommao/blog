@@ -25,7 +25,10 @@ tags:
 
 ## 索引和优化
 
-参考: [mysql索引和优化](mysql索引和优化.md)
+参考: 
+
+* [mysql索引和优化](mysql索引和优化.md)
+* [explain详解](explain详解.md)
 
 ## 锁和事务
 

@@ -63,3 +63,4 @@ group by的使用技巧：他的作用就是对相应的字段进行分组：
 ## 参考
 
 * [SQL关联查询的使用技巧（各种 join）](http://www.cnblogs.com/fzstruggle/p/5735301.html)
+* [关于 MySQL LEFT JOIN 你可能需要了解的三点](http://www.oschina.net/question/89964_65912?fromerr=qCNImfW4)
