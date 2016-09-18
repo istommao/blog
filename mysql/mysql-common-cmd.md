@@ -114,20 +114,33 @@ tags:
 ### 表操作
 
 	create table <表名> ( <字段名1> <类型1> [,..<字段名n> <类型n>]);
+	
 	desc 表名，或者show columns from 表名 
+	
 	drop table <表名> 
+	
 	insert into <表名> [( <字段名1>[,..<字段名n > ])] values ( 值1 )[, ( 值n )]  
+		INSERT INTO Websites (name, url, alexa, country) VALUES ('百度','https://www.baidu.com/','4','CN');
+		
+	
 	select <字段1，字段2，...> from < 表名 > where < 表达式 > 
 		select * from MyClass order by id limit 0,2; 
+		
 	delete from 表名 where 表达式 
 		delete from MyClass where id=1; 
+		
+		
 	update 表名 set 字段=新值,… where 条件 
 		update MyClass set name='Mary' where id=1; 
+		
 	alter table 表名 add 字段 类型 其他; 
 		alter table MyClass add passtest int(4) default '0'
+		
 	rename table 原表名 to 新表名; 
 		rename table MyClass to YouClass; 
 	
+	CREATE INDEX index_name ON table_name (column_name,...)
+		CREATE INDEX PIndex ON Persons (LastName)
 			
 			
 	
