@@ -1,6 +1,7 @@
 #git分支模型
 ====
 
+
 <http://www.oschina.net/translate/a-successful-git-branching-model>
 
 ![模型图](https://raw.githubusercontent.com/zhuwei05/blog/master/Res/git-branch-model.png)
@@ -68,6 +69,7 @@
 * Release分支是为新产品的发布做准备的。它允许我们在最后时刻做一些细小的修改。他们允许小bugs的修改和准备发布元数据（版本号，开发时间等等）。
 
 ####命令
+
 
 1. 创建一个release分支
 	
