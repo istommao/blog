@@ -142,8 +142,38 @@ tags:
 	CREATE INDEX index_name ON table_name (column_name,...)
 		CREATE INDEX PIndex ON Persons (LastName)
 			
-			
+
+### 字符问题
+
+客户端查询显示乱码
+
+	SHOW VARIABLES LIKE 'character%';
+	SET NAMES 'utf8';			
 	
+或者：
+
+	my.cnf
+	default-character-set = utf8
+	character_set_server = utf8
+	service mysql restart
+
 	
+### select 顺序
+
+1. FROM 子句, 组装来自不同`数据源`的数据
+
+	FROM, ON, JOIN
+	
+1. WHERE 子句, 基于指定的条件对记录进行`筛选`
+1. GROUP BY 子句, 将数据划分为`多个分组`
+1. 使用`聚合`函数进行计算
+1. 使用 HAVING 子句`筛选分组`
+1. 处理SELECT列表
+2. DISTINCT:将重复的行
+1. 使用 ORDER BY 对结果集进行排序	
+2. TOP
+
+* [SQL语句中SELECT语句的执行顺序](http://database.51cto.com/art/201009/223936.htm)
+* [SQL 中 SELECT 语句的执行顺序](http://www.cnblogs.com/ziyiFly/archive/2008/09/12/1289614.html)
 	
 	
