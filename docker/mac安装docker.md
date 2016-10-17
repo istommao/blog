@@ -30,9 +30,9 @@ tags:
 
 启动：
 
-	docker run -ti -h dev --net=host -v ~/workspace/docker:/root/workspace -w /root ubuntu /bin/bash
+	docker run -ti -h dev --net=host -v ~/mygit/docker:/root/workspace -w /root ubuntu /bin/bash
 	
-把本地目录 `~/workspace/docker` 映射到容器 `/root/workspace` 目录
+把本地目录 `~/mygit/docker` 映射到容器 `/root/workspace` 目录
 
 ## 自定义images
 
@@ -120,6 +120,12 @@ tags:
 
 	$ pyenv global system  切换到系统python
 	$ pip install virtualenv
+	
+
+#### 数据库
+
+	$ apt-get install redis-server mysql-server
+	
 
 ### 保存images
 
@@ -128,16 +134,16 @@ tags:
 	~ docker ps
 
 	CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-	97717a315394        ubuntu              "/bin/bash"         2 hours ago         Up 2 hours                              compassionate_pike
+	4d94c565ec09        ubuntu              "/bin/bash"         2 hours ago         Up 2 hours                              compassionate_pike
 
-把 image 中 97717a315394 这个字段记住
+把 image 中 4d94c565ec09 这个字段记住
 
-	docker commit 97717a315394 develop:base  #进行保存
+	docker commit 4d94c565ec09 develop:base  #进行保存
 
 此时执行 `~ docker images` 会发现多出刚刚保存的一项：
 
 	REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-	develop             base                3e59e4dc2b84        47 seconds ago      716.2 MB
+	develop             base                94e9a63fdf85        47 seconds ago      1.051 GB
 	ubuntu              latest              c73a085dc378        3 days ago          127.1 MB
 	alpine              latest              ee4603260daa        6 days ago          4.803 MB
 	
