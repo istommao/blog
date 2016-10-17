@@ -27,5 +27,8 @@
 * Note Anywhere:
 * Page Marker: 在网页中增加画笔功能
 * Tampermonkey: 运行插件代码，[使用Tampermonkey屏蔽百度广告](http://blog.csdn.net/u011303443/article/details/51317504)
-* 
+* Holmes: 收藏夹管理
+* add to infinity: 主页
+
+
 
