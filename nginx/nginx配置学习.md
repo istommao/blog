@@ -7,6 +7,7 @@ tags:
 
 * [Nginx使用简介](http://blog.csdn.net/u013690521/article/details/52228755)
 * [nginx学习笔记1](http://blog.csdn.net/zyf837368104/article/details/7627033)
+* [nginx配置文件nginx.conf解析](http://www.yeetrack.com/?p=1113)
 
 
 示例：
