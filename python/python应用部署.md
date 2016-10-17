@@ -42,6 +42,11 @@ crontab添加定时任务：
 * uwsgin + app + supervisor + nginx
 * gunicorn + app
 * gunicorn + app + nginx
+
+	举例：django程序`MPortal`
+	
+		nohup gunicorn --worker-class=gevent MPortal.wsgi:application -b 127.0.0.1:8000 &
+	
 * gunicorn + app + nginx + supervisor
 * aiohttp + app + nginx + supervisor
 * ...
@@ -62,6 +67,14 @@ crontab添加定时任务：
 2. 给你的应用配置nginx
 3. 使用编写app入口（文章以code.py文件为例），用Gunicorn启动code.py
 4. 配置supervisord
+
+
+
+### 配置supervisord
+
+参考：[supervisord使用](supervisord使用.md)
+	
+
 
 ## 示例
 
