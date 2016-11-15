@@ -30,6 +30,13 @@
 * Holmes: 收藏夹管理
 * add to infinity: 主页
 * 新浪微博图床
+* Search by Image: 在图片右下角显示一个icon，点击一键去google图搜图
+* Diigo：一个有名的书签应用，三大功能：bookmark，highlight，note。第一个是将该页添加书签不用多说，第二个是可以将页面上部分文字标记高亮，也会被当作书签存储下来，适合收集名言和小段碎片的文字。第三个是给页面加上标注，下次再次访问还能看到
+* PageMonitor：页面监控
+* EyeDroper：浏览器窗口内取色
+* Awesome Screenshot：个人感觉最好用的截图工具
+* yet another flags：在地址栏显示网站所在地区的国旗，还可以显示RP值和alexa排名
+* EyeDroper：浏览器窗口内取色，看到喜欢的配色可以查一下颜色代码留存以后
 * 
 
 
