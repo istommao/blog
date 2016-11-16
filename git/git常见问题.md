@@ -245,6 +245,8 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 
 ### 在git中使用Beyond Compare
 
+首先安装 `Install Command Line Tools` : 打开bc，点击左上角菜单，安装 `Install Command Line Tools`
+
 直接修改.gitconfig, 在文件后增加：
 
 	[diff]
@@ -267,8 +269,8 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 	git mergetool
 
 	
-
-[在Mac下使用Beyond Compare](http://linyehui.wikidot.com/using-beyond-compare-in-mac)
+* [Using Beyond Compare with Version Control Systems under OS X](http://www.scootersoftware.com/support.php?zz=kb_vcs_osx)
+* [在Mac下使用Beyond Compare](http://linyehui.wikidot.com/using-beyond-compare-in-mac)
 
 
 ## 如何PR
