@@ -37,6 +37,7 @@
 * Awesome Screenshot：个人感觉最好用的截图工具
 * yet another flags：在地址栏显示网站所在地区的国旗，还可以显示RP值和alexa排名
 * EyeDroper：浏览器窗口内取色，看到喜欢的配色可以查一下颜色代码留存以后
+* vimium: vim 插件，按住 '?' 获得帮助
 * 
 
 
