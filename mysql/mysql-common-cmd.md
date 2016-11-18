@@ -177,3 +177,42 @@ tags:
 * [SQL 中 SELECT 语句的执行顺序](http://www.cnblogs.com/ziyiFly/archive/2008/09/12/1289614.html)
 	
 	
+### 触发器
+
+查看：
+
+    show triggers;
+    
+创建：
+
+```
+CREATE TRIGGER trigger_name trigger_time trigger_event
+    ON tbl_name FOR EACH ROW trigger_stmt
+```
+
+创建一个触发器，名为：`updatename`
+
+```
+delimiter ||      //mysql 默认结束符号是分号，当你在写触发器或者存储过程时有分号出现，会中止转而执行  
+drop trigger if exists updatename||    //删除同名的触发器，  
+create trigger updatename after update on user for each row   //建立触发器，  
+begin  
+//old,new都是代表当前操作的记录行，你把它当成表名，也行;  
+if new.name!=old.name then   //当表中用户名称发生变化时,执行  
+update comment set comment.name=new.name where comment.u_id=old.id;  
+end if;  
+end||  
+```
+
+* 详见： [MySQL_TRIGGER学习](MySQL_TRIGGER学习.md)
+
+
+### table status
+
+    show table status;
+    show table status like '%tablename%';
+    show table status where name='tablename';
+
+
+	
+	

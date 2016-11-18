@@ -30,10 +30,19 @@ tags:
 
 * [mysql索引和优化](mysql索引和优化.md)
 * [explain详解](explain详解.md)
+* [mysql的count](mysql的count.md)
 
 ## 锁和事务
 
-参考: [mysql锁和事务](mysql锁和事务.md)
+参考: 
+
+* [mysql锁和事务](mysql锁和事务.md)
+
+## 触发器
+
+参考：
+
+* [MySQL_TRIGGER学习](MySQL_TRIGGER学习.md)
 
 ## 数据库开发和设计
 
