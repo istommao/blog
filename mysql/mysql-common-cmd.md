@@ -214,5 +214,20 @@ end||
     show table status where name='tablename';
 
 
+### 复制表
+
+结构：
+
+    create table a like users;         //复制表结构  
+    create table b select * from users limit 0;   //复制表结构 
+    show create table users\G;          //显示创表的sql 
+    
+    
+结构和数据：
+
+    create table c select * from users;      //复制表的sql  
+    
+    create table d select user_name,user_pass from users where id=1;  
+
 	
 	
