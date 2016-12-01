@@ -121,6 +121,12 @@
 	导出数据库
 	mysqldump -h host  --default-character-set=utf8 --hex-blob --opt --routines --triggers --events --master-data  --single-transaction -P3306 -u username -p password  -B dbname > dbname.sql
 	
+	导出:
+	mysqldump old_db -h hostname/ip -u user -ppassword > old_db_dump_1129.sql
+	导入:
+	mysql new_db -h hostname/ip -u user -ppassword < old_db_dump_1129.sql
+	
+	
 
 
 ## 不同数据库区别关注
