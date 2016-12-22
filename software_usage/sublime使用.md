@@ -16,6 +16,9 @@ tags:
 		    { "keys": ["command+b"], "command": "navigate_to_definition" }
 		]
 	
+## vim 模式
+
+* [Vim 模式设置](http://www.cnblogs.com/zuike/p/4402022.html)
 
 ## 插件
 
