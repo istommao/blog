@@ -32,5 +32,11 @@ tags:
   在 os x 里, 持续按住一个键, 是不会重复起作用的. 例如在 ST 里使用 Vim 模式, 我习惯按住 j 来持续移动. 但是发现移不动, 只移了一行. 可以执行如下命令禁止 os x 的这个行为:
   
     defaults write -g ApplePressAndHoldEnabled -bool false
+    or 
+    defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false
+    or 
+    defaults write com.sublimetext.2 ApplePressAndHoldEnabled -bool false
     
+  restart sublime!
+  
  
