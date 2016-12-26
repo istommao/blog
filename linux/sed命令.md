@@ -37,4 +37,12 @@ function：
 	
 	sed 's/要被取代的字串/新的字串/g'
 	
+remove the line and print the output to standard out:
+	
+	sed '/pattern to match/d' ./infile
+	
+directly modify the file (and create a backup):
+
+	sed -i.bak '/pattern to match/d' ./infile
+	
 	
