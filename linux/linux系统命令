@@ -1,0 +1,11 @@
+# linux 系统命令
+
+## 修改密码
+
+  sudo passwd root
+  sudo passwd
+  
+## 查看系统
+
+  uname -a
+  lsb_release -a
