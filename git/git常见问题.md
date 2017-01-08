@@ -240,6 +240,9 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 
 	git config --global core.quotepath false
 
+## git cached grep
+
+	git diff --cached -Spattern --name-only [file]
 
 ## 使用bc解决冲突
 
