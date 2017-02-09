@@ -121,6 +121,7 @@ tags:
 	
 	insert into <表名> [( <字段名1>[,..<字段名n > ])] values ( 值1 )[, ( 值n )]  
 		INSERT INTO Websites (name, url, alexa, country) VALUES ('百度','https://www.baidu.com/','4','CN');
+		INSERT INTO Websites (name, url, alexa, country) VALUES ('百度','https://www.baidu.com/','4','CN'), ('百度2','https://www.baidu.com/','4','CN');
 		
 	
 	select <字段1，字段2，...> from < 表名 > where < 表达式 > 

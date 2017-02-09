@@ -15,6 +15,7 @@ tags:
 * [mysql数据类型](mysql数据类型.md)
 * [SQL关联查询](mysql-join.md)
 * [SQL集合运算](sql-combine.md)
+* [mysql_example](mysql_example.md)
 
 ## 范式
 
