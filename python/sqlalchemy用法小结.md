@@ -144,6 +144,10 @@ sql = (
 	select([Service.id, Service.creator_id])
 	.where(Service.is_visible == 1)
 )
+sql = (
+	select([Service])
+	.where(Service.is_visible == 1)
+)
 res = conn.execute(sql)
 
 ## 或者用 session 的 execute
@@ -273,4 +277,9 @@ class A(db.Model):
 	id = db.Column(BigIntegerType, primary_key=True, autoincrement=True)
 	...
 ```
+
+注入：
+
+<http://bobby-tables.com/python>
+
 
