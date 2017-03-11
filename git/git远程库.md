@@ -71,6 +71,11 @@
 		git push remote-name [tagname]
 		或者
 		git push --tags
+	
+	删除tag
+	
+		git tag -d <tagname>
+		git push origin :refs/tags/<tagname>
 		
 	删除远程分支
 		git push remote-name :branchname 

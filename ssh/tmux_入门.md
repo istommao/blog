@@ -23,6 +23,10 @@ session:
 
 help: prefix + ?
 
+scroll windown:
+
+* prefix, :set -g mouse on
+
 
 # vim
 

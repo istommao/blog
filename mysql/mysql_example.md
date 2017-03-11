@@ -26,6 +26,7 @@ group by date format: (`'%Y-%m-%d'`):
 
     select user_id, operation, sum(amount) as total, DATE_FORMAT(created_at, '%Y-%m-%d') as a_day from pay_account_log where user_id = '1630' group by user_id, operation, DATE_FORMAT(created_at, '%Y-%m-%d')
     select user_id, operation, sum(amount),YEAR(created_at), MONTH(created_at), DAY(created_at) from pay_account_log where user_id = '1630' group by user_id, operation, YEAR(created_at), MONTH(created_at), DAY(created_at);
+    select user_id, operation, sum(amount), DATE(created_at) as d, HOUR(create_at) as h from pay_account_log where user_id = '1630' group by user_id, operation, d, h;
     
 two rows subtract:
 
