@@ -233,6 +233,10 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 ## git列出跟踪的文件
 
 	git ls-files		
+
+## git 查看某个文件修改历史
+
+	git log -p <file>
 	
 ===
 
