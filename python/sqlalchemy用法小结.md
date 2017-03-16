@@ -283,3 +283,10 @@ class A(db.Model):
 <http://bobby-tables.com/python>
 
 
+时间格式：
+
+	db.func.date_format('%Y-%m-%d', created_at) # only mysql
+	db.func.strftime('%Y-%m-%d', created_at) # only sqllite
+	db.func.date(create_at) # both mysql, sqlite
+	query(extract('hour', timeStamp).label('h')).group_by('h')
+	group_by(func.date_trunc('hour', date_col))
