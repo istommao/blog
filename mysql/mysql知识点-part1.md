@@ -33,6 +33,18 @@ tags:
 * [explain详解](explain详解.md)
 * [mysql的count](mysql的count.md)
 
+
+## 高可用
+
+* [五大常见的MySQL高可用方案](https://zhuanlan.zhihu.com/p/25960208)
+
+	* 主从或主主半同步复制
+	* 半同步复制优化
+	* MHA+多节点集群
+	* zookeeper+proxy
+	* 共享存储: SAN共享储存, DRBD磁盘复制
+	* 分布式协议: 	MySQL cluster, Galera, POAXS
+
 ## 锁和事务
 
 参考: 
