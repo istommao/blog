@@ -32,6 +32,6 @@ pybabel update -- msgmerge
 
 ## locale 列表 和 时区
 
-* [locale list](https://gist.github.com/jacobbubu/1836273)
+* [locale list](https://gist.github.com/zhuwei05/12abe3e3f0962d3a6eea2fb0d3852514)
 * [time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
