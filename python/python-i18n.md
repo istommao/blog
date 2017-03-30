@@ -23,3 +23,15 @@ pybabel update -- msgmerge
 实现:
 
 * <https://github.com/zhuwei05/py-demo/blob/master/i18n/i18n_demo.py>
+
+
+## 时区问题
+
+* [pytz](http://tech.glowing.com/cn/dealing-with-timezone-in-python/)
+
+
+## locale 列表 和 时区
+
+* [locale list](https://gist.github.com/jacobbubu/1836273)
+* [time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+
