@@ -21,6 +21,13 @@ tags:
 * --exclude-dir=: 排除目录
 * --exlucde/--include=: 排除 pattern
 
+p.s.: 
+
+在 `zsh` 设置别名：
+
+	alias grepd="grep -nrI"
+	alias grepdi="grep -inrI"
+
 ## 统计grep结果的行数
 
 	grep -c "search term" filename
