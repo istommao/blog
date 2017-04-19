@@ -154,7 +154,19 @@ tags:
 	docker run -ti -h dev --net=host -v ~/mygit/docker:/root/workspace -w /root develop:base /bin/bash
 	
 	
+### 本地运行镜像进行开发
 
+首先 build 镜像：
+
+	docker build -t dev:i18n .
+	or
+	docker build -t dev:i18n -f scripts/Dockerfile .
+	
+然后通过 `交互模式` 运行，并将源码和对应的依赖挂载到镜像指定位置：
+
+	docker run -it -p 8080:8080 -v /存储在本地的依赖路径/data:/opt/data -v /本地源码路径/src/dev-i18n:/workspace dev:i18n bash
+	
+最后，容器运行后，在 bash 中执行要运行的程序即可。
 
 ## 参考
 
