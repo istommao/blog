@@ -29,3 +29,30 @@ from myapp import app  # This is your Flask app
 app.wsgi_app = ProfilerMiddleware(app.wsgi_app)
 app.run(debug=True)    # Standard run call
 ```
+
+
+
+## timeit
+
+* <https://docs.python.org/3.0/library/timeit.html>
+
+命令行运行：
+
+```
+>>> import timeit
+>>> s = """\
+... try:
+...     str.__bool__
+... except AttributeError:
+...     pass
+... """
+>>> t = timeit.Timer(stmt=s)
+>>> print("%.2f usec/pass" % (1000000 * t.timeit(number=100000)/100000))
+17.09 usec/pass
+```
+
+命令行运行模块命令:
+
+```
+t  = timeit.Timer("func({'d': 'd'})", 'from xxx import func')
+```
