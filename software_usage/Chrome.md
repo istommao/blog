@@ -23,6 +23,7 @@
 * React Developer Tools: React开发插件
 * Share to Classroom: 课堂共享同样的页面
 * Proxy SwitchySharp: 代理切换
+* Proxy SwitchyOmega: 代理。指定端口号，默认是 1080. `socks 5 -- 127.0.0.1 -- 1080`, 然后在浏览器在打开不同网站的时候打开不同网页的时候设置是 `direct` 还是 `proxy`
 * One key Manger: 一键关闭、打开Chrome扩展
 * Note Anywhere:
 * Page Marker: 在网页中增加画笔功能
