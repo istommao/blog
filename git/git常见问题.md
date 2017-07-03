@@ -238,7 +238,10 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 
 	git log -p <file>
 	
-===
+
+## 查找历史
+
+	git log -i --grep="pattern"
 
 ## git status中文显示unicode
 
