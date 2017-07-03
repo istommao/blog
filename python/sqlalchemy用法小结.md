@@ -243,6 +243,26 @@ with db.auto_commit():
     )
 ```
 
+join: <http://docs.sqlalchemy.org/en/latest/orm/query.html#sqlalchemy.orm.query.Query.join>
+
+```
+
+# 使用 session
+
+q = (
+    Session.query(User, Document, DocumentPermissions)
+    .filter(User.email == Document.author)
+    .filter(Document.name == DocumentPermissions.document)
+    .filter(User.email == 'someemail').all()
+)
+
+# 使用 decalarative
+
+q = (User.query)
+
+
+```
+
 索引: 
 
 * <http://stackoverflow.com/questions/10059345/sqlalchemy-unique-across-multiple-columns>
@@ -290,3 +310,8 @@ class A(db.Model):
 	db.func.date(create_at) # both mysql, sqlite
 	query(extract('hour', timeStamp).label('h')).group_by('h')
 	group_by(func.date_trunc('hour', date_col))
+	
+	
+## 文章
+
+* [SQLAlchemy 简单笔记](http://www.jianshu.com/p/e6bba189fcbd)	
