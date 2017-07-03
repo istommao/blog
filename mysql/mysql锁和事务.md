@@ -24,6 +24,7 @@ tags:
 通过此命令可以查看哪些sql在等待锁：
 
 	show processlist;
+	show full processlist
 
 ### 查看锁状态
 

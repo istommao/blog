@@ -10,8 +10,8 @@ tags:
 
 参考：
 
-* [mysql swift guide](mysql-swift-guide.md)
 * [常见操作](mysql-common-cmd.md)
+* [mysql swift guide](mysql-swift-guide.md)
 * [mysql数据类型](mysql数据类型.md)
 * [SQL关联查询](mysql-join.md)
 * [SQL集合运算](sql-combine.md)
