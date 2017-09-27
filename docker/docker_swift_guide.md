@@ -14,7 +14,7 @@
     
     # 2. 运行命令，配置和安装相关文件
     RUN echo "Asia/Shanghai" > /etc/timezone;dpkg-reconfigure -f noninteractive tzdata
-
+    
     RUN apt-get update && apt-get install -y curl vim net-tools && rm -rf /var/lib/apt/lists/* \
         && mkdir -p /app
     ## Install JDK 7
@@ -60,29 +60,29 @@ docker hub
 	docker pull {image name}
 	
 	docker login, docker commit 
-	
+
 运行一个container必须指定一个image作为初始化文件系统
 
 	sudo docker run [options] IMAGE[:TAG] [COMMAND] [ARG...]
-	
+
 fig
 
 	对Docker封装
-	
+
 service
 
 	一个独立的组件。如web server，mysql、redis等
 	一个service对应一个或多个container
-	
+
 kubernates
 
 	集群的扩展和可靠。使用go语言编写
-	
+
 	kubercfg --> Master API --> minion--host
-	
+
 	Hubercfg -> Kuber Client -> API Server ->
 	REST Storage API -> xxx Storage --> Etcd REgistry Storage(KV存储)
-	
+
 几大热点技术
 
 	部署	
@@ -93,27 +93,51 @@ kubernates
 	
 	移动
 	Android + H5 + ARM
-	
+
 Spark和Docker
 
 	hadoop和docker
-	
+
 	spark和docker
 
 docker和测试
 
-	
+
 docker分布式
 
 	marathon
 	mesos
-	
+
 hadoop、spark集群和docker
 
-				
-		
-	
-		
+​		
+​	
+
+## 维护
+
+
+
+清除不用的 container
+
+```
+# delete ALL unused data 
+docker system prune
+
+# Delete all docker containers
+docker rm $(docker ps -a -q)
+```
+
+
+
+清除 images
+
+```
+# Delete all docker images
+docker rmi $(docker images -q)
+
+# Use grep to remove all except my-image and ubuntu
+docker rmi $(docker images | grep -v 'ubuntu\|my-image' | awk {'print $3'})
+```
 
 
 
@@ -121,5 +145,9 @@ hadoop、spark集群和docker
 
 
 
-				
-	
+
+
+
+
+
+​	

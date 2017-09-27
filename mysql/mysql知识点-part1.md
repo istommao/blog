@@ -16,6 +16,9 @@ tags:
 * [SQL关联查询](mysql-join.md)
 * [SQL集合运算](sql-combine.md)
 * [mysql_example](mysql_example.md)
+* [in和exsits](mysql_in_and_exsits.md)
+* [join和subquery](join_and_subquery.md)
+* []
 
 ## 范式
 
@@ -38,12 +41,12 @@ tags:
 
 * [五大常见的MySQL高可用方案](https://zhuanlan.zhihu.com/p/25960208)
 
-	* 主从或主主半同步复制
-	* 半同步复制优化
-	* MHA+多节点集群
-	* zookeeper+proxy
-	* 共享存储: SAN共享储存, DRBD磁盘复制
-	* 分布式协议: 	MySQL cluster, Galera, POAXS
+ * 主从或主主半同步复制
+ * 半同步复制优化
+ * MHA+多节点集群
+ * zookeeper+proxy
+ * 共享存储: SAN共享储存, DRBD磁盘复制
+  * 分布式协议: MySQL cluster, Galera, POAXS
 
 ## 锁和事务
 

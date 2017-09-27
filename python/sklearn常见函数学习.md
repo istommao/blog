@@ -222,6 +222,75 @@ plt.legend(prop=dict(size=12))
 
 ```
 
+
+## 文本处理
+
+```
+from sklearn.feature_extraction.text import CountVectorizer
+count_vect = CountVectorizer()
+X_train_counts = count_vect.fit_transform(twenty_train.data)
+X_train_counts.shape
+```
+
+`tf-idf`: Term Frequency times Inverse Document Frequency. 解决由文章长度导致词语出现次数不同的问题，将次数转成出现频率
+
+```
+from sklearn.feature_extraction.text import TfidfTransformer
+tf_transformer = TfidfTransformer(use_idf=False).fit(X_train_counts)
+X_train_tf = tf_transformer.transform(X_train_counts)
+X_train_tf.shape
+```
+
+
+## 贝叶斯
+
+```
+from sklearn.naive_bayes import MultinomialNB
+clf = MultinomialNB().fit(X_train_tfidf, twenty_train.target)
+```
+
+## metrics: 性能分析
+
+```
+from sklearn import metrics
+print(metrics.classification_report(twenty_test.target, predicted,
+    target_names=twenty_test.target_names))
+    
+metrics.confusion_matrix(twenty_test.target, predicted)    
+```
+
+
+## GridSearch
+
+```
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import SGDClassifier
+text_clf = Pipeline([('vect', CountVectorizer()),
+                     ('tfidf', TfidfTransformer()),
+                     ('clf', SGDClassifier(loss='hinge', penalty='l2',
+                                           alpha=1e-3, n_iter=5, random_state=42)),
+])
+
+from sklearn.model_selection import GridSearchCV
+parameters = {'vect__ngram_range': [(1, 1), (1, 2)],
+              'tfidf__use_idf': (True, False),
+              'clf__alpha': (1e-2, 1e-3),
+}
+gs_clf = GridSearchCV(text_clf, parameters, n_jobs=-1)
+gs_clf = gs_clf.fit(twenty_train.data[:400], twenty_train.target[:400])
+
+gs_clf.best_score_ 
+for param_name in sorted(parameters.keys()):
+    print("%s: %r" % (param_name, gs_clf.best_params_[param_name]))
+    
+# 更详细信息：cv_results_, 可导出到 pandas 的 DataFrame
+gs_clf.cv_results_  
+```
+
+## 选择合适的 estimator
+[Choosing the right estimator](http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)
+
+
 ## sklearn常见函数学习
 
 

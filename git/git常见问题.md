@@ -6,7 +6,7 @@
 使用git cherry-pick或者通过git rebase
 
 	git cherry-pick <commit-id>
-	
+
 	或者
 	1. 假设要摘取在feature分支的提交到master分支
 	git checkout feature
@@ -14,7 +14,7 @@
 	git checkout -b new-br <最新的要摘取的提交id>
 	3. rebase这个新分支的commit到master
 	git rebase --onto master
-	
+
 
 可参考:
 
@@ -25,7 +25,7 @@
 ## 合并指定分支中的文件
 
 e.g.: 仅将`master`分支的`myplugin.js`文件合并到`gh-pages`:
-	
+​	
 	# On branch master
 	git checkout gh-pages
 	git checkout master -- myplugin.js
@@ -44,52 +44,62 @@ e.g.: 仅将`master`分支的`myplugin.js`文件合并到`gh-pages`:
 
 * 进入R1，新建一个分支B2用于fetch R2仓库
 
-		git checkout -b B2
-		
+   git checkout -b B2
+
 * 添加仓库R2为分支B2的远程仓库
 
-		git remote add R2 {R2-remote-url}
-		
+   git remote add R2 {R2-remote-url}
+
 * 获取仓库R2的所有信息
 
-	合并前最好确保R2仓库为一条分支，或者这里指定获取R2的某条分支而不是全部，不然可能提交记录很难看，这里假定R2仓库只有猪分支master
-	
-		git fetch --all
-		
+ 合并前最好确保R2仓库为一条分支，或者这里指定获取R2的某条分支而不是全部，不然可能提交记录很难看，这里假定R2仓库只有猪分支master
+
+ 	git fetch --all
+
 * 切换到R1仓库的主分支，并合并R2的master
 
-		git checkout master
-		git merge R2/master
-		
+   git checkout master
+   	git merge R2/master
+
 * ok，大功告成，可以删掉临时分支B2
 
-		git branch -d B2	
-		
-方法2：使用pull直接进行合并（未测试）
+   git branch -d B2	
+   ​	
+   方法2：使用pull直接进行合并（未测试）
 
 * 进入R1，新建一个分支B2用于fetch R2仓库
 
-		git checkout -b B2
+   git checkout -b B2
 
 * 直接pull远程仓库
 
-		git pull {R2-remote-url}
+   git pull {R2-remote-url}
 
 * 切换到R1仓库的主分支，并合并R2的master
 
-		git checkout master
-		git merge R2/master
+   git checkout master
+   	git merge R2/master
 
 * ok，大功告成，可以删掉临时分支B2
 
-		git branch -d B2			
-				
+   git branch -d B2			
+   ​			
 
 参考：
 
 * [如何导入另一个 Git库到现有的Git库并保留提交记录](http://www.cnblogs.com/huangtailang/p/4730336.html)
 
-	
+
+## git checkout PR
+
+```
+git fetch origin pull/ID/head:BRANCHNAME
+git checkout BRANCHNAME
+(modify ...)
+git push origin BRANCHNAME
+```
+
+* [checking-out-pull-requests-locally](https://help.github.com/articles/checking-out-pull-requests-locally/)
 
 ## git commit合并
 
@@ -100,47 +110,73 @@ e.g.: 仅将`master`分支的`myplugin.js`文件合并到`gh-pages`:
 操作方法：
 
 * 一：该方法仅仅适用合并最后的两个提交。步骤是在提交最后一个修改的commit使用参数，这时之前的一个commit将会合并到这个即将提交的commit中来：
-	
-		git commit -a --amend -m "my message here"
-	
-	效果为：如果之前有一个提交，并且信息为:
 
-		git commit -a -m "my last commit message"
-	
-	则这个commit message将不存在。但该commit的信息已经合并到"my message here"中了。
-	
+   git commit -a --amend -m "my message here"
+
+   效果为：如果之前有一个提交，并且信息为:
+
+   	git commit -a -m "my last commit message"
+
+   则这个commit message将不存在。但该commit的信息已经合并到"my message here"中了。
+
 * 二：你提交了最后的修改，这时可用
 
-		$ git reset --soft id 或者 git reset --mix id, git add .
-		$ git commit -am"message"
-						
+   $ git reset --soft id 或者 git reset --mix id, git add .
+   	$ git commit -am"message"
+   ​					
 > 需要注意的是：合并commit只能对还未提交的几个commit之间进行，因为如果对远程仓库已经有的commit合并将会遇到head冲突。在push到远程仓库时（比如github），会收到commit冲突提示。
 
 * 三：使用git rebase -i <不变动的SHA-1>
 * 四：通过分支合并的参数--sqush的方式。
-	
-	> --squash选项的含义是：本地文件内容与不使用该选项的合并结果相同，但是不保留待合并分支上的历史信息，也不提交、不移动HEAD，因此需要一条额外的commit命令。其效果相当于将another分支上的多个commit合并成一个，放在当前分支上，原来的commit历史则没有拿过来。
-	
-   > 判断是否使用--squash选项最根本的标准是，待合并分支上的历史是否有意义。
 
-	比如要开发分支为feature，先建一个额外分支feature-test，在里面做了各种修改和提交，测试通过后，通过merge --squash进行合并，合并后进行一次commit。那么在feature-test里的各种提交都不见了，只剩下一个commit了。
-	
-		git checkout feature-test
-		...做个各种commit1, commit2, ..., commitN
-		git checkout feature
-		git merge --squash feature-test
-		git commit -am"New Commit"
-		这时feature分支里没有commit1, commit2, ..., commitN，只有New Commit。
+ > --squash选项的含义是：本地文件内容与不使用该选项的合并结果相同，但是不保留待合并分支上的历史信息，也不提交、不移动HEAD，因此需要一条额外的commit命令。其效果相当于将another分支上的多个commit合并成一个，放在当前分支上，原来的commit历史则没有拿过来。
 
-###参考：
+  > 判断是否使用--squash选项最根本的标准是，待合并分支上的历史是否有意义。
+
+ 比如要开发分支为feature，先建一个额外分支feature-test，在里面做了各种修改和提交，测试通过后，通过merge --squash进行合并，合并后进行一次commit。那么在feature-test里的各种提交都不见了，只剩下一个commit了。
+
+ 	git checkout feature-test
+ 	...做个各种commit1, commit2, ..., commitN
+ 	git checkout feature
+ 	git merge --squash feature-test
+ 	git commit -am"New Commit"
+ 	这时feature分支里没有commit1, commit2, ..., commitN，只有New Commit。
+
+参考:
+
 [如何在 Git 里撤销(几乎)任何操作](http://blog.jobbole.com/87700/)
+
+
+
+## 修改 commit 的 author
+
+
+
+最近一个：
+
+```
+git commit --amend --author "alan <xxx@xxx.com>"
+注意引号中的 "<" 和 ">" 不能省略
+```
+
+
+
+修改多个：
+
+```
+https://help.github.com/articles/changing-author-info/
+```
 
 
 
 
 =====
 
+
+
 ## git revert和git reset
+
+
 
 git revert和git reset的区别：
 
@@ -150,21 +186,21 @@ git revert和git reset的区别：
 
 
 执行:
-	
+​	
 	git revert HEAD~1
-	
+
 则倒数第二次的commit被取消，但是不影响提交的代码，此时git status没有任何变化。
 
 执行git reset需要区分三种不同的情形：
 
 	git reset --mixed id ，是将git的HEAD变了（也就是提交记录变了），但文件并没有改变，（也就是working tree并没有改变）。
-	
+
 	git reset --soft id. 实际上，是git reset –mixed id 后，又做了一次git add
-	
+
 	git reset --hard id.是将git的HEAD变了，文件也变了。
 
 > git revert与git reset最大的不同是，git revert 仅仅是撤销某次提交。
-比如git revert HEAD~1  ,那么会撤销倒数第二次的提交结果。而倒数第一次的提交记录，仍然在。
+> 比如git revert HEAD~1  ,那么会撤销倒数第二次的提交结果。而倒数第一次的提交记录，仍然在。
 
 > 如果git reset –hard HEAD~1,那么，commit退回到倒数第三次的状态中。	
 > 通过git reset –soft id的方法，可以将原来多次的git提交记录合并为一个。就是前面提到的git commit合并的一种方法。
@@ -190,7 +226,7 @@ git revert和git reset的区别：
 
 git rm --cached 删除的是追踪状态，而不是物理文件；如果你真的是彻底不想要了，你也可以直接 rm＋忽略＋提交。
 
-	
+
 [git忽略已经被提交的文件](http://segmentfault.com/q/1010000000430426)
 
 ====
@@ -220,14 +256,14 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 	git config --list
 	git config --local user.name "your name"
 	git config --local user.email mail@box.com
-	
+
 设置别名
-	
+​	
 	$ git config --global alias.co checkout
 	$ git config --global alias.ci commit
 	$ git config --global alias.br branch
-	
-		
+
+
 ====
 
 ## git列出跟踪的文件
@@ -237,11 +273,26 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 ## git 查看某个文件修改历史
 
 	git log -p <file>
-	
+​	
 
 ## 查找历史
 
 	git log -i --grep="pattern"
+
+
+## 列出 author
+
+
+
+```shell
+git shortlog -s -n
+git shortlog -s -n --all
+git shortlog -s -n --all --no-merges
+git shortlog --author=alan
+git log --author=xxx
+```
+
+
 
 ## git status中文显示unicode
 
@@ -273,34 +324,28 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 	[mergetool "bcomp"]
 	trustExitCode = true
 	cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
-	
+
 冲突发生后，执行
 
 	git mergetool
 
-	
+​	
 * [Using Beyond Compare with Version Control Systems under OS X](http://www.scootersoftware.com/support.php?zz=kb_vcs_osx)
 * [在Mac下使用Beyond Compare](http://linyehui.wikidot.com/using-beyond-compare-in-mac)
 
 
-## 如何PR
 
-> Pull Request流程
 
-> 开始我对Pull Request流程不熟悉，后来参考了[@numbbbbb](https://github.com/numbbbbb)的《The Swift Programming Language》协作流程，在此感谢。
+## 删除已 merged 分支
 
-1. 首先fork我的项目
-2. 把fork过去的项目也就是你的项目clone到你的本地
-3. 运行 git remote add looly git@github.com:looly/elasticsearch-definitive-guide-cn.git 把我的库添加为远端库
-4. 运行 git pull looly master 拉取并合并到本地
-5. 翻译内容
-6. commit后push到自己的库（git push origin master）
-7. 登录Github在你首页可以看到一个 pull request 按钮，点击它，填写一些说明信息，然后提交即可。
 
-1~3是初始化操作，执行一次即可。在翻译前必须执行第4步同步我的库（这样避免冲突），然后执行5~7既可。
 
-### 参考
+`git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d`
 
-* [Elasticsearch权威指南（中文版）](https://www.gitbook.com/book/looly/elasticsearch-the-definitive-guide-cn/details)
 
-		
+
+
+
+
+
+## end

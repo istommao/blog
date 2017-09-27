@@ -98,6 +98,38 @@ tags:
 * `ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count]`: ZRANGEBYSCORE zset (5 (10, 结果集是5 < score < 10
 
 
+## 维护
+
+ ```
+动态设置内存:
+
+> config set maxmemory 2G
+
+ ```
+
+### 查看信息
+
+```
+info
+info memory
+```
 
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+​	
