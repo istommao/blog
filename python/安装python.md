@@ -6,7 +6,7 @@ tags:
 
 ## centos安装python3.5
 
-## 源码安装
+### 源码安装
 
 [python版本下载](https://www.python.org/ftp/python/)
 
@@ -30,21 +30,21 @@ p.s.: 如果安装过程出错，可能解决方法：
 	$ sudo yum-builddep python
 
 
-## EPEL Repository
+### EPEL Repository
 
 	$ sudo yum install epel-release
 	$ sudo yum install python34
 
-pip:
+### pip:
 
 	$ curl -O https://bootstrap.pypa.io/get-pip.py
 	$ sudo /usr/bin/python3.4 get-pip.py		
-## Software Collections (SCL)
+### Software Collections (SCL)
 
 	$ sudo yum install python33
 	$ scl enable python33 bash
 
-## 参考
+### 参考
 
 * [How to install Python3 on CentOS](http://ask.xmodulo.com/install-python3-centos.html)	
 

@@ -192,7 +192,7 @@ sql = (
 conn.excuete(sql, *rows)
 ```
 
-	
+
 更新:
 
 ```
@@ -310,8 +310,85 @@ class A(db.Model):
 	db.func.date(create_at) # both mysql, sqlite
 	query(extract('hour', timeStamp).label('h')).group_by('h')
 	group_by(func.date_trunc('hour', date_col))
-	
-	
+
+
 ## 文章
 
 * [SQLAlchemy 简单笔记](http://www.jianshu.com/p/e6bba189fcbd)	
+
+
+
+## 实用方法
+
+SA的语法很灵活，这里记录一些常见的方式
+
+### insert on duplicate multi
+
+```
+with engine.connect() as conn:
+  sql = (
+          'INSERT INTO `' + tbl + '` '
+          '(url, url_id, status) '
+          'VALUES (%s, %s, %s) '
+          'ON DUPLICATE KEY UPDATE '
+          'status=VALUES(status)'
+      )
+  rows = [
+          ('url', x, status)
+          for x in range(10)
+      ]
+  conn.execute(sql, *rows)
+```
+
+
+
+### tbl meta 
+
+```
+with engine.connect() as conn:
+    query = (
+        select([tbl.c.id, tbl.c.name])
+        .where(tbl.c.id.in_([1, 2, 3, 4]))
+    )
+    res = conn.execute(query)
+    return [x.id for x in res]
+```
+
+
+
+### update multi by using bindparam
+
+```
+sql = (
+    tbl.update()
+    .where(tbl.c.url_id == bindparam('b_url_id'))
+    .values({
+        'raw_data': bindparam('raw_data'),
+        'state': bindparam('state')
+    })
+)
+conn.execute(sql, rows)
+```
+
+
+
+delete
+
+```
+sql = (
+tbl.delete()
+.where(tbl.c.url_id.in_(rows))
+)
+conn.execute(sql)
+```
+
+
+
+
+
+
+
+
+
+
+
