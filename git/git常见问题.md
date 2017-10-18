@@ -344,6 +344,23 @@ git log --author=xxx
 
 
 
+## 删除tag
+
+远程 tag
+
+```
+git push --delete origin tagname
+git push origin :tagname
+```
+
+删除本地
+
+```
+git tag --delete tagname
+```
+
+
+
 
 
 
