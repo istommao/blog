@@ -12,7 +12,7 @@ tags:
 	$ pip install line-profiler
 	$ pip install psutil
 	$ pip install memory_profiler
-	
+
 * `%time` & `%timeit`: See how long a script takes to run (one time, or averaged over a bunch of runs).
 * `%prun`: See how long it took each function in a script to run.
 * `%lprun`: See how long it took each line in a function to run.
@@ -56,3 +56,51 @@ app.run(debug=True)    # Standard run call
 ```
 t  = timeit.Timer("func({'d': 'd'})", 'from xxx import func')
 ```
+
+
+
+
+## profile
+
+
+
+基础
+
+```
+# iPython
+import cProfile
+cProfile.run('re.compile("foo|bar")')
+cProfile.run('re.compile("foo|bar")', 'stats_info')
+
+p = cProfile.Profile()
+p.runcall(re.compile, "foo|bar")
+p.print_stats('cumulative')
+
+```
+
+使用 pstats
+
+```
+import pstats
+
+s = pstats.Stats(p)
+s = s.sort_stats('cumtime')
+
+s.print_stats(30)
+s.print_callees(20)
+s.print_callees('func_name')
+```
+
+
+
+使用命令行
+
+```
+# Command line interface
+python -m cProfile -o stats_info built-in-profiler/test.py
+import pstats
+p = pstats.Stats('stats_info')
+p.sort_stats('cumtime')
+p.print_stats() 
+```
+
