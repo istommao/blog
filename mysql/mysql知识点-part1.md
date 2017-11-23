@@ -11,14 +11,13 @@ tags:
 参考：
 
 * [常见操作](mysql-common-cmd.md)
-* [mysql swift guide](mysql-swift-guide.md)
 * [mysql数据类型](mysql数据类型.md)
 * [SQL关联查询](mysql-join.md)
 * [SQL集合运算](sql-combine.md)
 * [mysql_example](mysql_example.md)
 * [in和exsits](mysql_in_and_exsits.md)
 * [join和subquery](join_and_subquery.md)
-* []
+* [select 执行顺序](http://www.cnblogs.com/lucybloguniquecom/p/5884950.html)
 
 ## 范式
 

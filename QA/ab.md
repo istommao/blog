@@ -16,10 +16,10 @@ apache ab（Apache Bench）性能测试工具，这是[apache]免费自带的性
 * -t timelimit 测试所进行的最大秒数
 * -T content-type POST数据所使用的Content-type头信息
 
-	* application/x-www-form-urlencoded (默认值): 就是设置表单传输的编码,典型的post请求　
-	* multipart/form-data: 用来指定传输数据的特殊类型的，主要就是我们上传的非文本的内容，比如图片,mp3，文件等等
-	* text/plain . 是纯文本传输的意思
-	
+  * application/x-www-form-urlencoded (默认值): 就是设置表单传输的编码,典型的post请求　
+  * multipart/form-data: 用来指定传输数据的特殊类型的，主要就是我们上传的非文本的内容，比如图片,mp3，文件等等
+  * text/plain . 是纯文本传输的意思
+
 * -n requests
 
 ## examples
@@ -40,11 +40,12 @@ ab -c 1 -n 1 -T "multipart/form-data" -p ~/Downloads/pic/person.jpg http://www.e
 
 
 
+## 参考
+
+* [ab docs](https://httpd.apache.org/docs/2.4/programs/ab.html)
 
 
 
 
 
-	  
-	  
-	  
+​	  
