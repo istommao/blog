@@ -269,15 +269,47 @@ git rm --cached 删除的是追踪状态，而不是物理文件；如果你真�
 ## git列出跟踪的文件
 
 	git ls-files		
-
-## git 查看某个文件修改历史
-
-	git log -p <file>
 ​	
 
 ## 查找历史
 
 	git log -i --grep="pattern"
+### 查看某段文件的修改
+
+ ```
+git log -S"code pattern"
+ ```
+
+### git 查看某个文件修改历史
+
+```
+git log -p <file>
+```
+
+### git blame
+
+```
+blame 一行代码的改动历史
+git blame <filename>
+git blame -L 100,100 <filename>
+git blame -L 100,+10 <filename>
+
+在 Sublime Text 中可以直接 blame，Shift + Cmd + P --> blame 来使用 Git blame，且选中几行的时候可以只 blame 这几行
+```
+
+### 查看某一行的所有操作
+
+```
+git log -L start,end:file
+git log -L 155,155:<file>
+```
+
+
+
+
+
+
+
 
 
 ## 列出 author
