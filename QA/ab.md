@@ -26,7 +26,6 @@ apache ab（Apache Bench）性能测试工具，这是[apache]免费自带的性
 
 ```
 ab -n 6000 -c 3000 http://www.example.com/
-
 每次并发3000个, 共发送 6000 个请求
 ```
 
