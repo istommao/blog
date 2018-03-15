@@ -15,7 +15,7 @@ tags:
 ### 查看日志：
 
 	show engine innodb status \G; 
-	
+
 找到`“LATEST DETECTED DEADLOCK”` 进行分析。 
 
 
@@ -25,17 +25,18 @@ tags:
 
 	show processlist;
 	show full processlist
+	select * from information_schema.processlist where command != 'sleep';
 
 ### 查看锁状态
 
 获取锁定次数、锁定造成其他线程等待次数，以及锁定等待时间信息
 
 	show status like '%lock%'
-	
+
 还可以通过检查`table_locks_waited`和`table_locks_immediate`状态变量来分析系统上的表锁定争夺，当`Table_locks_waited`与`Table_locks_immediate`的**比值**较大，则说明我们的表锁造成的阻塞比较严重，可能需要调整Query语句，或者更改存储引擎，亦或者需要调整业务逻辑。
 	
 	show status like 'Table%'
-	
+
 ### 关于锁的表
 
 * <https://my.oschina.net/jiaoya/blog/92194>
@@ -52,7 +53,7 @@ tags:
 information_schema.innodb_locks:
 
 	desc information_schema.innodb_locks;
-
+	
 	+-------------+---------------------+------+-----+---------+-------+
 	| Field | Type | Null | Key | Default | Extra |
 	+-------------+---------------------+------+-----+---------+-------+
@@ -67,9 +68,9 @@ information_schema.innodb_locks:
 	| lock_rec | bigint(21) unsigned | YES | | NULL | |#被锁的记录号
 	| lock_data | varchar(8192) | YES | | NULL | |#被锁的数据
 	+-------------+---------------------+------+-----+---------+-------+
+	
 
-
-
+information_schema.innodb\_lock\_waits:
 information_schema.innodb\_lock\_waits:
 
 	desc information_schema.innodb_lock_waits;
@@ -81,7 +82,7 @@ information_schema.innodb\_lock\_waits:
 	| blocking_trx_id | varchar(18) | NO | | | |#当前拥有锁的事务ID
 	| blocking_lock_id | varchar(81) | NO | | | |#当前拥有锁的锁ID
 	+-------------------+-------------+------+-----+---------+-------+
-	
+
 information_schema.innotdb\_trx:
 
 	desc information_schema.innodb_trx;
@@ -120,7 +121,7 @@ select innotdb_trx:
 	
 	
 
-
+## 参考
 ## 参考
 
 * [MySQL中的行级锁,表级锁,页级锁](http://www.hollischuang.com/archives/914)

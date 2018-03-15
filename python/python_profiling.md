@@ -64,6 +64,8 @@ t  = timeit.Timer("func({'d': 'd'})", 'from xxx import func')
 
 
 
+### 时间
+
 基础
 
 ```
@@ -104,3 +106,21 @@ p.sort_stats('cumtime')
 p.print_stats() 
 ```
 
+
+
+### 内存分析
+
+```
+pip install -U memory_profiler
+pip install -U psutil
+```
+
+ipyton
+
+```
+%load_ext memory_profiler
+%mprun -f funC funC()
+%mprun -f funA -f funB funC()
+```
+
+​	输出 funC 调用的 funA 和 funB 的 memory profile
