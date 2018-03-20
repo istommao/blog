@@ -15,7 +15,7 @@ tags:
 		    { "keys": ["command+shift+c"], "command": "copy_path" },
 		    { "keys": ["command+b"], "command": "navigate_to_definition" }
 		]
-		
+	
 * 配置快捷键
 
 ```
@@ -28,7 +28,7 @@ tags:
 
 
 ```
-	
+
 ## vim 模式
 
 * [Vim 模式设置](http://www.cnblogs.com/zuike/p/4402022.html)
@@ -52,4 +52,13 @@ tags:
 
 * python 开发
 ![python](http://ww1.sinaimg.cn/large/616fb088gy1fh6sahi6lqj21180mq7bq.jpg)
+
+
+
+
+## project 搜索配置
+
+```
+<project>,-*.tags,-*.tags_sorted_by_file,-test*.py, -*coverage, -*tox/*,-*/site-packages/*,-*.log,-*.Python,-*/venv/*,-*/env/*,-*/.idea/*,-*.html,-*.js,-*.css,
+```
 
